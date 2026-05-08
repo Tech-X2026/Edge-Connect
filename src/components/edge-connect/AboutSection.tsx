@@ -59,7 +59,7 @@ export default function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="about" className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50/30 to-white py-20 md:py-28">
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50/30 to-white py-20 md:py-28">
       {/* Decorative background elements */}
       <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-emerald-100/30 blur-3xl" />
       <div className="pointer-events-none absolute -right-40 bottom-20 h-80 w-80 rounded-full bg-cyan-100/30 blur-3xl" />

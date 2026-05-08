@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import { Search, Megaphone, BarChart3, Palette, ArrowRight } from 'lucide-react'
 
@@ -41,6 +42,7 @@ const services = [
     color: 'from-emerald-500 to-emerald-600',
     lightColor: 'from-emerald-50 to-emerald-100/50',
     features: ['Technical SEO Audit', 'Keyword Strategy', 'Content Optimization', 'Link Building'],
+    href: '/services/seo',
   },
   {
     id: 'digital-marketing',
@@ -51,6 +53,7 @@ const services = [
     color: 'from-cyan-500 to-cyan-600',
     lightColor: 'from-cyan-50 to-cyan-100/50',
     features: ['Social Media Marketing', 'Email Campaigns', 'Content Strategy', 'Brand Storytelling'],
+    href: '/services/digital-marketing',
   },
   {
     id: 'performance-marketing',
@@ -61,6 +64,7 @@ const services = [
     color: 'from-teal-500 to-teal-600',
     lightColor: 'from-teal-50 to-teal-100/50',
     features: ['PPC Management', 'Conversion Optimization', 'A/B Testing', 'Analytics & Reporting'],
+    href: '/services/performance-marketing',
   },
   {
     id: 'web-designing',
@@ -71,6 +75,7 @@ const services = [
     color: 'from-emerald-600 to-cyan-500',
     lightColor: 'from-emerald-50 to-cyan-50',
     features: ['UI/UX Design', 'Responsive Development', 'E-commerce Solutions', 'CMS Integration'],
+    href: '/services/web-designing',
   },
 ]
 
@@ -78,17 +83,8 @@ export default function ServicesSection() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
-  const scrollToService = (id: string) => {
-    const el = document.getElementById(id)
-    if (el) {
-      const offset = 80
-      const top = el.getBoundingClientRect().top + window.scrollY - offset
-      window.scrollTo({ top, behavior: 'smooth' })
-    }
-  }
-
   return (
-    <section id="services" className="relative overflow-hidden bg-gradient-to-b from-white via-gray-50/50 to-white py-20 md:py-28">
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-gray-50/50 to-white py-20 md:py-28">
       {/* Decorative elements */}
       <div className="pointer-events-none absolute left-1/4 top-0 h-64 w-64 rounded-full bg-emerald-50/40 blur-3xl" />
       <div className="pointer-events-none absolute right-1/4 bottom-0 h-64 w-64 rounded-full bg-cyan-50/40 blur-3xl" />
@@ -122,49 +118,50 @@ export default function ServicesSection() {
                   key={service.id}
                   variants={cardVariants}
                   whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                  onClick={() => scrollToService(service.id)}
-                  className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:border-emerald-100 hover:shadow-xl hover:shadow-emerald-50/50"
+                  className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:border-emerald-100 hover:shadow-xl hover:shadow-emerald-50/50"
                 >
-                  {/* Top gradient bar */}
-                  <div className={`h-1 w-full bg-gradient-to-r ${service.color}`} />
+                  <Link href={service.href} className="block">
+                    {/* Top gradient bar */}
+                    <div className={`h-1 w-full bg-gradient-to-r ${service.color}`} />
 
-                  <div className="p-6 sm:p-8">
-                    {/* Icon & Title */}
-                    <div className="mb-5 flex items-start gap-4">
-                      <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${service.lightColor} shadow-sm`}>
-                        <Icon className="h-7 w-7 text-ec-primary" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
-                          {service.title}
-                        </h3>
-                        <p className="text-sm font-medium text-ec-muted">
-                          {service.subtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="mb-6 text-sm leading-relaxed text-ec-muted sm:text-base">
-                      {service.description}
-                    </p>
-
-                    {/* Features */}
-                    <div className="mb-6 grid grid-cols-2 gap-2">
-                      {service.features.map((feature) => (
-                        <div key={feature} className="flex items-center gap-2 text-sm text-gray-600">
-                          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
-                          {feature}
+                    <div className="p-6 sm:p-8">
+                      {/* Icon & Title */}
+                      <div className="mb-5 flex items-start gap-4">
+                        <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${service.lightColor} shadow-sm`}>
+                          <Icon className="h-7 w-7 text-ec-primary" />
                         </div>
-                      ))}
-                    </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
+                            {service.title}
+                          </h3>
+                          <p className="text-sm font-medium text-ec-muted">
+                            {service.subtitle}
+                          </p>
+                        </div>
+                      </div>
 
-                    {/* CTA */}
-                    <div className="flex items-center gap-2 text-sm font-semibold text-ec-primary transition-colors group-hover:text-emerald-700">
-                      Learn More
-                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      {/* Description */}
+                      <p className="mb-6 text-sm leading-relaxed text-ec-muted sm:text-base">
+                        {service.description}
+                      </p>
+
+                      {/* Features */}
+                      <div className="mb-6 grid grid-cols-2 gap-2">
+                        {service.features.map((feature) => (
+                          <div key={feature} className="flex items-center gap-2 text-sm text-gray-600">
+                            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
+                            {feature}
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* CTA */}
+                      <div className="flex items-center gap-2 text-sm font-semibold text-ec-primary transition-colors group-hover:text-emerald-700">
+                        Learn More
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </motion.div>
               )
             })}

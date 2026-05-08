@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Play } from 'lucide-react'
 import ParticleBackground from './ParticleBackground'
@@ -252,23 +253,8 @@ export default function HeroSection() {
   const statsRef = useRef<HTMLDivElement>(null)
   const statsInView = useInView(statsRef, { once: true, margin: '-100px' })
 
-  const handleExploreClick = useCallback(() => {
-    const servicesSection = document.getElementById('services')
-    if (servicesSection) {
-      servicesSection.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [])
-
-  const handleContactClick = useCallback(() => {
-    const contactSection = document.getElementById('contact')
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [])
-
   return (
     <section
-      id="home"
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white"
     >
       {/* ── Full‑section emerald‑green particle field (high latency) ── */}
@@ -338,26 +324,22 @@ export default function HeroSection() {
           className="mb-12 flex flex-col items-center gap-4 sm:mb-16 sm:flex-row sm:gap-5"
         >
           {/* Primary CTA — Gradient */}
-          <motion.button
-            onClick={handleExploreClick}
+          <Link
+            href="/services"
             className="group bg-gradient-ec inline-flex cursor-pointer items-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-emerald-500/40 sm:px-8 sm:py-4 sm:text-base"
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
           >
             Explore Services
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </motion.button>
+          </Link>
 
           {/* Secondary CTA — Outline */}
-          <motion.button
-            onClick={handleContactClick}
+          <Link
+            href="/contact"
             className="group inline-flex cursor-pointer items-center gap-2.5 rounded-xl border-2 border-emerald-600/30 bg-white/80 px-7 py-3.5 text-sm font-semibold text-ec-primary backdrop-blur-sm transition-colors duration-300 hover:border-emerald-500/50 hover:bg-emerald-50/80 sm:px-8 sm:py-4 sm:text-base"
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
           >
             <Play className="h-4 w-4 transition-colors duration-300 group-hover:text-emerald-500" />
             Contact Us
-          </motion.button>
+          </Link>
         </motion.div>
 
         {/* ── Stats Row ── */}

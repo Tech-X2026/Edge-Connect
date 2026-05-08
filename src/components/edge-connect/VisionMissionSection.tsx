@@ -54,7 +54,7 @@ export default function VisionMissionSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="vision-mission" className="relative overflow-hidden bg-white py-20 md:py-28">
+    <section className="relative overflow-hidden bg-white py-20 md:py-28">
       {/* ── Emerald‑green particle field (high latency) ── */}
       <ParticleBackground
         particleCount={120}

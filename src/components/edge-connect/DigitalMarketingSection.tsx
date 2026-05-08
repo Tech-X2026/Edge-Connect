@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import { Megaphone, Share2, Mail, PenTool, CheckCircle2, ArrowRight } from 'lucide-react'
 
@@ -58,7 +59,7 @@ export default function DigitalMarketingSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="digital-marketing" className="relative overflow-hidden bg-white py-20 md:py-28">
+    <section className="relative overflow-hidden bg-white py-20 md:py-28">
       <div className="pointer-events-none absolute -left-20 top-40 h-60 w-60 rounded-full bg-cyan-50/40 blur-3xl" />
 
       <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -118,18 +119,13 @@ export default function DigitalMarketingSection() {
                   </div>
                 ))}
               </div>
-              <motion.button
-                onClick={() => {
-                  const el = document.getElementById('contact')
-                  if (el) el.scrollIntoView({ behavior: 'smooth' })
-                }}
+              <Link
+                href="/contact"
                 className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
               >
                 Start Your Campaign
                 <ArrowRight className="h-4 w-4" />
-              </motion.button>
+              </Link>
             </motion.div>
 
             {/* Approach */}

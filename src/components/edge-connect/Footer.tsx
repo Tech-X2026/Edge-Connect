@@ -1,39 +1,26 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowUp, Heart } from 'lucide-react'
 
 const footerLinks = {
   Services: [
-    { label: 'SEO', href: '#seo' },
-    { label: 'Digital Marketing', href: '#digital-marketing' },
-    { label: 'Performance Marketing', href: '#performance-marketing' },
-    { label: 'Web Designing', href: '#web-designing' },
+    { label: 'SEO', href: '/services/seo' },
+    { label: 'Digital Marketing', href: '/services/digital-marketing' },
+    { label: 'Performance Marketing', href: '/services/performance-marketing' },
+    { label: 'Web Designing', href: '/services/web-designing' },
   ],
   Company: [
-    { label: 'About Us', href: '#about' },
-    { label: 'Vision & Mission', href: '#vision-mission' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'About Us', href: '/about' },
+    { label: 'Vision & Mission', href: '/vision-mission' },
+    { label: 'Contact', href: '/contact' },
   ],
   Resources: [
     { label: 'Blog', href: '#' },
     { label: 'Case Studies', href: '#' },
     { label: 'Careers', href: '#' },
   ],
-}
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
-
-function scrollToSection(href: string) {
-  const id = href.replace('#', '')
-  const el = document.getElementById(id)
-  if (el) {
-    const offset = 80
-    const top = el.getBoundingClientRect().top + window.scrollY - offset
-    window.scrollTo({ top, behavior: 'smooth' })
-  }
 }
 
 export default function Footer() {
@@ -46,19 +33,14 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <motion.button
-              onClick={scrollToTop}
-              className="mb-4 flex items-center gap-1 focus:outline-none"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-            >
+            <Link href="/" className="mb-4 flex items-center gap-1 focus:outline-none">
               <span className="text-2xl font-extrabold tracking-tight text-gray-900">
                 EDGE
               </span>
               <span className="text-2xl font-extrabold tracking-tight text-emerald-600">
                 CONNECT
               </span>
-            </motion.button>
+            </Link>
             <p className="mb-6 max-w-sm text-sm leading-relaxed text-ec-muted">
               Transforming businesses through innovative digital marketing strategies. We connect brands with their audiences in meaningful, measurable ways.
             </p>
@@ -82,12 +64,12 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <button
-                      onClick={() => scrollToSection(link.href)}
+                    <Link
+                      href={link.href}
                       className="text-sm text-ec-muted transition-colors duration-200 hover:text-emerald-600"
                     >
                       {link.label}
-                    </button>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -103,7 +85,7 @@ export default function Footer() {
             for digital excellence.
           </p>
           <motion.button
-            onClick={scrollToTop}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-500 transition-all duration-200 hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600"
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.95 }}

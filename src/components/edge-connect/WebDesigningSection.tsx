@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import { Palette, Monitor, Smartphone, ShoppingCart, Code, Layers, CheckCircle2, ArrowRight } from 'lucide-react'
 
@@ -69,7 +70,7 @@ export default function WebDesigningSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="web-designing" className="relative overflow-hidden bg-white py-20 md:py-28">
+    <section className="relative overflow-hidden bg-white py-20 md:py-28">
       <div className="pointer-events-none absolute left-0 top-1/4 h-60 w-60 rounded-full bg-emerald-50/40 blur-3xl" />
       <div className="pointer-events-none absolute right-0 bottom-1/4 h-60 w-60 rounded-full bg-cyan-50/40 blur-3xl" />
 
@@ -163,18 +164,13 @@ export default function WebDesigningSection() {
                   </div>
                 ))}
               </div>
-              <motion.button
-                onClick={() => {
-                  const el = document.getElementById('contact')
-                  if (el) el.scrollIntoView({ behavior: 'smooth' })
-                }}
+              <Link
+                href="/contact"
                 className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
               >
                 Start Your Project
                 <ArrowRight className="h-4 w-4" />
-              </motion.button>
+              </Link>
             </motion.div>
           </div>
         </motion.div>

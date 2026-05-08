@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import { BarChart3, MousePointerClick, Target, DollarSign, CheckCircle2, ArrowRight, TrendingUp, Percent, Zap } from 'lucide-react'
 
@@ -49,7 +50,7 @@ export default function PerformanceMarketingSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="performance-marketing" className="relative overflow-hidden bg-gradient-to-b from-white via-teal-50/20 to-white py-20 md:py-28">
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-teal-50/20 to-white py-20 md:py-28">
       <div className="pointer-events-none absolute right-0 top-1/3 h-60 w-60 rounded-full bg-teal-100/30 blur-3xl" />
 
       <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -136,18 +137,13 @@ export default function PerformanceMarketingSection() {
                     Get a free performance audit and discover untapped growth opportunities.
                   </p>
                 </div>
-                <motion.button
-                  onClick={() => {
-                    const el = document.getElementById('contact')
-                    if (el) el.scrollIntoView({ behavior: 'smooth' })
-                  }}
+                <Link
+                  href="/contact"
                   className="shrink-0 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-teal-700 shadow-lg transition-colors hover:bg-gray-50 sm:px-8"
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
                 >
                   Get Free Audit
                   <ArrowRight className="ml-2 inline h-4 w-4" />
-                </motion.button>
+                </Link>
               </div>
             </div>
           </motion.div>
