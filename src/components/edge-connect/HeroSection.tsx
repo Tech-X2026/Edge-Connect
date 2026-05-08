@@ -271,17 +271,15 @@ export default function HeroSection() {
       id="home"
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white"
     >
-      {/* ── Mouse-reactive Particle Background ── */}
+      {/* ── Anti-gravity Particle Background (Google Antigravity style) ── */}
       <ParticleBackground
-        particleCount={100}
-        colors={['059669', '10B981', '06B6D4']}
-        maxRadius={3}
-        speed={0.5}
-        connectionDistance={150}
-        mouseRadius={200}
-        mouseForce={0.08}
+        particleCount={120}
+        colors={['059669', '10B981', '06B6D4', 'F59E0B', 'EC4899', '8B5CF6']}
+        maxRadius={4}
+        driftSpeed={0.3}
+        mouseRadius={220}
+        mouseForce={0.04}
         enableGlow={true}
-        highlightConnections={true}
         className="z-0"
       />
 

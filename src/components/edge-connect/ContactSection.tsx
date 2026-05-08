@@ -52,17 +52,15 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50/20 to-white py-20 md:py-28">
-      {/* ── Mouse-reactive Particle Background ── */}
+      {/* ── Anti-gravity Particle Background ── */}
       <ParticleBackground
-        particleCount={60}
-        colors={['059669', '10B981', '06B6D4']}
-        maxRadius={2}
-        speed={0.3}
-        connectionDistance={120}
-        mouseRadius={160}
-        mouseForce={0.06}
+        particleCount={70}
+        colors={['059669', '10B981', '06B6D4', 'F59E0B', 'EC4899', '8B5CF6']}
+        maxRadius={3}
+        driftSpeed={0.2}
+        mouseRadius={180}
+        mouseForce={0.035}
         enableGlow={true}
-        highlightConnections={true}
       />
 
       {/* Decorative elements */}

@@ -11,6 +11,10 @@ interface Particle {
   baseRadius: number
   opacity: number
   baseOpacity: number
+  colorIndex: number
+  phase: number
+  speed: number
+  drift: number
 }
 
 interface ParticleBackgroundProps {
@@ -20,42 +24,43 @@ interface ParticleBackgroundProps {
   colors?: string[]
   /** Maximum particle radius */
   maxRadius?: number
-  /** Speed multiplier */
-  speed?: number
-  /** Connection line distance threshold */
-  connectionDistance?: number
+  /** Base upward drift speed (anti-gravity) */
+  driftSpeed?: number
   /** Mouse interaction radius */
   mouseRadius?: number
-  /** Mouse interaction strength (repulsion force) */
+  /** Mouse attraction strength */
   mouseForce?: number
+  /** Whether to show glow around particles */
+  enableGlow?: boolean
   /** Background className override */
   className?: string
-  /** Whether to show glow around particles near mouse */
-  enableGlow?: boolean
-  /** Whether to highlight connections near mouse */
-  highlightConnections?: boolean
 }
 
 function createParticles(
   count: number,
   width: number,
   height: number,
-  spd: number,
-  maxR: number
+  maxR: number,
+  driftSpeed: number
 ): Particle[] {
   const particles: Particle[] = []
   for (let i = 0; i < count; i++) {
-    const radius = Math.random() * maxR + 1
-    const opacity = Math.random() * 0.4 + 0.15
+    const radius = Math.random() * maxR + 1.5
+    const opacity = Math.random() * 0.35 + 0.1
+    const speed = Math.random() * 0.3 + 0.1
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * spd,
-      vy: (Math.random() - 0.5) * spd,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: 0,
       radius,
       baseRadius: radius,
       opacity,
       baseOpacity: opacity,
+      colorIndex: i,
+      phase: Math.random() * Math.PI * 2,
+      speed,
+      drift: driftSpeed * (0.5 + Math.random() * 0.5),
     })
   }
   return particles
@@ -70,20 +75,19 @@ function parseHexColor(hex: string): [number, number, number] {
 }
 
 export default function ParticleBackground({
-  particleCount = 100,
-  colors = ['059669', '10B981', '06B6D4'],
-  maxRadius = 3,
-  speed = 0.5,
-  connectionDistance = 150,
-  mouseRadius = 180,
-  mouseForce = 0.08,
-  className = '',
+  particleCount = 120,
+  colors = ['059669', '10B981', '06B6D4', 'F59E0B', 'EC4899', '8B5CF6'],
+  maxRadius = 4,
+  driftSpeed = 0.3,
+  mouseRadius = 220,
+  mouseForce = 0.04,
   enableGlow = true,
-  highlightConnections = true,
+  className = '',
 }: ParticleBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const mouseRef = useRef({ x: -9999, y: -9999, active: false })
   const particlesRef = useRef<Particle[]>([])
+  const frameRef = useRef(0)
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     const canvas = canvasRef.current
@@ -116,158 +120,105 @@ export default function ParticleBackground({
       canvas.width = rect.width * dpr
       canvas.height = rect.height * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      particlesRef.current = createParticles(particleCount, rect.width, rect.height, speed, maxRadius)
-    }
-
-    // Assign a color index to each particle
-    const particleColorIndices: number[] = []
-    for (let i = 0; i < particleCount; i++) {
-      particleColorIndices.push(i % rgbColors.length)
+      particlesRef.current = createParticles(particleCount, rect.width, rect.height, maxRadius, driftSpeed)
     }
 
     const drawFrame = (width: number, height: number) => {
       ctx.clearRect(0, 0, width, height)
       const particles = particlesRef.current
       const mouse = mouseRef.current
+      frameRef.current++
 
-      // Update positions with mouse interaction
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i]
+        const colorIdx = i % rgbColors.length
+        const rgb = rgbColors[colorIdx]
 
-        // Mouse repulsion
+        // ── Anti-gravity: gentle upward drift ──
+        p.vy -= p.drift * 0.01
+
+        // ── Horizontal sway (sine wave) ──
+        p.phase += p.speed * 0.02
+        p.vx += Math.sin(p.phase) * 0.02
+
+        // ── Mouse attraction ──
         if (mouse.active) {
-          const dx = p.x - mouse.x
-          const dy = p.y - mouse.y
+          const dx = mouse.x - p.x
+          const dy = mouse.y - p.y
           const dist = Math.sqrt(dx * dx + dy * dy)
 
-          if (dist < mouseRadius && dist > 0) {
-            const force = (1 - dist / mouseRadius) * mouseForce
-            p.vx += (dx / dist) * force * 10
-            p.vy += (dy / dist) * force * 10
+          if (dist < mouseRadius && dist > 1) {
+            const attraction = (1 - dist / mouseRadius) * mouseForce
+            p.vx += (dx / dist) * attraction * 8
+            p.vy += (dy / dist) * attraction * 8
 
-            // Enlarge particles near mouse
+            // Grow & brighten near mouse
             const proximity = 1 - dist / mouseRadius
-            p.radius = p.baseRadius + proximity * 3
-            p.opacity = Math.min(1, p.baseOpacity + proximity * 0.5)
+            p.radius = p.baseRadius + proximity * 4
+            p.opacity = Math.min(0.9, p.baseOpacity + proximity * 0.5)
           } else {
-            // Gradually return to base values
-            p.radius += (p.baseRadius - p.radius) * 0.05
-            p.opacity += (p.baseOpacity - p.opacity) * 0.05
+            // Settle back to base
+            p.radius += (p.baseRadius - p.radius) * 0.04
+            p.opacity += (p.baseOpacity - p.opacity) * 0.04
           }
         } else {
-          p.radius += (p.baseRadius - p.radius) * 0.05
-          p.opacity += (p.baseOpacity - p.opacity) * 0.05
+          p.radius += (p.baseRadius - p.radius) * 0.04
+          p.opacity += (p.baseOpacity - p.opacity) * 0.04
         }
 
-        // Apply velocity damping
-        p.vx *= 0.98
-        p.vy *= 0.98
+        // ── Velocity damping ──
+        p.vx *= 0.96
+        p.vy *= 0.96
 
-        // Ensure minimum velocity for continuous movement
-        const currentSpeed = Math.sqrt(p.vx * p.vx + p.vy * p.vy)
-        if (currentSpeed < speed * 0.3) {
-          const angle = Math.atan2(p.vy, p.vx)
-          p.vx = Math.cos(angle) * speed * 0.3
-          p.vy = Math.sin(angle) * speed * 0.3
-        }
-
+        // ── Apply velocity ──
         p.x += p.vx
         p.y += p.vy
 
-        // Bounce off walls
-        if (p.x < 0) { p.x = 0; p.vx = Math.abs(p.vx) }
-        if (p.x > width) { p.x = width; p.vx = -Math.abs(p.vx) }
-        if (p.y < 0) { p.y = 0; p.vy = Math.abs(p.vy) }
-        if (p.y > height) { p.y = height; p.vy = -Math.abs(p.vy) }
-      }
-
-      // Draw connection lines
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
-          const dist = Math.sqrt(dx * dx + dy * dy)
-
-          if (dist < connectionDistance) {
-            const baseLineOpacity = (1 - dist / connectionDistance) * 0.12
-
-            // Highlight connections near mouse
-            let mouseInfluence = 0
-            if (highlightConnections && mouse.active) {
-              const midX = (particles[i].x + particles[j].x) / 2
-              const midY = (particles[i].y + particles[j].y) / 2
-              const mouseDist = Math.sqrt(
-                (midX - mouse.x) ** 2 + (midY - mouse.y) ** 2
-              )
-              if (mouseDist < mouseRadius) {
-                mouseInfluence = 1 - mouseDist / mouseRadius
-              }
-            }
-
-            const lineOpacity = baseLineOpacity + mouseInfluence * 0.25
-            const colorIdx = particleColorIndices[i]
-            const rgb = rgbColors[colorIdx]
-
-            ctx.beginPath()
-            ctx.moveTo(particles[i].x, particles[i].y)
-            ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${lineOpacity})`
-            ctx.lineWidth = mouseInfluence > 0 ? 0.5 + mouseInfluence * 1.5 : 0.5
-            ctx.stroke()
-          }
+        // ── Wrap around edges (seamless loop) ──
+        if (p.y < -20) {
+          p.y = height + 10
+          p.x = Math.random() * width
+          p.vx = (Math.random() - 0.5) * 0.3
+          p.vy = 0
         }
-      }
+        if (p.x < -20) p.x = width + 10
+        if (p.x > width + 20) p.x = -10
 
-      // Draw particles
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i]
-        const colorIdx = particleColorIndices[i]
-        const rgb = rgbColors[colorIdx]
+        // ── Draw glow ──
+        if (enableGlow) {
+          const glowSize = p.radius * 4
+          const gradient = ctx.createRadialGradient(
+            p.x, p.y, p.radius * 0.5,
+            p.x, p.y, glowSize
+          )
+          gradient.addColorStop(0, `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${p.opacity * 0.2})`)
+          gradient.addColorStop(1, `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0)`)
 
-        // Glow effect for particles near mouse
-        if (enableGlow && mouse.active) {
-          const dx = p.x - mouse.x
-          const dy = p.y - mouse.y
-          const dist = Math.sqrt(dx * dx + dy * dy)
-
-          if (dist < mouseRadius) {
-            const proximity = 1 - dist / mouseRadius
-            const glowRadius = p.radius + proximity * 12
-            const glowOpacity = proximity * 0.15
-
-            const gradient = ctx.createRadialGradient(
-              p.x, p.y, p.radius,
-              p.x, p.y, glowRadius
-            )
-            gradient.addColorStop(0, `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${glowOpacity})`)
-            gradient.addColorStop(1, `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0)`)
-
-            ctx.beginPath()
-            ctx.arc(p.x, p.y, glowRadius, 0, Math.PI * 2)
-            ctx.fillStyle = gradient
-            ctx.fill()
-          }
+          ctx.beginPath()
+          ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2)
+          ctx.fillStyle = gradient
+          ctx.fill()
         }
 
-        // Particle core
+        // ── Draw particle core ──
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
         ctx.fillStyle = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${p.opacity})`
         ctx.fill()
       }
 
-      // Draw mouse cursor glow
-      if (mouse.active && enableGlow) {
+      // ── Draw mouse aura ──
+      if (mouse.active) {
         const gradient = ctx.createRadialGradient(
           mouse.x, mouse.y, 0,
-          mouse.x, mouse.y, mouseRadius * 0.6
+          mouse.x, mouse.y, mouseRadius * 0.5
         )
-        gradient.addColorStop(0, 'rgba(16, 185, 129, 0.06)')
-        gradient.addColorStop(0.5, 'rgba(6, 182, 212, 0.03)')
+        gradient.addColorStop(0, 'rgba(16, 185, 129, 0.04)')
+        gradient.addColorStop(0.4, 'rgba(6, 182, 212, 0.02)')
         gradient.addColorStop(1, 'rgba(16, 185, 129, 0)')
 
         ctx.beginPath()
-        ctx.arc(mouse.x, mouse.y, mouseRadius * 0.6, 0, Math.PI * 2)
+        ctx.arc(mouse.x, mouse.y, mouseRadius * 0.5, 0, Math.PI * 2)
         ctx.fillStyle = gradient
         ctx.fill()
       }
@@ -291,7 +242,7 @@ export default function ParticleBackground({
       canvas.removeEventListener('mouseleave', handleMouseLeave)
       cancelAnimationFrame(animationId)
     }
-  }, [particleCount, colors, maxRadius, speed, connectionDistance, mouseRadius, mouseForce, enableGlow, highlightConnections, handleMouseMove, handleMouseLeave])
+  }, [particleCount, colors, maxRadius, driftSpeed, mouseRadius, mouseForce, enableGlow, handleMouseMove, handleMouseLeave])
 
   return (
     <canvas
