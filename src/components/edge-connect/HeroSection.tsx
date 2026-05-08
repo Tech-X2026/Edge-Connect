@@ -271,14 +271,14 @@ export default function HeroSection() {
       id="home"
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white"
     >
-      {/* ── Anti-gravity Particle Background (Google Antigravity style) ── */}
+      {/* ── Full‑section emerald‑green particle field ── */}
       <ParticleBackground
-        particleCount={120}
-        colors={['059669', '10B981', '06B6D4', 'F59E0B', 'EC4899', '8B5CF6']}
-        maxRadius={4}
-        driftSpeed={0.3}
-        mouseRadius={220}
-        mouseForce={0.04}
+        particleCount={180}
+        colors={['047857', '059669', '10B981', '34D399', '6EE7B7']}
+        maxRadius={3.5}
+        trailLength={8}
+        mouseRadius={280}
+        mouseForce={0.06}
         enableGlow={true}
         className="z-0"
       />

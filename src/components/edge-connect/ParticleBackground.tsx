@@ -11,62 +11,65 @@ interface Particle {
   baseRadius: number
   opacity: number
   baseOpacity: number
-  colorIndex: number
+  depth: number          // 0‑1 parallax depth layer
   phase: number
   speed: number
-  drift: number
+  trail: { x: number; y: number; opacity: number }[]
 }
 
 interface ParticleBackgroundProps {
-  /** Number of particles to render */
   particleCount?: number
-  /** Colors for particles (hex without #) */
+  /** Hex colours WITHOUT # prefix — default is emerald‑green palette */
   colors?: string[]
-  /** Maximum particle radius */
   maxRadius?: number
-  /** Base upward drift speed (anti-gravity) */
-  driftSpeed?: number
+  /** How many frames of trail each particle keeps */
+  trailLength?: number
   /** Mouse interaction radius */
   mouseRadius?: number
   /** Mouse attraction strength */
   mouseForce?: number
-  /** Whether to show glow around particles */
+  /** Show soft glow halo around particles */
   enableGlow?: boolean
-  /** Background className override */
   className?: string
 }
+
+/* ── helpers ──────────────────────────────────────────────────────────────── */
 
 function createParticles(
   count: number,
   width: number,
   height: number,
   maxR: number,
-  driftSpeed: number
+  trailLen: number,
 ): Particle[] {
   const particles: Particle[] = []
   for (let i = 0; i < count; i++) {
-    const radius = Math.random() * maxR + 1.5
-    const opacity = Math.random() * 0.35 + 0.1
-    const speed = Math.random() * 0.3 + 0.1
+    const radius = Math.random() * maxR + 1
+    const opacity = Math.random() * 0.4 + 0.12
+    const depth = Math.random()            // 0 = far background, 1 = foreground
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: 0,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
       radius,
       baseRadius: radius,
       opacity,
       baseOpacity: opacity,
-      colorIndex: i,
+      depth,
       phase: Math.random() * Math.PI * 2,
-      speed,
-      drift: driftSpeed * (0.5 + Math.random() * 0.5),
+      speed: 0.15 + Math.random() * 0.25,
+      trail: Array.from({ length: trailLen }, () => ({
+        x: 0,
+        y: 0,
+        opacity: 0,
+      })),
     })
   }
   return particles
 }
 
-function parseHexColor(hex: string): [number, number, number] {
+function parseHex(hex: string): [number, number, number] {
   return [
     parseInt(hex.slice(0, 2), 16),
     parseInt(hex.slice(2, 4), 16),
@@ -74,13 +77,15 @@ function parseHexColor(hex: string): [number, number, number] {
   ]
 }
 
+/* ── component ────────────────────────────────────────────────────────────── */
+
 export default function ParticleBackground({
-  particleCount = 120,
-  colors = ['059669', '10B981', '06B6D4', 'F59E0B', 'EC4899', '8B5CF6'],
-  maxRadius = 4,
-  driftSpeed = 0.3,
-  mouseRadius = 220,
-  mouseForce = 0.04,
+  particleCount = 160,
+  colors = ['047857', '059669', '10B981', '34D399', '6EE7B7'],
+  maxRadius = 3.5,
+  trailLength = 6,
+  mouseRadius = 260,
+  mouseForce = 0.06,
   enableGlow = true,
   className = '',
 }: ParticleBackgroundProps) {
@@ -88,6 +93,8 @@ export default function ParticleBackground({
   const mouseRef = useRef({ x: -9999, y: -9999, active: false })
   const particlesRef = useRef<Particle[]>([])
   const frameRef = useRef(0)
+
+  /* ── mouse handlers ─────────────────────────────────────────────────────── */
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     const canvas = canvasRef.current
@@ -100,19 +107,32 @@ export default function ParticleBackground({
     }
   }, [])
 
-  const handleMouseLeave = useCallback(() => {
+  const handleTouchMove = useCallback((e: TouchEvent) => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const rect = canvas.getBoundingClientRect()
+    const t = e.touches[0]
+    mouseRef.current = {
+      x: t.clientX - rect.left,
+      y: t.clientY - rect.top,
+      active: true,
+    }
+  }, [])
+
+  const handlePointerLeave = useCallback(() => {
     mouseRef.current = { x: -9999, y: -9999, active: false }
   }, [])
+
+  /* ── animation loop ─────────────────────────────────────────────────────── */
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
     let animationId = 0
-    const rgbColors = colors.map(parseHexColor)
+    const rgbColors = colors.map(parseHex)
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1
@@ -120,11 +140,22 @@ export default function ParticleBackground({
       canvas.width = rect.width * dpr
       canvas.height = rect.height * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      particlesRef.current = createParticles(particleCount, rect.width, rect.height, maxRadius, driftSpeed)
+      particlesRef.current = createParticles(
+        particleCount,
+        rect.width,
+        rect.height,
+        maxRadius,
+        trailLength,
+      )
     }
 
+    /* ── draw one frame ─────────────────────────────────────────────────── */
+
     const drawFrame = (width: number, height: number) => {
-      ctx.clearRect(0, 0, width, height)
+      // translucent clear → natural motion‑blur / trail
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.18)'
+      ctx.fillRect(0, 0, width, height)
+
       const particles = particlesRef.current
       const mouse = mouseRef.current
       frameRef.current++
@@ -134,96 +165,146 @@ export default function ParticleBackground({
         const colorIdx = i % rgbColors.length
         const rgb = rgbColors[colorIdx]
 
-        // ── Anti-gravity: gentle upward drift ──
-        p.vy -= p.drift * 0.01
+        // depth‑scaled speed (foreground moves faster → parallax)
+        const depthScale = 0.4 + p.depth * 0.6
 
-        // ── Horizontal sway (sine wave) ──
-        p.phase += p.speed * 0.02
-        p.vx += Math.sin(p.phase) * 0.02
+        // ── gentle organic drift ──
+        p.phase += p.speed * 0.015
+        p.vx += Math.sin(p.phase) * 0.012 * depthScale
+        p.vy += Math.cos(p.phase * 0.7) * 0.008 * depthScale
 
-        // ── Mouse attraction ──
+        // ── mouse attraction ──
         if (mouse.active) {
           const dx = mouse.x - p.x
           const dy = mouse.y - p.y
           const dist = Math.sqrt(dx * dx + dy * dy)
 
           if (dist < mouseRadius && dist > 1) {
-            const attraction = (1 - dist / mouseRadius) * mouseForce
-            p.vx += (dx / dist) * attraction * 8
-            p.vy += (dy / dist) * attraction * 8
-
-            // Grow & brighten near mouse
             const proximity = 1 - dist / mouseRadius
-            p.radius = p.baseRadius + proximity * 4
-            p.opacity = Math.min(0.9, p.baseOpacity + proximity * 0.5)
+            // stronger pull for foreground particles
+            const attraction = proximity * mouseForce * depthScale
+            p.vx += (dx / dist) * attraction * 10
+            p.vy += (dy / dist) * attraction * 10
+
+            // grow & brighten near cursor
+            p.radius = p.baseRadius + proximity * 5 * depthScale
+            p.opacity = Math.min(0.95, p.baseOpacity + proximity * 0.55)
           } else {
-            // Settle back to base
-            p.radius += (p.baseRadius - p.radius) * 0.04
-            p.opacity += (p.baseOpacity - p.opacity) * 0.04
+            p.radius += (p.baseRadius - p.radius) * 0.05
+            p.opacity += (p.baseOpacity - p.opacity) * 0.05
           }
         } else {
-          p.radius += (p.baseRadius - p.radius) * 0.04
-          p.opacity += (p.baseOpacity - p.opacity) * 0.04
+          p.radius += (p.baseRadius - p.radius) * 0.05
+          p.opacity += (p.baseOpacity - p.opacity) * 0.05
         }
 
-        // ── Velocity damping ──
-        p.vx *= 0.96
-        p.vy *= 0.96
+        // ── velocity damping (smooth deceleration) ──
+        p.vx *= 0.955
+        p.vy *= 0.955
 
-        // ── Apply velocity ──
-        p.x += p.vx
-        p.y += p.vy
-
-        // ── Wrap around edges (seamless loop) ──
-        if (p.y < -20) {
-          p.y = height + 10
-          p.x = Math.random() * width
-          p.vx = (Math.random() - 0.5) * 0.3
-          p.vy = 0
+        // ── clamp velocity ──
+        const maxV = 4
+        const v = Math.sqrt(p.vx * p.vx + p.vy * p.vy)
+        if (v > maxV) {
+          p.vx = (p.vx / v) * maxV
+          p.vy = (p.vy / v) * maxV
         }
-        if (p.x < -20) p.x = width + 10
-        if (p.x > width + 20) p.x = -10
 
-        // ── Draw glow ──
-        if (enableGlow) {
-          const glowSize = p.radius * 4
+        // ── update trail ──
+        // shift trail history
+        for (let t = p.trail.length - 1; t > 0; t--) {
+          p.trail[t].x = p.trail[t - 1].x
+          p.trail[t].y = p.trail[t - 1].y
+          p.trail[t].opacity = p.trail[t - 1].opacity * 0.7
+        }
+        p.trail[0].x = p.x
+        p.trail[0].y = p.y
+        p.trail[0].opacity = p.opacity * 0.5
+
+        // ── apply velocity ──
+        p.x += p.vx * depthScale
+        p.y += p.vy * depthScale
+
+        // ── wrap edges ──
+        if (p.x < -30) p.x = width + 20
+        if (p.x > width + 30) p.x = -20
+        if (p.y < -30) p.y = height + 20
+        if (p.y > height + 30) p.y = -20
+
+        // ── draw trail segments ──
+        for (let t = p.trail.length - 1; t >= 0; t--) {
+          const tr = p.trail[t]
+          if (tr.opacity < 0.01) continue
+          const trailRadius = p.radius * (1 - t * 0.12)
+          if (trailRadius < 0.3) continue
+          ctx.beginPath()
+          ctx.arc(tr.x, tr.y, trailRadius, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${tr.opacity * 0.3})`
+          ctx.fill()
+        }
+
+        // ── draw glow halo ──
+        if (enableGlow && p.opacity > 0.15) {
+          const glowSize = p.radius * 5
           const gradient = ctx.createRadialGradient(
-            p.x, p.y, p.radius * 0.5,
-            p.x, p.y, glowSize
+            p.x, p.y, p.radius * 0.3,
+            p.x, p.y, glowSize,
           )
-          gradient.addColorStop(0, `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${p.opacity * 0.2})`)
+          gradient.addColorStop(0, `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${p.opacity * 0.18})`)
           gradient.addColorStop(1, `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0)`)
-
           ctx.beginPath()
           ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2)
           ctx.fillStyle = gradient
           ctx.fill()
         }
 
-        // ── Draw particle core ──
+        // ── draw particle core ──
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
         ctx.fillStyle = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${p.opacity})`
         ctx.fill()
       }
 
-      // ── Draw mouse aura ──
+      // ── draw connecting lines between nearby particles ──
+      const lineDistance = 120
+      ctx.lineWidth = 0.4
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const a = particles[i]
+          const b = particles[j]
+          const dx = a.x - b.x
+          const dy = a.y - b.y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist < lineDistance) {
+            const alpha = (1 - dist / lineDistance) * 0.12
+            const colorIdxA = i % rgbColors.length
+            const rgbA = rgbColors[colorIdxA]
+            ctx.beginPath()
+            ctx.moveTo(a.x, a.y)
+            ctx.lineTo(b.x, b.y)
+            ctx.strokeStyle = `rgba(${rgbA[0]}, ${rgbA[1]}, ${rgbA[2]}, ${alpha})`
+            ctx.stroke()
+          }
+        }
+      }
+
+      // ── mouse aura ──
       if (mouse.active) {
         const gradient = ctx.createRadialGradient(
           mouse.x, mouse.y, 0,
-          mouse.x, mouse.y, mouseRadius * 0.5
+          mouse.x, mouse.y, mouseRadius * 0.45,
         )
-        gradient.addColorStop(0, 'rgba(16, 185, 129, 0.04)')
-        gradient.addColorStop(0.4, 'rgba(6, 182, 212, 0.02)')
+        gradient.addColorStop(0, 'rgba(16, 185, 129, 0.06)')
+        gradient.addColorStop(0.5, 'rgba(5, 150, 105, 0.025)')
         gradient.addColorStop(1, 'rgba(16, 185, 129, 0)')
-
         ctx.beginPath()
-        ctx.arc(mouse.x, mouse.y, mouseRadius * 0.5, 0, Math.PI * 2)
+        ctx.arc(mouse.x, mouse.y, mouseRadius * 0.45, 0, Math.PI * 2)
         ctx.fillStyle = gradient
         ctx.fill()
       }
     }
 
+    /* ── main loop ── */
     const loop = () => {
       const rect = canvas.getBoundingClientRect()
       drawFrame(rect.width, rect.height)
@@ -233,16 +314,34 @@ export default function ParticleBackground({
     resize()
     window.addEventListener('resize', resize)
     canvas.addEventListener('mousemove', handleMouseMove)
-    canvas.addEventListener('mouseleave', handleMouseLeave)
+    canvas.addEventListener('touchmove', handleTouchMove, { passive: true })
+    canvas.addEventListener('mouseleave', handlePointerLeave)
+    canvas.addEventListener('touchend', handlePointerLeave)
+
+    // clear canvas fully once so no leftover from previous mount
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     loop()
 
     return () => {
       window.removeEventListener('resize', resize)
       canvas.removeEventListener('mousemove', handleMouseMove)
-      canvas.removeEventListener('mouseleave', handleMouseLeave)
+      canvas.removeEventListener('touchmove', handleTouchMove)
+      canvas.removeEventListener('mouseleave', handlePointerLeave)
+      canvas.removeEventListener('touchend', handlePointerLeave)
       cancelAnimationFrame(animationId)
     }
-  }, [particleCount, colors, maxRadius, driftSpeed, mouseRadius, mouseForce, enableGlow, handleMouseMove, handleMouseLeave])
+  }, [
+    particleCount,
+    colors,
+    maxRadius,
+    trailLength,
+    mouseRadius,
+    mouseForce,
+    enableGlow,
+    handleMouseMove,
+    handleTouchMove,
+    handlePointerLeave,
+  ])
 
   return (
     <canvas

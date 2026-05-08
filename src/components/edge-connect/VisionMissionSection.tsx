@@ -55,14 +55,14 @@ export default function VisionMissionSection() {
 
   return (
     <section id="vision-mission" className="relative overflow-hidden bg-white py-20 md:py-28">
-      {/* ── Anti-gravity Particle Background ── */}
+      {/* ── Emerald‑green particle field ── */}
       <ParticleBackground
-        particleCount={80}
-        colors={['059669', '10B981', '06B6D4', 'F59E0B', 'EC4899', '8B5CF6']}
+        particleCount={100}
+        colors={['047857', '059669', '10B981', '34D399', '6EE7B7']}
         maxRadius={3}
-        driftSpeed={0.25}
-        mouseRadius={180}
-        mouseForce={0.035}
+        trailLength={6}
+        mouseRadius={220}
+        mouseForce={0.05}
         enableGlow={true}
       />
 
