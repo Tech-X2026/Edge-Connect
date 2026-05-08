@@ -271,14 +271,14 @@ export default function HeroSection() {
       id="home"
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white"
     >
-      {/* ── Full‑section emerald‑green particle field ── */}
+      {/* ── Full‑section emerald‑green particle field (high latency) ── */}
       <ParticleBackground
-        particleCount={180}
+        particleCount={220}
         colors={['047857', '059669', '10B981', '34D399', '6EE7B7']}
         maxRadius={3.5}
-        trailLength={8}
-        mouseRadius={280}
-        mouseForce={0.06}
+        trailLength={14}
+        mouseRadius={350}
+        mouseForce={0.025}
         enableGlow={true}
         className="z-0"
       />
