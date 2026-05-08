@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Play } from 'lucide-react'
+import ParticleBackground from './ParticleBackground'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -27,30 +28,48 @@ interface StatItem {
 const FLOATING_ORBS: FloatingOrb[] = [
   {
     id: 1,
-    size: 280,
-    x: '10%',
-    y: '15%',
-    gradient: 'from-emerald-400/20 to-cyan-300/15',
+    size: 320,
+    x: '8%',
+    y: '10%',
+    gradient: 'from-emerald-400/25 to-cyan-300/15',
     duration: 18,
     delay: 0,
   },
   {
     id: 2,
-    size: 200,
-    x: '75%',
-    y: '20%',
-    gradient: 'from-cyan-400/15 to-emerald-300/10',
+    size: 240,
+    x: '72%',
+    y: '15%',
+    gradient: 'from-cyan-400/20 to-emerald-300/10',
     duration: 22,
     delay: 2,
   },
   {
     id: 3,
-    size: 160,
-    x: '60%',
-    y: '65%',
-    gradient: 'from-emerald-300/15 to-teal-200/10',
+    size: 180,
+    x: '55%',
+    y: '60%',
+    gradient: 'from-emerald-300/18 to-teal-200/10',
     duration: 20,
     delay: 4,
+  },
+  {
+    id: 4,
+    size: 140,
+    x: '18%',
+    y: '68%',
+    gradient: 'from-teal-300/15 to-cyan-200/10',
+    duration: 16,
+    delay: 1,
+  },
+  {
+    id: 5,
+    size: 110,
+    x: '82%',
+    y: '50%',
+    gradient: 'from-cyan-300/12 to-emerald-200/8',
+    duration: 24,
+    delay: 3,
   },
 ]
 
@@ -182,11 +201,11 @@ function StatCard({ stat }: StatCardProps) {
       variants={statItemVariants}
       className="flex flex-col items-center gap-1 px-4 py-3 sm:px-6 sm:py-4"
     >
-      <span className="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+      <span className="text-gradient text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
         {count}
         {stat.suffix}
       </span>
-      <span className="text-xs font-medium tracking-wide uppercase text-emerald-100 sm:text-sm">
+      <span className="text-ec-muted text-xs font-medium tracking-wide uppercase sm:text-sm">
         {stat.label}
       </span>
     </motion.div>
@@ -202,7 +221,7 @@ interface FloatingOrbProps {
 function FloatingOrb({ orb }: FloatingOrbProps) {
   return (
     <motion.div
-      className={`absolute rounded-full bg-gradient-to-br ${orb.gradient} blur-2xl`}
+      className={`absolute rounded-full bg-gradient-to-br ${orb.gradient} blur-3xl`}
       style={{
         width: orb.size,
         height: orb.size,
@@ -211,10 +230,10 @@ function FloatingOrb({ orb }: FloatingOrbProps) {
       }}
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{
-        opacity: [0.4, 0.7, 0.4],
-        scale: [1, 1.15, 1],
-        x: [0, 20, -15, 0],
-        y: [0, -25, 10, 0],
+        opacity: [0.5, 0.8, 0.5],
+        scale: [1, 1.2, 1],
+        x: [0, 25, -20, 0],
+        y: [0, -30, 15, 0],
       }}
       transition={{
         duration: orb.duration,
@@ -230,7 +249,6 @@ function FloatingOrb({ orb }: FloatingOrbProps) {
 // ─── Main HeroSection Component ─────────────────────────────────────────────
 
 export default function HeroSection() {
-  const videoRef = useRef<HTMLVideoElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
   const statsInView = useInView(statsRef, { once: true, margin: '-100px' })
 
@@ -251,30 +269,34 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white"
     >
-      {/* ── Background Video ── */}
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 h-full w-full object-cover"
-      >
-        <source src="/hero-video.mp4" type="video/mp4" />
-      </video>
+      {/* ── Mouse-reactive Particle Background ── */}
+      <ParticleBackground
+        particleCount={100}
+        colors={['059669', '10B981', '06B6D4']}
+        maxRadius={3}
+        speed={0.5}
+        connectionDistance={150}
+        mouseRadius={200}
+        mouseForce={0.08}
+        enableGlow={true}
+        highlightConnections={true}
+        className="z-0"
+      />
 
-      {/* ── Dark overlay to make text readable on top of video ── */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
-
-      {/* ── Green tint overlay for brand color ── */}
-      <div className="absolute inset-0 bg-emerald-900/20" />
-
-      {/* ── Floating Orbs (on top of video) ── */}
+      {/* ── Floating Orbs ── */}
       {FLOATING_ORBS.map((orb) => (
         <FloatingOrb key={orb.id} orb={orb} />
       ))}
+
+      {/* ── Subtle radial glow behind content ── */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2"
+        aria-hidden="true"
+      >
+        <div className="h-[700px] w-[700px] rounded-full bg-gradient-to-br from-emerald-100/50 via-cyan-50/30 to-transparent blur-3xl" />
+      </div>
 
       {/* ── Main Content ── */}
       <motion.div
@@ -286,10 +308,10 @@ export default function HeroSection() {
         {/* Badge / Tagline */}
         <motion.div
           variants={textRevealVariants}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-4 py-1.5 backdrop-blur-md sm:mb-8"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50/80 px-4 py-1.5 backdrop-blur-sm sm:mb-8"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs font-semibold tracking-wider uppercase text-emerald-300 sm:text-sm">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-ec-primary text-xs font-semibold tracking-wider uppercase sm:text-sm">
             Digital Marketing Excellence
           </span>
         </motion.div>
@@ -297,18 +319,15 @@ export default function HeroSection() {
         {/* Headline */}
         <motion.h1
           variants={textRevealVariants}
-          className="mb-4 text-4xl font-extrabold leading-tight tracking-tight text-white sm:mb-6 sm:text-5xl md:text-6xl lg:text-7xl"
+          className="text-gradient mb-4 text-4xl font-extrabold leading-tight tracking-tight sm:mb-6 sm:text-5xl md:text-6xl lg:text-7xl"
         >
-          Elevate Your{' '}
-          <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-            Digital Presence
-          </span>
+          Elevate Your Digital Presence
         </motion.h1>
 
         {/* Subtitle */}
         <motion.p
           variants={textRevealVariants}
-          className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-gray-300 sm:mb-10 sm:text-lg md:text-xl"
+          className="text-ec-muted mx-auto mb-8 max-w-2xl text-base leading-relaxed sm:mb-10 sm:text-lg md:text-xl"
         >
           We craft data-driven strategies that transform your brand&apos;s online
           impact. From SEO to performance marketing, EDGE CONNECT delivers
@@ -334,11 +353,11 @@ export default function HeroSection() {
           {/* Secondary CTA — Outline */}
           <motion.button
             onClick={handleContactClick}
-            className="group inline-flex cursor-pointer items-center gap-2.5 rounded-xl border-2 border-white/20 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-emerald-400/50 hover:bg-white/10 sm:px-8 sm:py-4 sm:text-base"
+            className="group inline-flex cursor-pointer items-center gap-2.5 rounded-xl border-2 border-emerald-600/30 bg-white/80 px-7 py-3.5 text-sm font-semibold text-ec-primary backdrop-blur-sm transition-colors duration-300 hover:border-emerald-500/50 hover:bg-emerald-50/80 sm:px-8 sm:py-4 sm:text-base"
             whileHover={{ scale: 1.04, y: -2 }}
             whileTap={{ scale: 0.97 }}
           >
-            <Play className="h-4 w-4 transition-colors duration-300 group-hover:text-emerald-400" />
+            <Play className="h-4 w-4 transition-colors duration-300 group-hover:text-emerald-500" />
             Contact Us
           </motion.button>
         </motion.div>
@@ -349,7 +368,7 @@ export default function HeroSection() {
           variants={statsContainerVariants}
           initial="hidden"
           animate={statsInView ? 'visible' : 'hidden'}
-          className="w-full max-w-3xl rounded-2xl border border-white/10 bg-white/5 px-2 py-4 backdrop-blur-md sm:px-4 sm:py-6"
+          className="glass-card w-full max-w-3xl rounded-2xl px-2 py-4 sm:px-4 sm:py-6"
         >
           <div className="grid grid-cols-2 gap-2 sm:gap-4 md:grid-cols-4">
             {STATS.map((stat, index) => (
@@ -361,7 +380,7 @@ export default function HeroSection() {
 
       {/* ── Bottom fade ── */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[5] h-24 bg-gradient-to-t from-white to-transparent"
         aria-hidden="true"
       />
 
@@ -377,10 +396,10 @@ export default function HeroSection() {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <span className="text-xs font-medium text-white/50">Scroll to explore</span>
-          <div className="h-8 w-5 rounded-full border-2 border-white/20 p-1">
+          <span className="text-xs font-medium text-emerald-600/50">Scroll to explore</span>
+          <div className="h-8 w-5 rounded-full border-2 border-emerald-300/30 p-1">
             <motion.div
-              className="h-1.5 w-1.5 rounded-full bg-emerald-400"
+              className="h-1.5 w-1.5 rounded-full bg-emerald-500"
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             />
