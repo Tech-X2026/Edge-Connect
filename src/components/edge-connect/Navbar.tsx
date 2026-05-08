@@ -46,7 +46,6 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   { label: 'Vision & Mission', href: '/vision-mission' },
-  { label: 'Contact', href: '/contact' },
 ]
 
 const SCROLL_THRESHOLD = 20
