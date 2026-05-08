@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Send, Phone, Mail, MapPin, ArrowRight, CheckCircle } from 'lucide-react'
+import { Send, Phone, Mail, MapPin, CheckCircle } from 'lucide-react'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -50,10 +50,24 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50/20 to-white py-20 md:py-28">
-      {/* Decorative elements */}
-      <div className="pointer-events-none absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-emerald-100/30 blur-3xl" />
-      <div className="pointer-events-none absolute -right-20 top-0 h-60 w-60 rounded-full bg-cyan-100/30 blur-3xl" />
+    <section id="contact" className="relative overflow-hidden py-20 md:py-28">
+      {/* ── Background Video ── */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
+
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
+      <div className="absolute inset-0 bg-emerald-900/15" />
+
+      {/* Top fade */}
+      <div className="pointer-events-none absolute left-0 right-0 top-0 h-24 bg-gradient-to-b from-white to-transparent" />
 
       <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -63,14 +77,16 @@ export default function ContactSection() {
         >
           {/* Header */}
           <motion.div variants={fadeInUp} className="mb-16 text-center">
-            <span className="mb-4 inline-block rounded-full border border-emerald-200 bg-emerald-50/80 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase text-ec-primary">
+            <span className="mb-4 inline-block rounded-full border border-emerald-400/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase text-emerald-300 backdrop-blur-sm">
               Get In Touch
             </span>
-            <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+            <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl">
               Let&apos;s Build Something{' '}
-              <span className="text-gradient">Amazing</span>
+              <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                Amazing
+              </span>
             </h2>
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-ec-muted sm:text-lg">
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-300 sm:text-lg">
               Ready to transform your digital presence? Reach out and let&apos;s discuss how EDGE CONNECT can help you achieve your goals.
             </p>
           </motion.div>
@@ -79,9 +95,9 @@ export default function ContactSection() {
           <div className="grid gap-10 lg:grid-cols-5">
             {/* Left: Contact Info */}
             <motion.div variants={fadeInUp} className="lg:col-span-2">
-              <div className="rounded-2xl bg-gradient-to-br from-emerald-600 to-cyan-600 p-8 md:p-10">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md md:p-10">
                 <h3 className="mb-6 text-2xl font-bold text-white">Contact Us Today</h3>
-                <p className="mb-8 text-sm text-emerald-100 sm:text-base">
+                <p className="mb-8 text-sm text-gray-300 sm:text-base">
                   We&apos;d love to hear about your project. Drop us a line and we&apos;ll get back to you within 24 hours.
                 </p>
 
@@ -94,11 +110,11 @@ export default function ContactSection() {
                         href={info.href}
                         className="flex items-center gap-4 transition-colors duration-200 hover:opacity-80"
                       >
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
-                          <Icon className="h-5 w-5 text-white" />
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/15">
+                          <Icon className="h-5 w-5 text-emerald-400" />
                         </div>
                         <div>
-                          <div className="text-xs font-medium text-emerald-200">{info.label}</div>
+                          <div className="text-xs font-medium text-gray-400">{info.label}</div>
                           <div className="text-sm font-semibold text-white sm:text-base">{info.value}</div>
                         </div>
                       </a>
@@ -107,7 +123,7 @@ export default function ContactSection() {
                 </div>
 
                 {/* Social proof */}
-                <div className="mt-10 rounded-xl bg-white/10 p-4 backdrop-blur-sm">
+                <div className="mt-10 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
                   <div className="flex items-center gap-3">
                     <div className="flex -space-x-2">
                       {['bg-emerald-400', 'bg-cyan-400', 'bg-teal-400', 'bg-emerald-300'].map((color, i) => (
@@ -124,7 +140,7 @@ export default function ContactSection() {
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                           </svg>
                         ))}
-                        <span className="ml-1 text-xs text-emerald-200">4.9/5</span>
+                        <span className="ml-1 text-xs text-gray-400">4.9/5</span>
                       </div>
                     </div>
                   </div>
@@ -134,24 +150,24 @@ export default function ContactSection() {
 
             {/* Right: Contact Form */}
             <motion.div variants={fadeInUp} className="lg:col-span-3">
-              <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm md:p-10">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md md:p-10">
                 {submitted ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex flex-col items-center justify-center py-12 text-center"
                   >
-                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
-                      <CheckCircle className="h-8 w-8 text-emerald-600" />
+                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/15">
+                      <CheckCircle className="h-8 w-8 text-emerald-400" />
                     </div>
-                    <h3 className="mb-2 text-xl font-bold text-gray-900">Message Sent!</h3>
-                    <p className="text-sm text-ec-muted">We&apos;ll get back to you within 24 hours.</p>
+                    <h3 className="mb-2 text-xl font-bold text-white">Message Sent!</h3>
+                    <p className="text-sm text-gray-400">We&apos;ll get back to you within 24 hours.</p>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid gap-5 sm:grid-cols-2">
                       <div>
-                        <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-gray-700">
+                        <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-gray-300">
                           Full Name
                         </label>
                         <input
@@ -161,12 +177,12 @@ export default function ContactSection() {
                           required
                           value={formData.name}
                           onChange={handleChange}
-                          className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-emerald-400 focus:bg-white focus:ring-2 focus:ring-emerald-100"
+                          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all duration-200 placeholder:text-gray-500 focus:border-emerald-400/50 focus:bg-white/10 focus:ring-2 focus:ring-emerald-500/20"
                           placeholder="John Doe"
                         />
                       </div>
                       <div>
-                        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-gray-700">
+                        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-gray-300">
                           Email Address
                         </label>
                         <input
@@ -176,13 +192,13 @@ export default function ContactSection() {
                           required
                           value={formData.email}
                           onChange={handleChange}
-                          className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-emerald-400 focus:bg-white focus:ring-2 focus:ring-emerald-100"
+                          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all duration-200 placeholder:text-gray-500 focus:border-emerald-400/50 focus:bg-white/10 focus:ring-2 focus:ring-emerald-500/20"
                           placeholder="john@company.com"
                         />
                       </div>
                     </div>
                     <div>
-                      <label htmlFor="service" className="mb-1.5 block text-sm font-medium text-gray-700">
+                      <label htmlFor="service" className="mb-1.5 block text-sm font-medium text-gray-300">
                         Service Interested In
                       </label>
                       <select
@@ -190,17 +206,17 @@ export default function ContactSection() {
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
-                        className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-emerald-400 focus:bg-white focus:ring-2 focus:ring-emerald-100"
+                        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all duration-200 focus:border-emerald-400/50 focus:bg-white/10 focus:ring-2 focus:ring-emerald-500/20"
                       >
-                        <option value="">Select a service</option>
-                        <option value="seo">SEO</option>
-                        <option value="digital-marketing">Digital Marketing</option>
-                        <option value="performance-marketing">Performance Marketing</option>
-                        <option value="web-designing">Web Designing</option>
+                        <option value="" className="bg-gray-900">Select a service</option>
+                        <option value="seo" className="bg-gray-900">SEO</option>
+                        <option value="digital-marketing" className="bg-gray-900">Digital Marketing</option>
+                        <option value="performance-marketing" className="bg-gray-900">Performance Marketing</option>
+                        <option value="web-designing" className="bg-gray-900">Web Designing</option>
                       </select>
                     </div>
                     <div>
-                      <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-gray-700">
+                      <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-gray-300">
                         Your Message
                       </label>
                       <textarea
@@ -210,7 +226,7 @@ export default function ContactSection() {
                         rows={4}
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full resize-none rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-emerald-400 focus:bg-white focus:ring-2 focus:ring-emerald-100"
+                        className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all duration-200 placeholder:text-gray-500 focus:border-emerald-400/50 focus:bg-white/10 focus:ring-2 focus:ring-emerald-500/20"
                         placeholder="Tell us about your project..."
                       />
                     </div>
@@ -230,6 +246,9 @@ export default function ContactSection() {
           </div>
         </motion.div>
       </div>
+
+      {/* Bottom fade */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
     </section>
   )
 }

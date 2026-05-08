@@ -32,3 +32,24 @@ Stage Summary:
 - Particle background with canvas-based network animation
 - Responsive design with mobile hamburger menu
 - Footer sticky to bottom with min-h-screen flex layout
+
+---
+Task ID: 2
+Agent: Main Agent
+Task: Add background video to Hero, Vision & Mission, and Contact sections
+
+Work Log:
+- Copied pin_video.mp4 to /public/hero-video.mp4 for serving
+- Updated HeroSection.tsx: replaced particle-only background with <video> element + dark overlay + green tint
+- Updated VisionMissionSection.tsx: added video background with dark overlay, updated text colors to white/light for readability on video
+- Updated ContactSection.tsx: added video background with glassmorphism form/cards over the video
+- All video elements use autoplay, loop, muted, playsInline attributes
+- Added VideoSection.tsx reusable component for future use
+- Gradient fades between sections (top/bottom of video sections) for smooth visual transitions
+- Lint passes clean, dev server compiling successfully
+
+Stage Summary:
+- 3 sections now have background video: Hero, Vision & Mission, Contact
+- Video is the same pin_video.mp4 from the reference
+- Dark overlays + green tint ensure text readability
+- Glassmorphism cards (bg-white/5 + backdrop-blur) over video for modern look

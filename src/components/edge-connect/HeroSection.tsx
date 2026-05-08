@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Play } from 'lucide-react'
-import ParticleBackground from './ParticleBackground'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -52,24 +51,6 @@ const FLOATING_ORBS: FloatingOrb[] = [
     gradient: 'from-emerald-300/15 to-teal-200/10',
     duration: 20,
     delay: 4,
-  },
-  {
-    id: 4,
-    size: 120,
-    x: '20%',
-    y: '70%',
-    gradient: 'from-teal-300/12 to-cyan-200/8',
-    duration: 16,
-    delay: 1,
-  },
-  {
-    id: 5,
-    size: 100,
-    x: '85%',
-    y: '55%',
-    gradient: 'from-cyan-300/10 to-emerald-200/8',
-    duration: 24,
-    delay: 3,
   },
 ]
 
@@ -190,7 +171,7 @@ interface StatCardProps {
   index: number
 }
 
-function StatCard({ stat, index }: StatCardProps) {
+function StatCard({ stat }: StatCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-50px' })
   const count = useCountUp(stat.value, isInView, 2000)
@@ -201,11 +182,11 @@ function StatCard({ stat, index }: StatCardProps) {
       variants={statItemVariants}
       className="flex flex-col items-center gap-1 px-4 py-3 sm:px-6 sm:py-4"
     >
-      <span className="text-gradient text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+      <span className="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
         {count}
         {stat.suffix}
       </span>
-      <span className="text-ec-muted text-xs font-medium tracking-wide uppercase sm:text-sm">
+      <span className="text-xs font-medium tracking-wide uppercase text-emerald-100 sm:text-sm">
         {stat.label}
       </span>
     </motion.div>
@@ -249,6 +230,7 @@ function FloatingOrb({ orb }: FloatingOrbProps) {
 // ─── Main HeroSection Component ─────────────────────────────────────────────
 
 export default function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
   const statsInView = useInView(statsRef, { once: true, margin: '-100px' })
 
@@ -269,29 +251,30 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
-      {/* ── Particle Background ── */}
-      <ParticleBackground
-        particleCount={50}
-        color="059669"
-        maxRadius={2}
-        speed={0.3}
-        connectionDistance={100}
-      />
+      {/* ── Background Video ── */}
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
 
-      {/* ── Floating Orbs ── */}
+      {/* ── Dark overlay to make text readable on top of video ── */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+
+      {/* ── Green tint overlay for brand color ── */}
+      <div className="absolute inset-0 bg-emerald-900/20" />
+
+      {/* ── Floating Orbs (on top of video) ── */}
       {FLOATING_ORBS.map((orb) => (
         <FloatingOrb key={orb.id} orb={orb} />
       ))}
-
-      {/* ── Subtle radial glow behind content ── */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        aria-hidden="true"
-      >
-        <div className="h-[600px] w-[600px] rounded-full bg-gradient-to-br from-emerald-100/40 via-cyan-50/30 to-transparent blur-3xl" />
-      </div>
 
       {/* ── Main Content ── */}
       <motion.div
@@ -303,10 +286,10 @@ export default function HeroSection() {
         {/* Badge / Tagline */}
         <motion.div
           variants={textRevealVariants}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50/80 px-4 py-1.5 backdrop-blur-sm sm:mb-8"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-4 py-1.5 backdrop-blur-md sm:mb-8"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-          <span className="text-ec-primary text-xs font-semibold tracking-wider uppercase sm:text-sm">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-xs font-semibold tracking-wider uppercase text-emerald-300 sm:text-sm">
             Digital Marketing Excellence
           </span>
         </motion.div>
@@ -314,15 +297,18 @@ export default function HeroSection() {
         {/* Headline */}
         <motion.h1
           variants={textRevealVariants}
-          className="text-gradient mb-4 text-4xl font-extrabold leading-tight tracking-tight sm:mb-6 sm:text-5xl md:text-6xl lg:text-7xl"
+          className="mb-4 text-4xl font-extrabold leading-tight tracking-tight text-white sm:mb-6 sm:text-5xl md:text-6xl lg:text-7xl"
         >
-          Elevate Your Digital Presence
+          Elevate Your{' '}
+          <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+            Digital Presence
+          </span>
         </motion.h1>
 
         {/* Subtitle */}
         <motion.p
           variants={textRevealVariants}
-          className="text-ec-muted mx-auto mb-8 max-w-2xl text-base leading-relaxed sm:mb-10 sm:text-lg md:text-xl"
+          className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-gray-300 sm:mb-10 sm:text-lg md:text-xl"
         >
           We craft data-driven strategies that transform your brand&apos;s online
           impact. From SEO to performance marketing, EDGE CONNECT delivers
@@ -337,7 +323,7 @@ export default function HeroSection() {
           {/* Primary CTA — Gradient */}
           <motion.button
             onClick={handleExploreClick}
-            className="group bg-gradient-ec inline-flex cursor-pointer items-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-emerald-500/30 sm:px-8 sm:py-4 sm:text-base"
+            className="group bg-gradient-ec inline-flex cursor-pointer items-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-emerald-500/40 sm:px-8 sm:py-4 sm:text-base"
             whileHover={{ scale: 1.04, y: -2 }}
             whileTap={{ scale: 0.97 }}
           >
@@ -348,11 +334,11 @@ export default function HeroSection() {
           {/* Secondary CTA — Outline */}
           <motion.button
             onClick={handleContactClick}
-            className="group inline-flex cursor-pointer items-center gap-2.5 rounded-xl border-2 border-emerald-600/30 bg-white/80 px-7 py-3.5 text-sm font-semibold text-ec-primary backdrop-blur-sm transition-colors duration-300 hover:border-emerald-500/50 hover:bg-emerald-50/80 sm:px-8 sm:py-4 sm:text-base"
+            className="group inline-flex cursor-pointer items-center gap-2.5 rounded-xl border-2 border-white/20 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-emerald-400/50 hover:bg-white/10 sm:px-8 sm:py-4 sm:text-base"
             whileHover={{ scale: 1.04, y: -2 }}
             whileTap={{ scale: 0.97 }}
           >
-            <Play className="h-4 w-4 transition-colors duration-300 group-hover:text-emerald-500" />
+            <Play className="h-4 w-4 transition-colors duration-300 group-hover:text-emerald-400" />
             Contact Us
           </motion.button>
         </motion.div>
@@ -363,7 +349,7 @@ export default function HeroSection() {
           variants={statsContainerVariants}
           initial="hidden"
           animate={statsInView ? 'visible' : 'hidden'}
-          className="glass-card w-full max-w-3xl rounded-2xl px-2 py-4 sm:px-4 sm:py-6"
+          className="w-full max-w-3xl rounded-2xl border border-white/10 bg-white/5 px-2 py-4 backdrop-blur-md sm:px-4 sm:py-6"
         >
           <div className="grid grid-cols-2 gap-2 sm:gap-4 md:grid-cols-4">
             {STATS.map((stat, index) => (
@@ -375,9 +361,32 @@ export default function HeroSection() {
 
       {/* ── Bottom fade ── */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"
         aria-hidden="true"
       />
+
+      {/* ── Scroll indicator ── */}
+      <motion.div
+        className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+      >
+        <motion.div
+          className="flex flex-col items-center gap-2"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <span className="text-xs font-medium text-white/50">Scroll to explore</span>
+          <div className="h-8 w-5 rounded-full border-2 border-white/20 p-1">
+            <motion.div
+              className="h-1.5 w-1.5 rounded-full bg-emerald-400"
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </div>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

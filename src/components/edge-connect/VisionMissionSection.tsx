@@ -53,11 +53,21 @@ export default function VisionMissionSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="vision-mission" className="relative overflow-hidden bg-white py-20 md:py-28">
-      {/* Decorative elements */}
-      <div className="pointer-events-none absolute left-1/2 top-0 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-emerald-300 to-transparent" />
-      <div className="pointer-events-none absolute -right-32 top-1/3 h-64 w-64 rounded-full bg-cyan-50/60 blur-3xl" />
-      <div className="pointer-events-none absolute -left-32 bottom-1/3 h-64 w-64 rounded-full bg-emerald-50/60 blur-3xl" />
+    <section id="vision-mission" className="relative overflow-hidden py-20 md:py-28">
+      {/* ── Background Video ── */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
+
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
+      <div className="absolute inset-0 bg-emerald-900/15" />
 
       <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -67,14 +77,16 @@ export default function VisionMissionSection() {
         >
           {/* Section Header */}
           <motion.div variants={fadeInUp} className="mb-16 text-center">
-            <span className="mb-4 inline-block rounded-full border border-emerald-200 bg-emerald-50/80 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase text-ec-primary">
+            <span className="mb-4 inline-block rounded-full border border-emerald-400/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase text-emerald-300 backdrop-blur-sm">
               Vision & Mission
             </span>
-            <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+            <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl">
               Guided by Purpose,{' '}
-              <span className="text-gradient">Driven by Impact</span>
+              <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                Driven by Impact
+              </span>
             </h2>
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-ec-muted sm:text-lg">
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-300 sm:text-lg">
               Our vision and mission shape every strategy we create and every campaign we launch.
             </p>
           </motion.div>
@@ -84,9 +96,9 @@ export default function VisionMissionSection() {
             {/* Vision Card */}
             <motion.div
               variants={cardVariants}
-              className="group relative overflow-hidden rounded-3xl"
+              className="group relative overflow-hidden rounded-3xl border border-white/10 backdrop-blur-md"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 to-emerald-700" />
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/80 to-emerald-700/80" />
               <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-white/5 blur-xl transition-transform duration-500 group-hover:scale-125" />
               <div className="absolute -bottom-12 -left-12 h-48 w-48 rounded-full bg-cyan-400/10 blur-xl transition-transform duration-500 group-hover:scale-125" />
               <div className="relative z-10 p-8 md:p-10">
@@ -111,9 +123,9 @@ export default function VisionMissionSection() {
             {/* Mission Card */}
             <motion.div
               variants={cardVariants}
-              className="group relative overflow-hidden rounded-3xl"
+              className="group relative overflow-hidden rounded-3xl border border-white/10 backdrop-blur-md"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-600 to-cyan-700" />
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/80 to-cyan-700/80" />
               <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-white/5 blur-xl transition-transform duration-500 group-hover:scale-125" />
               <div className="absolute -bottom-12 -left-12 h-48 w-48 rounded-full bg-emerald-400/10 blur-xl transition-transform duration-500 group-hover:scale-125" />
               <div className="relative z-10 p-8 md:p-10">
@@ -138,10 +150,10 @@ export default function VisionMissionSection() {
 
           {/* Core Pillars */}
           <motion.div variants={fadeInUp} className="mb-12 text-center">
-            <h3 className="mb-2 text-xl font-bold text-gray-900 sm:text-2xl">
+            <h3 className="mb-2 text-xl font-bold text-white sm:text-2xl">
               Our Core Pillars
             </h3>
-            <p className="text-sm text-ec-muted sm:text-base">
+            <p className="text-sm text-gray-400 sm:text-base">
               The principles that anchor everything we do
             </p>
           </motion.div>
@@ -157,15 +169,15 @@ export default function VisionMissionSection() {
                   key={pillar.title}
                   variants={cardVariants}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:border-emerald-100 hover:shadow-md hover:shadow-emerald-50"
+                  className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:border-emerald-400/30 hover:bg-white/10"
                 >
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-ec-light">
-                    <Icon className="h-6 w-6 text-ec-primary" />
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10">
+                    <Icon className="h-6 w-6 text-emerald-400" />
                   </div>
-                  <h4 className="mb-2 text-lg font-bold text-gray-900">
+                  <h4 className="mb-2 text-lg font-bold text-white">
                     {pillar.title}
                   </h4>
-                  <p className="text-sm leading-relaxed text-ec-muted">
+                  <p className="text-sm leading-relaxed text-gray-400">
                     {pillar.description}
                   </p>
                 </motion.div>
@@ -174,6 +186,10 @@ export default function VisionMissionSection() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Top & Bottom fade to blend with adjacent sections */}
+      <div className="pointer-events-none absolute left-0 right-0 top-0 h-24 bg-gradient-to-b from-white to-transparent" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
     </section>
   )
 }
