@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Search, FileText, Link2, TrendingUp, CheckCircle2, ArrowRight } from 'lucide-react'
+import { Search, FileText, Link2, TrendingUp, CheckCircle2, ArrowRight, Youtube, FileSearch, Globe2, MapPin } from 'lucide-react'
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -40 },
@@ -45,6 +45,10 @@ const process = [
   { icon: FileText, title: 'Content Strategy', description: 'Data-backed content plans targeting high-value keywords and search intent to build topical authority.' },
   { icon: Link2, title: 'Link Building', description: 'Strategic outreach and relationship-building to earn authoritative backlinks that boost domain strength.' },
   { icon: TrendingUp, title: 'Continuous Optimization', description: 'Ongoing monitoring, testing, and refinement to maintain and improve rankings over time.' },
+  { icon: Youtube, title: 'YouTube SEO', description: 'Optimize your videos for maximum visibility on YouTube and Google. Channel optimization, keyword targeting, thumbnail strategy, and engagement boosting.' },
+  { icon: FileSearch, title: 'On-Page SEO', description: 'Perfect every element on your website — meta tags, headings, internal links, schema markup, and content structure for maximum search relevance.' },
+  { icon: Globe2, title: 'Off-Page SEO', description: 'Build your website\'s authority through strategic backlink acquisition, brand mentions, social signals, and influencer partnerships.' },
+  { icon: MapPin, title: 'Local SEO', description: 'Dominate local search results with Google Business Profile optimization, local citations, review management, and location-based keyword targeting.' },
 ]
 
 const results = [
