@@ -3,7 +3,6 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Send, Phone, Mail, MapPin, CheckCircle } from 'lucide-react'
-import ParticleBackground from './ParticleBackground'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -51,18 +50,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#F0F9FF]/20 to-white py-20 md:py-28">
-      {/* ── Cyan particle field (high latency) ── */}
-      <ParticleBackground
-        particleCount={110}
-        colors={['023047', '0077B6', '0096C7', '00B4D8', '48CAE4']}
-        maxRadius={3}
-        trailLength={10}
-        mouseRadius={300}
-        mouseForce={0.025}
-        enableGlow={true}
-      />
-
+    <section className="relative overflow-hidden py-20 md:py-28">
       {/* Decorative elements */}
       <div className="pointer-events-none absolute -left-20 bottom-0 z-[1] h-60 w-60 rounded-full bg-[#CAF0F8]/30 blur-3xl" />
       <div className="pointer-events-none absolute -right-20 top-0 z-[1] h-60 w-60 rounded-full bg-[#CAF0F8]/30 blur-3xl" />

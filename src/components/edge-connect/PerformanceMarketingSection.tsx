@@ -50,7 +50,7 @@ export default function PerformanceMarketingSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#F0F9FF]/20 to-white py-20 md:py-28">
+    <section className="relative overflow-hidden py-20 md:py-28">
       <div className="pointer-events-none absolute right-0 top-1/3 h-60 w-60 rounded-full bg-[#CAF0F8]/30 blur-3xl" />
 
       <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -106,7 +106,7 @@ export default function PerformanceMarketingSection() {
                   key={cap.title}
                   variants={itemVariants}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-lg hover:shadow-[#CAF0F8]/50 sm:p-8"
+                  className="group rounded-2xl border border-gray-100 bg-white/85 backdrop-blur-sm p-6 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-lg hover:shadow-[#CAF0F8]/50 sm:p-8"
                 >
                   <div className="mb-4 flex items-center gap-4">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#F0F9FF] to-[#CAF0F8]/50">

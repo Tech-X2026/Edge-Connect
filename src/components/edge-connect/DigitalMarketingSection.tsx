@@ -59,7 +59,7 @@ export default function DigitalMarketingSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative overflow-hidden bg-white py-20 md:py-28">
+    <section className="relative overflow-hidden py-20 md:py-28">
       <div className="pointer-events-none absolute -left-20 top-40 h-60 w-60 rounded-full bg-[#CAF0F8]/40 blur-3xl" />
 
       <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -94,7 +94,7 @@ export default function DigitalMarketingSection() {
                   key={channel.title}
                   variants={itemVariants}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-lg hover:shadow-[#CAF0F8]/50 sm:p-8"
+                  className="group rounded-2xl border border-gray-100 bg-white/85 backdrop-blur-sm p-6 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-lg hover:shadow-[#CAF0F8]/50 sm:p-8"
                 >
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#F0F9FF] to-[#CAF0F8]/50">
                     <Icon className="h-6 w-6 text-[#023047]" />
@@ -129,7 +129,7 @@ export default function DigitalMarketingSection() {
             </motion.div>
 
             {/* Approach */}
-            <motion.div variants={fadeInRight} className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm md:p-10">
+            <motion.div variants={fadeInRight} className="rounded-2xl border border-gray-100 bg-white/85 backdrop-blur-sm p-8 shadow-sm md:p-10">
               <h3 className="mb-6 text-2xl font-bold text-gray-900">Our Approach</h3>
               <div className="space-y-4">
                 {[

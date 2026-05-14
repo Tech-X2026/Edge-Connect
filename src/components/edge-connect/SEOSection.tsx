@@ -63,7 +63,7 @@ export default function SEOSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#F0F9FF]/30 to-white py-20 md:py-28">
+    <section className="relative overflow-hidden py-20 md:py-28">
       <div className="pointer-events-none absolute -right-20 top-20 h-60 w-60 rounded-full bg-[#CAF0F8]/30 blur-3xl" />
 
       <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -98,7 +98,7 @@ export default function SEOSection() {
                   key={step.title}
                   variants={itemVariants}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-md"
+                  className="group rounded-2xl border border-gray-100 bg-white/85 backdrop-blur-sm p-6 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-md"
                 >
                   <div className="mb-3 flex items-center gap-3">
                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#CAF0F8] text-sm font-bold text-[#023047]">
@@ -138,7 +138,7 @@ export default function SEOSection() {
             </motion.div>
 
             {/* Checklist */}
-            <motion.div variants={fadeInRight} className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm md:p-10">
+            <motion.div variants={fadeInRight} className="rounded-2xl border border-gray-100 bg-white/85 backdrop-blur-sm p-8 shadow-sm md:p-10">
               <h3 className="mb-6 text-2xl font-bold text-gray-900">What&apos;s Included</h3>
               <div className="space-y-4">
                 {[

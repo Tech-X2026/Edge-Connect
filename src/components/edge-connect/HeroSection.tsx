@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Play } from 'lucide-react'
-import ParticleBackground from './ParticleBackground'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -255,20 +254,8 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
-      {/* ── Full‑section cyan particle field (high latency) ── */}
-      <ParticleBackground
-        particleCount={220}
-        colors={['023047', '0077B6', '0096C7', '00B4D8', '48CAE4']}
-        maxRadius={3.5}
-        trailLength={14}
-        mouseRadius={350}
-        mouseForce={0.025}
-        enableGlow={true}
-        className="z-0"
-      />
-
       {/* ── Floating Orbs ── */}
       {FLOATING_ORBS.map((orb) => (
         <FloatingOrb key={orb.id} orb={orb} />

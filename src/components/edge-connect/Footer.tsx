@@ -26,7 +26,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="relative mt-auto border-t border-gray-100 bg-gradient-to-b from-white to-gray-50">
+    <footer className="relative mt-auto border-t border-gray-100 bg-white/80 backdrop-blur-sm">
       {/* Decorative line */}
       <div className="section-divider" />
 

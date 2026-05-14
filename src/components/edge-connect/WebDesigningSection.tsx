@@ -70,7 +70,7 @@ export default function WebDesigningSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative overflow-hidden bg-white py-20 md:py-28">
+    <section className="relative overflow-hidden py-20 md:py-28">
       <div className="pointer-events-none absolute left-0 top-1/4 h-60 w-60 rounded-full bg-[#F0F9FF]/40 blur-3xl" />
       <div className="pointer-events-none absolute right-0 bottom-1/4 h-60 w-60 rounded-full bg-[#CAF0F8]/40 blur-3xl" />
 
@@ -106,7 +106,7 @@ export default function WebDesigningSection() {
                   key={service.title}
                   variants={itemVariants}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-lg hover:shadow-[#CAF0F8]/50"
+                  className="group rounded-2xl border border-gray-100 bg-white/85 backdrop-blur-sm p-6 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-lg hover:shadow-[#CAF0F8]/50"
                 >
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#F0F9FF] to-[#CAF0F8]">
                     <Icon className="h-6 w-6 text-ec-primary" />
@@ -128,7 +128,7 @@ export default function WebDesigningSection() {
                   <motion.div
                     key={project.name}
                     whileHover={{ x: 4, transition: { duration: 0.2 } }}
-                    className="group flex items-center justify-between rounded-xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-md"
+                    className="group flex items-center justify-between rounded-xl border border-gray-100 bg-white/85 backdrop-blur-sm p-5 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-md"
                   >
                     <div>
                       <h4 className="font-bold text-gray-900">{project.name}</h4>

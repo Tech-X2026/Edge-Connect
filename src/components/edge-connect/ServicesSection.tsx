@@ -95,7 +95,7 @@ export default function ServicesSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-gray-50/50 to-white py-20 md:py-28">
+    <section className="relative overflow-hidden py-20 md:py-28">
       {/* Decorative elements */}
       <div className="pointer-events-none absolute left-1/4 top-0 h-64 w-64 rounded-full bg-[#F0F9FF]/40 blur-3xl" />
       <div className="pointer-events-none absolute right-1/4 bottom-0 h-64 w-64 rounded-full bg-[#CAF0F8]/40 blur-3xl" />
@@ -132,8 +132,8 @@ export default function ServicesSection() {
                   whileHover={{ y: -8, transition: { duration: 0.3 } }}
                   className={`group overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 ${
                     isBookCard
-                      ? 'border-[#00B4D8]/30 bg-gradient-to-br from-[#F0F9FF] to-white hover:border-[#00B4D8] hover:shadow-xl hover:shadow-[#00B4D8]/20'
-                      : 'border-gray-100 bg-white hover:border-[#90E0EF] hover:shadow-xl hover:shadow-[#CAF0F8]/50'
+                      ? 'border-[#00B4D8]/30 bg-gradient-to-br from-[#F0F9FF]/85 to-white/85 backdrop-blur-sm hover:border-[#00B4D8] hover:shadow-xl hover:shadow-[#00B4D8]/20'
+                      : 'border-gray-100 bg-white/85 backdrop-blur-sm hover:border-[#90E0EF] hover:shadow-xl hover:shadow-[#CAF0F8]/50'
                   }`}
                 >
                   <Link href={service.href} className="block">
