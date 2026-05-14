@@ -10,7 +10,7 @@ interface PageLayoutProps {
 export default function PageLayout({ children }: PageLayoutProps) {
   return (
     <div className="min-h-screen flex flex-col">
-      <PageParticleBackground particleCount={60} />
+      <PageParticleBackground particleCount={150} />
       <Navbar />
       <main className="relative z-10 flex-1 pt-16 md:pt-20">
         {children}
