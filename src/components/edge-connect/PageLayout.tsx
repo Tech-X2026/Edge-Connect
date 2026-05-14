@@ -1,5 +1,6 @@
 import Navbar from '@/components/edge-connect/Navbar'
 import Footer from '@/components/edge-connect/Footer'
+import FloatingContactButtons from '@/components/edge-connect/FloatingContactButtons'
 
 interface PageLayoutProps {
   children: React.ReactNode
@@ -13,6 +14,7 @@ export default function PageLayout({ children }: PageLayoutProps) {
         {children}
       </main>
       <Footer />
+      <FloatingContactButtons />
     </div>
   )
 }

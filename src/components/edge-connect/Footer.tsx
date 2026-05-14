@@ -6,10 +6,11 @@ import { ArrowUp, Heart } from 'lucide-react'
 
 const footerLinks = {
   Services: [
-    { label: 'SEO', href: '/services/seo' },
-    { label: 'Digital Marketing', href: '/services/digital-marketing' },
-    { label: 'Performance Marketing', href: '/services/performance-marketing' },
     { label: 'Web Designing', href: '/services/web-designing' },
+    { label: 'Performance Marketing', href: '/services/performance-marketing' },
+    { label: 'Digital Marketing', href: '/services/digital-marketing' },
+    { label: 'SEO', href: '/services/seo' },
+    { label: 'Book a Consultation', href: '/contact' },
   ],
   Company: [
     { label: 'About Us', href: '/about' },
@@ -37,11 +38,11 @@ export default function Footer() {
               <span className="text-2xl font-extrabold tracking-tight text-gray-900">
                 EDGE
               </span>
-              <span className="text-2xl font-extrabold tracking-tight text-emerald-600">
+              <span className="text-2xl font-extrabold tracking-tight text-[#00B4D8]">
                 CONNECT
               </span>
             </Link>
-            <p className="mb-6 max-w-sm text-sm leading-relaxed text-ec-muted">
+            <p className="mb-6 max-w-sm text-sm font-medium leading-relaxed text-ec-muted">
               Transforming businesses through innovative digital marketing strategies. We connect brands with their audiences in meaningful, measurable ways.
             </p>
             <div className="flex gap-3">
@@ -49,7 +50,7 @@ export default function Footer() {
                 <a
                   key={social}
                   href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-xs font-bold text-gray-500 transition-all duration-200 hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-xs font-bold text-gray-500 transition-all duration-200 hover:border-[#90E0EF] hover:bg-[#F0F9FF] hover:text-[#00B4D8]"
                 >
                   {social}
                 </a>
@@ -66,7 +67,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-ec-muted transition-colors duration-200 hover:text-emerald-600"
+                      className="text-sm text-ec-muted transition-colors duration-200 hover:text-[#00B4D8]"
                     >
                       {link.label}
                     </Link>
@@ -86,7 +87,7 @@ export default function Footer() {
           </p>
           <motion.button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-500 transition-all duration-200 hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600"
+            className="flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-500 transition-all duration-200 hover:border-[#90E0EF] hover:bg-[#F0F9FF] hover:text-[#00B4D8]"
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.95 }}
           >

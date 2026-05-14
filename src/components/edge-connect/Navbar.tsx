@@ -34,15 +34,16 @@ interface NavbarProps {
 
 const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
+  { label: 'About Us', href: '/about' },
   {
     label: 'Services',
     href: '/services',
     subItems: [
-      { label: 'SEO', href: '/services/seo' },
-      { label: 'Digital Marketing', href: '/services/digital-marketing' },
-      { label: 'Performance Marketing', href: '/services/performance-marketing' },
       { label: 'Web Designing', href: '/services/web-designing' },
+      { label: 'Performance Marketing', href: '/services/performance-marketing' },
+      { label: 'Digital Marketing', href: '/services/digital-marketing' },
+      { label: 'SEO', href: '/services/seo' },
+      { label: 'Book a Consultation', href: '/contact' },
     ],
   },
   { label: 'Vision & Mission', href: '/vision-mission' },
@@ -75,7 +76,6 @@ export default function Navbar({ className }: NavbarProps) {
 
   // Close mobile menu on route change
   useEffect(() => {
-    // Use a microtask to avoid synchronous setState in effect
     const id = requestAnimationFrame(() => {
       setIsMobileMenuOpen(false)
       setIsServicesOpen(false)
@@ -104,18 +104,21 @@ export default function Navbar({ className }: NavbarProps) {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white shadow-md'
-          : 'bg-white/80 backdrop-blur-md'
+          ? 'bg-white/95 shadow-lg shadow-gray-200/40 backdrop-blur-lg'
+          : 'bg-white/70 backdrop-blur-xl'
       } ${className ?? ''}`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between md:h-20">
           {/* ── Logo ── */}
-          <Link href="/" className="flex items-center gap-1 focus:outline-none">
-            <span className="text-xl font-extrabold tracking-tight text-gray-900 sm:text-2xl">
+          <Link
+            href="/"
+            className="group flex items-center gap-1 focus:outline-none"
+          >
+            <span className="text-xl font-extrabold tracking-tight text-gray-900 transition-all duration-300 group-hover:tracking-wider sm:text-2xl">
               EDGE
             </span>
-            <span className="text-xl font-extrabold tracking-tight text-emerald-600 sm:text-2xl">
+            <span className="text-xl font-extrabold tracking-tight text-[#00B4D8] transition-all duration-300 group-hover:text-[#0077B6] group-hover:tracking-wider sm:text-2xl">
               CONNECT
             </span>
           </Link>
@@ -135,29 +138,36 @@ export default function Navbar({ className }: NavbarProps) {
                 >
                   <Link
                     href={item.href}
-                    className={`relative flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-200 lg:px-4 ${
+                    className={`group/nav relative flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-300 lg:px-4 ${
                       active
-                        ? 'text-emerald-600'
-                        : 'text-gray-600 hover:text-emerald-600'
+                        ? 'text-[#00B4D8]'
+                        : 'text-gray-600 hover:text-[#00B4D8]'
                     }`}
                   >
-                    {item.label}
+                    {/* Hover background glow */}
+                    <span className="absolute inset-0 rounded-lg bg-[#00B4D8]/0 transition-all duration-300 group-hover/nav:bg-[#00B4D8]/5 group-hover/nav:shadow-[0_0_20px_rgba(0,180,216,0.08)]" />
+
+                    {/* Animated underline */}
+                    <span
+                      className={`absolute bottom-0 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#00B4D8] to-[#48CAE4] transition-all duration-300 ease-out ${
+                        active
+                          ? 'w-6'
+                          : 'w-0 group-hover/nav:w-5'
+                      }`}
+                    />
+
+                    <span className="relative z-10 transition-transform duration-200 group-hover/nav:-translate-y-[1px]">
+                      {item.label}
+                    </span>
+
                     {hasDropdown && (
                       <motion.span
                         animate={{ rotate: isServicesOpen ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
+                        className="relative z-10"
                       >
-                        <ChevronDown className="h-4 w-4" />
+                        <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover/nav:translate-y-[1px]" />
                       </motion.span>
-                    )}
-
-                    {/* Active indicator line */}
-                    {active && (
-                      <motion.span
-                        layoutId="activeNavIndicator"
-                        className="absolute bottom-0 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-emerald-500"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      />
                     )}
                   </Link>
 
@@ -169,9 +179,12 @@ export default function Navbar({ className }: NavbarProps) {
                           initial={{ opacity: 0, y: 8, scale: 0.96 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                          transition={{ duration: 0.18, ease: 'easeOut' }}
-                          className="absolute left-0 top-full mt-1 w-60 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg shadow-gray-200/50"
+                          transition={{ duration: 0.2, ease: 'easeOut' }}
+                          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 overflow-hidden rounded-2xl border border-gray-100/80 bg-white/95 shadow-xl shadow-gray-200/50 backdrop-blur-lg"
                         >
+                          {/* Top gradient accent */}
+                          <div className="h-[2px] bg-gradient-to-r from-[#00B4D8] via-[#48CAE4] to-[#00B4D8]" />
+
                           <div className="p-2">
                             {item.subItems!.map((sub, idx) => {
                               const subActive = pathname === sub.href
@@ -182,24 +195,39 @@ export default function Navbar({ className }: NavbarProps) {
                                   initial={{ opacity: 0, x: -12 }}
                                   animate={{ opacity: 1, x: 0 }}
                                   transition={{ delay: idx * 0.05 }}
-                                  className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-150 ${
+                                  className={`group/sub flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
                                     subActive
-                                      ? 'bg-emerald-50 text-emerald-700'
-                                      : 'text-gray-600 hover:bg-gray-50 hover:text-emerald-600'
+                                      ? 'bg-[#F0F9FF] text-[#023047]'
+                                      : 'text-gray-600 hover:bg-[#F0F9FF]/70 hover:text-[#00B4D8]'
                                   }`}
                                 >
-                                  <span>{sub.label}</span>
+                                  <span className="flex items-center gap-2.5">
+                                    {/* Animated dot indicator */}
+                                    <span
+                                      className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
+                                        subActive
+                                          ? 'bg-[#00B4D8] scale-100'
+                                          : 'bg-gray-300 group-hover/sub:bg-[#00B4D8] group-hover/sub:scale-125'
+                                      }`}
+                                    />
+                                    <span className="transition-transform duration-200 group-hover/sub:translate-x-0.5">
+                                      {sub.label}
+                                    </span>
+                                  </span>
                                   <ArrowRight
-                                    className={`h-3.5 w-3.5 transition-transform duration-150 ${
+                                    className={`h-3.5 w-3.5 transition-all duration-200 ${
                                       subActive
-                                        ? 'translate-x-0 text-emerald-500'
-                                        : '-translate-x-1 opacity-0'
+                                        ? 'translate-x-0 text-[#00B4D8]'
+                                        : '-translate-x-2 opacity-0 group-hover/sub:translate-x-0 group-hover/sub:opacity-100 group-hover/sub:text-[#00B4D8]'
                                     }`}
                                   />
                                 </Link>
                               )
                             })}
                           </div>
+
+                          {/* Bottom gradient accent */}
+                          <div className="h-[2px] bg-gradient-to-r from-transparent via-[#90E0EF] to-transparent" />
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -209,12 +237,16 @@ export default function Navbar({ className }: NavbarProps) {
             })}
 
             {/* CTA Button */}
-            <Link
-              href="/contact"
-              className="ml-3 rounded-lg bg-emerald-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-emerald-700 active:bg-emerald-800 lg:ml-4"
-            >
-              Get Started
-            </Link>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="/contact"
+                className="group/btn ml-3 inline-flex items-center gap-1.5 rounded-xl bg-ec-primary px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-ec-accent hover:shadow-lg lg:ml-4"
+                style={{ backgroundColor: '#00B4D8' }}
+              >
+                Get Started
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
+              </Link>
+            </motion.div>
           </div>
 
           {/* ── Mobile Hamburger ── */}
@@ -222,7 +254,7 @@ export default function Navbar({ className }: NavbarProps) {
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <motion.button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="flex items-center justify-center rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100 hover:text-emerald-600"
+                className="flex items-center justify-center rounded-xl p-2 text-gray-700 transition-all duration-200 hover:bg-[#F0F9FF] hover:text-[#00B4D8] hover:shadow-md hover:shadow-[#00B4D8]/10"
                 whileTap={{ scale: 0.9 }}
                 aria-label="Open navigation menu"
               >
@@ -235,7 +267,7 @@ export default function Navbar({ className }: NavbarProps) {
                     <span className="text-lg font-extrabold tracking-tight text-gray-900">
                       EDGE
                     </span>
-                    <span className="text-lg font-extrabold tracking-tight text-emerald-600">
+                    <span className="text-lg font-extrabold tracking-tight text-[#00B4D8]">
                       CONNECT
                     </span>
                   </SheetTitle>
@@ -258,10 +290,10 @@ export default function Navbar({ className }: NavbarProps) {
                           {hasDropdown ? (
                             <button
                               onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                              className={`flex-1 rounded-lg px-3 py-3 text-left text-base font-medium transition-colors duration-150 ${
+                              className={`group/mob flex-1 rounded-xl px-3 py-3 text-left text-base font-medium transition-all duration-200 ${
                                 active
-                                  ? 'bg-emerald-50 text-emerald-700'
-                                  : 'text-gray-700 hover:bg-gray-50 hover:text-emerald-600'
+                                  ? 'bg-[#F0F9FF] text-[#023047]'
+                                  : 'text-gray-700 hover:bg-[#F0F9FF]/50 hover:text-[#00B4D8]'
                               }`}
                             >
                               {item.label}
@@ -270,10 +302,10 @@ export default function Navbar({ className }: NavbarProps) {
                             <SheetClose asChild>
                               <Link
                                 href={item.href}
-                                className={`flex-1 rounded-lg px-3 py-3 text-left text-base font-medium transition-colors duration-150 ${
+                                className={`group/mob flex-1 rounded-xl px-3 py-3 text-left text-base font-medium transition-all duration-200 ${
                                   active
-                                    ? 'bg-emerald-50 text-emerald-700'
-                                    : 'text-gray-700 hover:bg-gray-50 hover:text-emerald-600'
+                                    ? 'bg-[#F0F9FF] text-[#023047]'
+                                    : 'text-gray-700 hover:bg-[#F0F9FF]/50 hover:text-[#00B4D8]'
                                 }`}
                               >
                                 {item.label}
@@ -284,7 +316,7 @@ export default function Navbar({ className }: NavbarProps) {
                           {hasDropdown && (
                             <button
                               onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                              className="rounded-lg p-2 text-gray-400 transition-colors hover:bg-gray-50 hover:text-emerald-600"
+                              className="rounded-xl p-2 text-gray-400 transition-all duration-200 hover:bg-[#F0F9FF] hover:text-[#00B4D8]"
                               aria-label="Toggle services submenu"
                             >
                               <motion.span
@@ -308,21 +340,29 @@ export default function Navbar({ className }: NavbarProps) {
                                 transition={{ duration: 0.2 }}
                                 className="overflow-hidden"
                               >
-                                <div className="ml-4 border-l-2 border-emerald-200 pl-3">
+                                <div className="ml-4 border-l-2 border-[#90E0EF] pl-3">
                                   {item.subItems!.map((sub) => {
                                     const subActive = pathname === sub.href
                                     return (
                                       <SheetClose key={sub.href} asChild>
                                         <Link
                                           href={sub.href}
-                                          className={`flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-150 ${
+                                          className={`group/msub flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
                                             subActive
-                                              ? 'bg-emerald-50 text-emerald-700'
-                                              : 'text-gray-500 hover:bg-gray-50 hover:text-emerald-600'
+                                              ? 'bg-[#F0F9FF] text-[#023047]'
+                                              : 'text-gray-500 hover:bg-[#F0F9FF]/50 hover:text-[#00B4D8]'
                                           }`}
                                         >
-                                          <span className="h-1.5 w-1.5 rounded-full bg-current" />
-                                          {sub.label}
+                                          <span
+                                            className={`h-1.5 w-1.5 rounded-full transition-all duration-200 ${
+                                              subActive
+                                                ? 'bg-[#00B4D8]'
+                                                : 'bg-gray-300 group-hover/msub:bg-[#00B4D8] group-hover/msub:scale-125'
+                                            }`}
+                                          />
+                                          <span className="transition-transform duration-200 group-hover/msub:translate-x-0.5">
+                                            {sub.label}
+                                          </span>
                                         </Link>
                                       </SheetClose>
                                     )
@@ -346,10 +386,13 @@ export default function Navbar({ className }: NavbarProps) {
                     <SheetClose asChild>
                       <Link
                         href="/contact"
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-base font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-emerald-700 active:bg-emerald-800"
+                        className="group/mbtn flex w-full items-center justify-center gap-2 rounded-xl bg-ec-primary px-5 py-3 text-base font-semibold text-white shadow-md transition-all duration-300 hover:bg-ec-accent hover:shadow-lg active:scale-[0.97]"
+                        style={{ backgroundColor: '#00B4D8' }}
                       >
-                        Get Started
-                        <ArrowRight className="h-4 w-4" />
+                        <span className="relative flex items-center gap-2">
+                          Get Started
+                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/mbtn:translate-x-0.5" />
+                        </span>
                       </Link>
                     </SheetClose>
                   </motion.div>

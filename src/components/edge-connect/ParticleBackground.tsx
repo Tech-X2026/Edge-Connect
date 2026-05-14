@@ -76,7 +76,7 @@ function parseHex(hex: string): [number, number, number] {
 
 export default function ParticleBackground({
   particleCount = 200,
-  colors = ['047857', '059669', '10B981', '34D399', '6EE7B7'],
+  colors = ['023047', '0077B6', '0096C7', '00B4D8', '48CAE4'],
   maxRadius = 3.5,
   trailLength = 12,
   mouseRadius = 350,
@@ -314,9 +314,9 @@ export default function ParticleBackground({
           mx, my, 0,
           mx, my, mouseRadius * 0.4,
         )
-        gradient.addColorStop(0, 'rgba(16, 185, 129, 0.07)')
-        gradient.addColorStop(0.5, 'rgba(5, 150, 105, 0.03)')
-        gradient.addColorStop(1, 'rgba(16, 185, 129, 0)')
+        gradient.addColorStop(0, 'rgba(0, 180, 216, 0.07)')
+        gradient.addColorStop(0.5, 'rgba(0, 150, 199, 0.03)')
+        gradient.addColorStop(1, 'rgba(0, 180, 216, 0)')
         ctx.beginPath()
         ctx.arc(mx, my, mouseRadius * 0.4, 0, Math.PI * 2)
         ctx.fillStyle = gradient

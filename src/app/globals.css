@@ -42,13 +42,13 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --color-ec-primary: #059669;
-  --color-ec-primary-light: #10B981;
-  --color-ec-accent: #06B6D4;
-  --color-ec-dark: #0F172A;
-  --color-ec-muted: #64748B;
-  --color-ec-light: #F0FDF4;
-  --color-ec-cyan: #ECFEFF;
+  --color-ec-primary: #00B4D8;
+  --color-ec-primary-light: #48CAE4;
+  --color-ec-accent: #0096C7;
+  --color-ec-dark: #023047;
+  --color-ec-muted: #475569;
+  --color-ec-light: #F0F9FF;
+  --color-ec-cyan: #CAF0F8;
 }
 
 :root {
@@ -100,16 +100,16 @@
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(135deg, #059669, #06B6D4);
+    background: linear-gradient(135deg, #023047, #00B4D8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   .bg-gradient-ec {
-    background: linear-gradient(135deg, #059669, #06B6D4);
+    background: linear-gradient(135deg, #023047, #00B4D8);
   }
   .bg-gradient-ec-light {
-    background: linear-gradient(135deg, #F0FDF4, #ECFEFF);
+    background: linear-gradient(135deg, #F0F9FF, #CAF0F8);
   }
   .glass-card {
     background: rgba(255, 255, 255, 0.7);
@@ -121,17 +121,17 @@
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  .glow-green {
-    box-shadow: 0 0 40px rgba(16, 185, 129, 0.15);
+  .glow-cyan {
+    box-shadow: 0 0 40px rgba(0, 180, 216, 0.15);
   }
-  .glow-green-strong {
-    box-shadow: 0 0 60px rgba(16, 185, 129, 0.25);
+  .glow-cyan-strong {
+    box-shadow: 0 0 60px rgba(0, 180, 216, 0.25);
   }
   .hero-gradient {
-    background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(0, 180, 216, 0.08) 0%, transparent 70%);
   }
   .section-divider {
-    background: linear-gradient(90deg, transparent, #10B981, transparent);
+    background: linear-gradient(90deg, transparent, #00B4D8, transparent);
     height: 1px;
   }
 }
@@ -153,6 +153,6 @@
 
 /* Selection */
 ::selection {
-  background: rgba(16, 185, 129, 0.2);
-  color: #0F172A;
+  background: rgba(0, 180, 216, 0.2);
+  color: #023047;
 }

@@ -32,7 +32,7 @@ const FLOATING_ORBS: FloatingOrb[] = [
     size: 320,
     x: '8%',
     y: '10%',
-    gradient: 'from-emerald-400/25 to-cyan-300/15',
+    gradient: 'from-[#00B4D8]/25 to-[#48CAE4]/15',
     duration: 18,
     delay: 0,
   },
@@ -41,7 +41,7 @@ const FLOATING_ORBS: FloatingOrb[] = [
     size: 240,
     x: '72%',
     y: '15%',
-    gradient: 'from-cyan-400/20 to-emerald-300/10',
+    gradient: 'from-[#48CAE4]/20 to-[#00B4D8]/10',
     duration: 22,
     delay: 2,
   },
@@ -50,7 +50,7 @@ const FLOATING_ORBS: FloatingOrb[] = [
     size: 180,
     x: '55%',
     y: '60%',
-    gradient: 'from-emerald-300/18 to-teal-200/10',
+    gradient: 'from-[#00B4D8]/18 to-[#48CAE4]/10',
     duration: 20,
     delay: 4,
   },
@@ -59,7 +59,7 @@ const FLOATING_ORBS: FloatingOrb[] = [
     size: 140,
     x: '18%',
     y: '68%',
-    gradient: 'from-teal-300/15 to-cyan-200/10',
+    gradient: 'from-[#48CAE4]/15 to-[#90E0EF]/10',
     duration: 16,
     delay: 1,
   },
@@ -68,7 +68,7 @@ const FLOATING_ORBS: FloatingOrb[] = [
     size: 110,
     x: '82%',
     y: '50%',
-    gradient: 'from-cyan-300/12 to-emerald-200/8',
+    gradient: 'from-[#48CAE4]/12 to-[#90E0EF]/8',
     duration: 24,
     delay: 3,
   },
@@ -206,7 +206,7 @@ function StatCard({ stat }: StatCardProps) {
         {count}
         {stat.suffix}
       </span>
-      <span className="text-ec-muted text-xs font-medium tracking-wide uppercase sm:text-sm">
+      <span className="text-ec-muted text-xs font-semibold tracking-wide uppercase sm:text-sm">
         {stat.label}
       </span>
     </motion.div>
@@ -257,10 +257,10 @@ export default function HeroSection() {
     <section
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white"
     >
-      {/* ── Full‑section emerald‑green particle field (high latency) ── */}
+      {/* ── Full‑section cyan particle field (high latency) ── */}
       <ParticleBackground
         particleCount={220}
-        colors={['047857', '059669', '10B981', '34D399', '6EE7B7']}
+        colors={['023047', '0077B6', '0096C7', '00B4D8', '48CAE4']}
         maxRadius={3.5}
         trailLength={14}
         mouseRadius={350}
@@ -279,7 +279,7 @@ export default function HeroSection() {
         className="pointer-events-none absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2"
         aria-hidden="true"
       >
-        <div className="h-[700px] w-[700px] rounded-full bg-gradient-to-br from-emerald-100/50 via-cyan-50/30 to-transparent blur-3xl" />
+        <div className="h-[700px] w-[700px] rounded-full bg-gradient-to-br from-[#CAF0F8]/50 via-[#CAF0F8]/30 to-transparent blur-3xl" />
       </div>
 
       {/* ── Main Content ── */}
@@ -292,10 +292,10 @@ export default function HeroSection() {
         {/* Badge / Tagline */}
         <motion.div
           variants={textRevealVariants}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50/80 px-4 py-1.5 backdrop-blur-sm sm:mb-8"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#90E0EF] bg-[#F0F9FF]/80 px-6 py-2 backdrop-blur-sm transition-all duration-300 hover:border-[#00B4D8] hover:bg-[#00B4D8]/10 hover:shadow-md hover:shadow-[#00B4D8]/10 sm:mb-8"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-ec-primary text-xs font-semibold tracking-wider uppercase sm:text-sm">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#00B4D8] animate-pulse" />
+          <span className="text-ec-primary text-sm font-bold tracking-wider uppercase sm:text-base">
             Digital Marketing Excellence
           </span>
         </motion.div>
@@ -311,7 +311,7 @@ export default function HeroSection() {
         {/* Subtitle */}
         <motion.p
           variants={textRevealVariants}
-          className="text-ec-muted mx-auto mb-8 max-w-2xl text-base leading-relaxed sm:mb-10 sm:text-lg md:text-xl"
+          className="text-ec-muted mx-auto mb-8 max-w-2xl text-base font-medium leading-relaxed sm:mb-10 sm:text-lg md:text-xl"
         >
           We craft data-driven strategies that transform your brand&apos;s online
           impact. From SEO to performance marketing, EDGE CONNECT delivers
@@ -326,7 +326,7 @@ export default function HeroSection() {
           {/* Primary CTA — Gradient */}
           <Link
             href="/services"
-            className="group bg-gradient-ec inline-flex cursor-pointer items-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-emerald-500/40 sm:px-8 sm:py-4 sm:text-base"
+            className="group bg-gradient-ec inline-flex cursor-pointer items-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#00B4D8]/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-[#00B4D8]/40 sm:px-8 sm:py-4 sm:text-base"
           >
             Explore Services
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -335,9 +335,9 @@ export default function HeroSection() {
           {/* Secondary CTA — Outline */}
           <Link
             href="/contact"
-            className="group inline-flex cursor-pointer items-center gap-2.5 rounded-xl border-2 border-emerald-600/30 bg-white/80 px-7 py-3.5 text-sm font-semibold text-ec-primary backdrop-blur-sm transition-colors duration-300 hover:border-emerald-500/50 hover:bg-emerald-50/80 sm:px-8 sm:py-4 sm:text-base"
+            className="group inline-flex cursor-pointer items-center gap-2.5 rounded-xl border-2 border-[#00B4D8]/30 bg-white/80 px-7 py-3.5 text-sm font-semibold text-ec-primary backdrop-blur-sm transition-colors duration-300 hover:border-[#00B4D8]/50 hover:bg-[#F0F9FF]/80 sm:px-8 sm:py-4 sm:text-base"
           >
-            <Play className="h-4 w-4 transition-colors duration-300 group-hover:text-emerald-500" />
+            <Play className="h-4 w-4 transition-colors duration-300 group-hover:text-[#00B4D8]" />
             Contact Us
           </Link>
         </motion.div>
@@ -376,10 +376,10 @@ export default function HeroSection() {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <span className="text-xs font-medium text-emerald-600/50">Scroll to explore</span>
-          <div className="h-8 w-5 rounded-full border-2 border-emerald-300/30 p-1">
+          <span className="text-xs font-medium text-[#00B4D8]/50">Scroll to explore</span>
+          <div className="h-8 w-5 rounded-full border-2 border-[#48CAE4]/30 p-1">
             <motion.div
-              className="h-1.5 w-1.5 rounded-full bg-emerald-500"
+              className="h-1.5 w-1.5 rounded-full bg-[#00B4D8]"
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             />

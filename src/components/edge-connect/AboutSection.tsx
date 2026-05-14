@@ -59,10 +59,10 @@ export default function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50/30 to-white py-20 md:py-28">
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#F0F9FF]/30 to-white py-20 md:py-28">
       {/* Decorative background elements */}
-      <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-emerald-100/30 blur-3xl" />
-      <div className="pointer-events-none absolute -right-40 bottom-20 h-80 w-80 rounded-full bg-cyan-100/30 blur-3xl" />
+      <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-[#CAF0F8]/30 blur-3xl" />
+      <div className="pointer-events-none absolute -right-40 bottom-20 h-80 w-80 rounded-full bg-[#CAF0F8]/30 blur-3xl" />
 
       <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -72,14 +72,14 @@ export default function AboutSection() {
         >
           {/* Section Header */}
           <motion.div variants={fadeInUp} className="mb-16 text-center">
-            <span className="mb-4 inline-block rounded-full border border-emerald-200 bg-emerald-50/80 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase text-ec-primary">
+            <span className="mb-4 inline-block rounded-full border border-[#90E0EF] bg-[#F0F9FF]/80 px-6 py-2 text-sm font-bold tracking-wider uppercase text-ec-primary transition-all duration-300 hover:border-[#00B4D8] hover:bg-[#00B4D8]/10 hover:shadow-md hover:shadow-[#00B4D8]/10 sm:text-base">
               About Us
             </span>
             <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
               Who We Are at{' '}
               <span className="text-gradient">EDGE CONNECT</span>
             </h2>
-            <p className="mx-auto max-w-3xl text-base leading-relaxed text-ec-muted sm:text-lg">
+            <p className="mx-auto max-w-3xl text-base font-medium leading-relaxed text-ec-muted sm:text-lg">
               EDGE CONNECT is a full-service digital marketing agency that bridges the gap between brands and their audiences. With over 15 years of collective expertise, we craft strategies that don&apos;t just reach people — they resonate, engage, and convert.
             </p>
           </motion.div>
@@ -91,24 +91,24 @@ export default function AboutSection() {
           >
             {/* Left: Visual element */}
             <div className="relative">
-              <div className="glow-green-strong relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-cyan-50 p-8 md:p-10">
-                <div className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-emerald-200/40 blur-2xl" />
-                <div className="absolute -bottom-8 -left-8 h-40 w-40 rounded-full bg-cyan-200/30 blur-2xl" />
+              <div className="glow-cyan-strong relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#023047] to-[#0077B6] p-8 md:p-10">
+                <div className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-[#48CAE4]/20 blur-2xl" />
+                <div className="absolute -bottom-8 -left-8 h-40 w-40 rounded-full bg-[#90E0EF]/15 blur-2xl" />
                 <div className="relative z-10">
-                  <div className="mb-6 text-6xl font-black text-gradient sm:text-7xl md:text-8xl">
+                  <div className="mb-6 text-6xl font-black text-white sm:text-7xl md:text-8xl">
                     15+
                   </div>
-                  <div className="text-lg font-semibold text-gray-800 sm:text-xl">
+                  <div className="text-lg font-semibold text-white sm:text-xl">
                     Years of Digital Excellence
                   </div>
-                  <div className="mt-2 text-sm text-ec-muted sm:text-base">
+                  <div className="mt-2 text-sm text-[#CAF0F8] sm:text-base">
                     Transforming businesses through innovative digital strategies
                   </div>
                 </div>
                 {/* Decorative dots */}
                 <div className="absolute bottom-4 right-4 grid grid-cols-4 gap-2 opacity-20">
                   {Array.from({ length: 16 }).map((_, i) => (
-                    <div key={i} className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+                    <div key={i} className="h-1.5 w-1.5 rounded-full bg-white" />
                   ))}
                 </div>
               </div>
@@ -119,17 +119,17 @@ export default function AboutSection() {
               <h3 className="text-2xl font-bold text-gray-900 sm:text-3xl">
                 Our Story
               </h3>
-              <p className="text-base leading-relaxed text-ec-muted sm:text-lg">
+              <p className="text-base font-medium leading-relaxed text-ec-muted sm:text-lg">
                 Founded with a simple yet powerful belief — that every business deserves a digital presence that truly reflects its potential — EDGE CONNECT has grown from a small team of passionate marketers into a full-fledged agency serving clients across industries.
               </p>
-              <p className="text-base leading-relaxed text-ec-muted sm:text-lg">
+              <p className="text-base font-medium leading-relaxed text-ec-muted sm:text-lg">
                 We combine creativity with data-driven insights to deliver campaigns that make a real difference. Our team of strategists, designers, developers, and analysts work as one cohesive unit to ensure your brand stands out in the digital landscape.
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
                 {['Strategy', 'Creativity', 'Data', 'Results'].map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-emerald-200 bg-emerald-50/80 px-4 py-1.5 text-sm font-medium text-ec-primary"
+                    className="rounded-full border border-[#90E0EF] bg-[#F0F9FF]/80 px-5 py-1.5 text-sm font-bold text-ec-primary transition-all duration-300 hover:border-[#00B4D8] hover:bg-[#00B4D8]/10 hover:shadow-md hover:shadow-[#00B4D8]/10"
                   >
                     {tag}
                   </span>
@@ -150,7 +150,7 @@ export default function AboutSection() {
                   key={value.title}
                   variants={cardVariants}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="group glass-card rounded-2xl p-6 transition-shadow duration-300 hover:shadow-lg hover:shadow-emerald-100/50"
+                  className="group glass-card rounded-2xl p-6 transition-shadow duration-300 hover:shadow-lg hover:shadow-[#CAF0F8]/50"
                 >
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-ec shadow-sm">
                     <Icon className="h-6 w-6 text-white" />
@@ -158,7 +158,7 @@ export default function AboutSection() {
                   <h4 className="mb-2 text-lg font-bold text-gray-900">
                     {value.title}
                   </h4>
-                  <p className="text-sm leading-relaxed text-ec-muted">
+                  <p className="text-sm font-medium leading-relaxed text-ec-muted">
                     {value.description}
                   </p>
                 </motion.div>

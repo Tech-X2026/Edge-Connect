@@ -63,8 +63,8 @@ export default function SEOSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-emerald-50/30 to-white py-20 md:py-28">
-      <div className="pointer-events-none absolute -right-20 top-20 h-60 w-60 rounded-full bg-emerald-100/30 blur-3xl" />
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#F0F9FF]/30 to-white py-20 md:py-28">
+      <div className="pointer-events-none absolute -right-20 top-20 h-60 w-60 rounded-full bg-[#CAF0F8]/30 blur-3xl" />
 
       <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -73,15 +73,15 @@ export default function SEOSection() {
           animate={isInView ? 'visible' : 'hidden'}
         >
           {/* Header */}
-          <motion.div variants={fadeInLeft} className="mb-12">
-            <span className="mb-4 inline-block rounded-full border border-emerald-200 bg-emerald-50/80 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase text-ec-primary">
+          <motion.div variants={fadeInLeft} className="mb-12 text-center">
+            <span className="mb-4 inline-block rounded-full border border-[#90E0EF] bg-[#F0F9FF]/80 px-6 py-2 text-sm font-bold tracking-wider uppercase text-ec-primary transition-all duration-300 hover:border-[#00B4D8] hover:bg-[#00B4D8]/10 hover:shadow-md hover:shadow-[#00B4D8]/10 sm:text-base">
               SEO Services
             </span>
             <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
               Search Engine{' '}
               <span className="text-gradient">Optimization</span>
             </h2>
-            <p className="max-w-2xl text-base leading-relaxed text-ec-muted sm:text-lg">
+            <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-ec-muted sm:text-lg">
               Get found by the people who are actively looking for your products and services. Our SEO strategies are built on data, refined by experience, and measured by results.
             </p>
           </motion.div>
@@ -98,18 +98,18 @@ export default function SEOSection() {
                   key={step.title}
                   variants={itemVariants}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:border-emerald-100 hover:shadow-md"
+                  className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-md"
                 >
                   <div className="mb-3 flex items-center gap-3">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-100 text-sm font-bold text-emerald-700">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#CAF0F8] text-sm font-bold text-[#023047]">
                       {idx + 1}
                     </span>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F0F9FF]">
                       <Icon className="h-5 w-5 text-ec-primary" />
                     </div>
                   </div>
                   <h4 className="mb-2 text-base font-bold text-gray-900">{step.title}</h4>
-                  <p className="text-sm leading-relaxed text-ec-muted">{step.description}</p>
+                  <p className="text-sm font-medium leading-relaxed text-ec-muted">{step.description}</p>
                 </motion.div>
               )
             })}
@@ -118,13 +118,13 @@ export default function SEOSection() {
           {/* Results & Checklist */}
           <div className="grid gap-10 lg:grid-cols-2">
             {/* Results */}
-            <motion.div variants={fadeInLeft} className="rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-700 p-8 md:p-10">
+            <motion.div variants={fadeInLeft} className="rounded-2xl bg-gradient-to-br from-[#023047] to-[#0077B6] p-8 md:p-10">
               <h3 className="mb-6 text-2xl font-bold text-white">Proven Results</h3>
               <div className="grid grid-cols-2 gap-6">
                 {results.map((result) => (
                   <div key={result.label}>
                     <div className="text-3xl font-black text-white sm:text-4xl">{result.metric}</div>
-                    <div className="mt-1 text-sm text-emerald-100">{result.label}</div>
+                    <div className="mt-1 text-sm font-medium text-[#CAF0F8]">{result.label}</div>
                   </div>
                 ))}
               </div>
@@ -152,8 +152,8 @@ export default function SEOSection() {
                   'Core Web Vitals improvement',
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
-                    <span className="text-sm text-gray-700 sm:text-base">{item}</span>
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#00B4D8]" />
+                    <span className="text-sm font-medium text-gray-700 sm:text-base">{item}</span>
                   </div>
                 ))}
               </div>

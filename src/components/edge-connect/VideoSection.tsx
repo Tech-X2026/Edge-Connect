@@ -35,8 +35,8 @@ export default function VideoSection({
       {/* Overlay */}
       <div className={`absolute inset-0 bg-gradient-to-b ${overlay}`} />
 
-      {/* Green tint */}
-      <div className="absolute inset-0 bg-emerald-900/10" />
+      {/* Cyan tint */}
+      <div className="absolute inset-0 bg-[#023047]/10" />
 
       {/* Content */}
       <motion.div

@@ -71,8 +71,8 @@ export default function WebDesigningSection() {
 
   return (
     <section className="relative overflow-hidden bg-white py-20 md:py-28">
-      <div className="pointer-events-none absolute left-0 top-1/4 h-60 w-60 rounded-full bg-emerald-50/40 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 bottom-1/4 h-60 w-60 rounded-full bg-cyan-50/40 blur-3xl" />
+      <div className="pointer-events-none absolute left-0 top-1/4 h-60 w-60 rounded-full bg-[#F0F9FF]/40 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 bottom-1/4 h-60 w-60 rounded-full bg-[#CAF0F8]/40 blur-3xl" />
 
       <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -82,14 +82,14 @@ export default function WebDesigningSection() {
         >
           {/* Header */}
           <motion.div variants={fadeInUp} className="mb-12 text-center">
-            <span className="mb-4 inline-block rounded-full border border-emerald-200 bg-emerald-50/80 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase text-ec-primary">
+            <span className="mb-4 inline-block rounded-full border border-[#90E0EF] bg-[#F0F9FF]/80 px-6 py-2 text-sm font-bold tracking-wider uppercase text-ec-primary transition-all duration-300 hover:border-[#00B4D8] hover:bg-[#00B4D8]/10 hover:shadow-md hover:shadow-[#00B4D8]/10 sm:text-base">
               Web Designing
             </span>
             <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
               Stunning Digital{' '}
               <span className="text-gradient">Experiences</span>
             </h2>
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-ec-muted sm:text-lg">
+            <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-ec-muted sm:text-lg">
               Your website is your digital storefront. We design and build experiences that captivate visitors, communicate your value, and convert them into loyal customers.
             </p>
           </motion.div>
@@ -106,13 +106,13 @@ export default function WebDesigningSection() {
                   key={service.title}
                   variants={itemVariants}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:border-emerald-100 hover:shadow-lg hover:shadow-emerald-50/50"
+                  className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-lg hover:shadow-[#CAF0F8]/50"
                 >
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-50 to-cyan-50">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#F0F9FF] to-[#CAF0F8]">
                     <Icon className="h-6 w-6 text-ec-primary" />
                   </div>
                   <h4 className="mb-2 text-lg font-bold text-gray-900">{service.title}</h4>
-                  <p className="text-sm leading-relaxed text-ec-muted">{service.description}</p>
+                  <p className="text-sm font-medium leading-relaxed text-ec-muted">{service.description}</p>
                 </motion.div>
               )
             })}
@@ -128,11 +128,11 @@ export default function WebDesigningSection() {
                   <motion.div
                     key={project.name}
                     whileHover={{ x: 4, transition: { duration: 0.2 } }}
-                    className="group flex items-center justify-between rounded-xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:border-emerald-100 hover:shadow-md"
+                    className="group flex items-center justify-between rounded-xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-md"
                   >
                     <div>
                       <h4 className="font-bold text-gray-900">{project.name}</h4>
-                      <span className="text-xs font-medium text-ec-muted">{project.category}</span>
+                      <span className="text-xs font-semibold text-ec-muted">{project.category}</span>
                     </div>
                     <div className="text-right">
                       <span className="text-sm font-semibold text-ec-primary">{project.result}</span>
@@ -143,7 +143,7 @@ export default function WebDesigningSection() {
             </motion.div>
 
             {/* Design Process */}
-            <motion.div variants={fadeInRight} className="rounded-2xl bg-gradient-to-br from-emerald-600 to-cyan-600 p-8 md:p-10">
+            <motion.div variants={fadeInRight} className="rounded-2xl bg-gradient-to-br from-[#023047] to-[#00B4D8] p-8 md:p-10">
               <h3 className="mb-6 text-2xl font-bold text-white">Our Design Process</h3>
               <div className="space-y-5">
                 {[
@@ -159,7 +159,7 @@ export default function WebDesigningSection() {
                     </span>
                     <div>
                       <h4 className="font-semibold text-white">{phase.title}</h4>
-                      <p className="text-sm text-emerald-100">{phase.desc}</p>
+                      <p className="text-sm font-medium text-[#CAF0F8]">{phase.desc}</p>
                     </div>
                   </div>
                 ))}
