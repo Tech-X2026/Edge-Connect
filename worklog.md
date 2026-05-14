@@ -183,3 +183,24 @@ Stage Summary:
 - Contains: cyan/navy theme, particle animations, PageParticleBackground, FloatingContactButtons, badge pills, all updates
 - Removed old green-themed zips from project
 - Use `bun install && bun run dev` after extracting to set up the project
+
+---
+Task ID: 7
+Agent: Main Agent
+Task: Fix zip download to contain latest code (cyan theme, all updates)
+
+Work Log:
+- Analyzed user's video with VLM - confirmed current site has cyan/teal theme, particle animations, badge pills
+- Found ROOT CAUSE: old green-themed zip files (edge-connect.zip) were in project root and download/ folder from May 8
+- Deleted ALL old zip files from: /my-project/edge-connect.zip, /my-project/download/edge-connect.zip, /home/z/edge-connect-source.zip
+- Created completely fresh zip from current disk files (verified cyan #00B4D8 theme in every file)
+- Discovered that serving zip files through the gateway crashes the Next.js server (OOM/memory issue)
+- Created solution: embedded download page at /download.html with base64-encoded zip inside JavaScript
+- The download page (287KB) works through gateway without crashing the server
+- Verified extracted zip from download page has correct cyan theme, all 16 components, all 9 pages
+
+Stage Summary:
+- Download page: /download.html (works through gateway)
+- Zip contains ALL latest code: cyan/navy theme, particle animations, premium hover, floating buttons, glassmorphism cards
+- All old green-themed zips removed
+- Server running on dev mode for stability
