@@ -139,3 +139,26 @@ Stage Summary:
 - Production build works but server process gets killed after ~10s
 - User should refresh preview to see the particle effects
 
+
+---
+Task ID: 5
+Agent: Main Agent
+Task: Create downloadable zip file of the EDGE CONNECT project with all updates
+
+Work Log:
+- Created full project zip (5.7MB) excluding node_modules, .next, .git, upload, download, tectonic binary
+- Created source-only zip (213KB) with just src/, prisma/, public/, and config files
+- Set up Next.js API route at /api/zip to serve the source zip
+- Created standalone zip download server on port 3031 with both download options
+- Full project zip: /home/z/my-project.zip (5.7MB - includes hero-video.mp4)
+- Source-only zip: /home/z/edge-connect-source.zip (213KB - no video, recommended)
+- Both zips verified as valid and containing all project files
+- Next.js API route /api/zip successfully serves the 213KB source zip through the gateway
+- Standalone server direct download works for both sizes (5.7MB full, 213KB source)
+
+Stage Summary:
+- Source zip (213KB) downloadable via /api/zip (Next.js API route, works through gateway)
+- Full project zip (5.7MB) available via standalone server at /api/download?XTransformPort=3031
+- Source-only zip available via standalone server at /api/download-source?XTransformPort=3031
+- All 107 source files included: components, pages, configs, prisma schema
+- Hero video (3.6MB) excluded from source zip for size efficiency
