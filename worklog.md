@@ -162,3 +162,24 @@ Stage Summary:
 - Source-only zip available via standalone server at /api/download-source?XTransformPort=3031
 - All 107 source files included: components, pages, configs, prisma schema
 - Hero video (3.6MB) excluded from source zip for size efficiency
+
+---
+Task ID: 6
+Agent: Main Agent
+Task: Create fresh downloadable zip with latest code (cyan/navy theme, all updates)
+
+Work Log:
+- Investigated why old zip had green theme: found old edge-connect.zip files in project root and download/ folder with #059669/#10B981 green theme
+- Removed old green-themed zips: /my-project/edge-connect.zip and /my-project/download/edge-connect.zip
+- Created fresh source zip /home/z/edge-connect-source.zip (213KB) from current disk files
+- Verified fresh zip has correct cyan/navy theme (#00B4D8/#023047), PageParticleBackground, all 16 edge-connect components
+- Also placed zip at /my-project/public/edge-connect-latest.zip for static download
+- Removed /api/zip route because it crashes the server (OOM)
+- Static file download works through gateway: /edge-connect-latest.zip (213KB)
+- Full project zip at /home/z/my-project.zip (5.6MB) also updated
+
+Stage Summary:
+- Fresh zip available at /edge-connect-latest.zip (213KB source-only) with all latest code
+- Contains: cyan/navy theme, particle animations, PageParticleBackground, FloatingContactButtons, badge pills, all updates
+- Removed old green-themed zips from project
+- Use `bun install && bun run dev` after extracting to set up the project
