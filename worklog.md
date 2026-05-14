@@ -118,3 +118,24 @@ Stage Summary:
 - All effects use cyan (#00B4D8) brand color consistently
 - Lint clean, dev server running
 
+---
+Task ID: 4
+Agent: Main Agent
+Task: Add background particle animation to all pages
+
+Work Log:
+- Read existing ParticleBackground component (heavy: 220 particles, trails, full glow)
+- Created lightweight PageParticleBackground component (60 particles, no trails, fixed position)
+- Uses position:fixed to cover the full viewport on scroll
+- Mouse attraction with lerp smoothing, particle glow, connecting lines
+- Added to PageLayout so it appears on every page
+- Main content given z-10 to float above the particle canvas
+- Built production server successfully
+- Server keeps getting OOM killed due to environment memory constraints
+
+Stage Summary:
+- PageParticleBackground.tsx created with lightweight particle effects
+- Added to PageLayout.tsx - particles now appear on all pages
+- Production build works but server process gets killed after ~10s
+- User should refresh preview to see the particle effects
+
