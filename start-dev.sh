@@ -1,6 +1,3 @@
 #!/bin/bash
-while true; do
-  npx next dev -p 3000 -H 0.0.0.0
-  echo "Server crashed, restarting in 3s..."
-  sleep 3
-done
+cd /home/z/my-project
+exec npx next dev -p 3000 -H 0.0.0.0
