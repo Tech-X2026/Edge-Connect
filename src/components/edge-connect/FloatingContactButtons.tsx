@@ -13,75 +13,79 @@ function WhatsAppIcon({ className }: { className?: string }) {
   )
 }
 
-const WHATSAPP_URL = 'https://wa.me/919876543210'
-const PHONE_URL = 'tel:+919876543210'
+const WHATSAPP_URL = 'https://wa.me/+61432887457'
+const PHONE_URL = 'tel:+61432887457'
 
 export default function FloatingContactButtons() {
   const [isHovered, setIsHovered] = useState<string | null>(null)
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
-      {/* Phone Button */}
-      <motion.a
-        href={PHONE_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#023047] text-white shadow-lg cursor-pointer"
-        whileHover={{ scale: 1.15 }}
-        whileTap={{ scale: 0.95 }}
-        onMouseEnter={() => setIsHovered('phone')}
-        onMouseLeave={() => setIsHovered(null)}
-        aria-label="Call us"
-      >
-        <Phone className="w-6 h-6" />
-        {/* Tooltip */}
-        <AnimatePresence>
-          {isHovered === 'phone' && (
-            <motion.span
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 10 }}
-              className="absolute right-full mr-3 whitespace-nowrap rounded-lg bg-[#023047] px-3 py-1.5 text-sm font-medium text-white shadow-lg"
-            >
-              Call Us
-              <span className="absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-[#023047]" />
-            </motion.span>
-          )}
-        </AnimatePresence>
-        {/* Ring animation */}
-        <span className="absolute inset-0 rounded-full bg-[#023047] animate-ping opacity-20" />
-      </motion.a>
-
+    <>
       {/* WhatsApp Button */}
-      <motion.a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg cursor-pointer"
-        whileHover={{ scale: 1.15 }}
-        whileTap={{ scale: 0.95 }}
-        onMouseEnter={() => setIsHovered('whatsapp')}
-        onMouseLeave={() => setIsHovered(null)}
-        aria-label="Chat on WhatsApp"
-      >
-        <WhatsAppIcon className="w-7 h-7" />
-        {/* Tooltip */}
-        <AnimatePresence>
-          {isHovered === 'whatsapp' && (
-            <motion.span
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 10 }}
-              className="absolute right-full mr-3 whitespace-nowrap rounded-lg bg-[#25D366] px-3 py-1.5 text-sm font-medium text-white shadow-lg"
-            >
-              WhatsApp
-              <span className="absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-[#25D366]" />
-            </motion.span>
-          )}
-        </AnimatePresence>
-        {/* Ring animation */}
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20" />
-      </motion.a>
-    </div>
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        <motion.a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg cursor-pointer"
+          whileHover={{ scale: 1.15 }}
+          whileTap={{ scale: 0.95 }}
+          onMouseEnter={() => setIsHovered('whatsapp')}
+          onMouseLeave={() => setIsHovered(null)}
+          aria-label="Chat on WhatsApp"
+        >
+          <WhatsAppIcon className="w-7 h-7" />
+          {/* Tooltip */}
+          <AnimatePresence>
+            {isHovered === 'whatsapp' && (
+              <motion.span
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                className="absolute right-full mr-3 whitespace-nowrap rounded-lg bg-[#25D366] px-3 py-1.5 text-sm font-medium text-white shadow-lg"
+              >
+                WhatsApp
+                <span className="absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-[#25D366]" />
+              </motion.span>
+            )}
+          </AnimatePresence>
+          {/* Ring animation */}
+          <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20" />
+        </motion.a>
+      </div>
+
+      {/* Phone Button */}
+      <div className="fixed bottom-6 left-6 z-50 flex flex-col gap-3">
+        <motion.a
+          href={PHONE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#023047] text-white shadow-lg cursor-pointer"
+          whileHover={{ scale: 1.15 }}
+          whileTap={{ scale: 0.95 }}
+          onMouseEnter={() => setIsHovered('phone')}
+          onMouseLeave={() => setIsHovered(null)}
+          aria-label="Call us"
+        >
+          <Phone className="w-6 h-6" />
+          {/* Tooltip */}
+          <AnimatePresence>
+            {isHovered === 'phone' && (
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                className="absolute left-full ml-3 whitespace-nowrap rounded-lg bg-[#023047] px-3 py-1.5 text-sm font-medium text-white shadow-lg"
+              >
+                Call Us
+                <span className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-[#023047]" />
+              </motion.span>
+            )}
+          </AnimatePresence>
+          {/* Ring animation */}
+          <span className="absolute inset-0 rounded-full bg-[#023047] animate-ping opacity-20" />
+        </motion.a>
+      </div>
+    </>
   )
 }

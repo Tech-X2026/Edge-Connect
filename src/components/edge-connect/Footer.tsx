@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowUp, Heart } from 'lucide-react'
+import { ArrowUp, Contact, Heart } from 'lucide-react'
 
 const footerLinks = {
   Services: [
@@ -10,17 +10,16 @@ const footerLinks = {
     { label: 'Performance Marketing', href: '/services/performance-marketing' },
     { label: 'Digital Marketing', href: '/services/digital-marketing' },
     { label: 'SEO', href: '/services/seo' },
-    { label: 'Book a Consultation', href: '/contact' },
   ],
   Company: [
     { label: 'About Us', href: '/about' },
     { label: 'Vision & Mission', href: '/vision-mission' },
-    { label: 'Contact', href: '/contact' },
+
   ],
-  Resources: [
-    { label: 'Blog', href: '#' },
-    { label: 'Case Studies', href: '#' },
-    { label: 'Careers', href: '#' },
+  Contact: [
+    { label: 'Phone: +61 432 887 457', href: 'tel:+61432887457' },
+    { label: 'Email: info@edgeconnect.com.au', href: 'mailto:info@edgeconnect.com.au' },
+    { label: 'Address: Sydney, Australia', href: '#' },
   ],
 }
 
@@ -60,7 +59,8 @@ export default function Footer() {
 
           {/* Link Columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
+            <div key={category} className="relative">
+              
               <h4 className="mb-4 text-sm font-bold text-gray-900">{category}</h4>
               <ul className="space-y-2.5">
                 {links.map((link) => (

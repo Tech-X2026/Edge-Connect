@@ -18,6 +18,7 @@ import {
 interface SubItem {
   label: string
   href: string
+  download?: boolean
 }
 
 interface NavItem {
@@ -43,7 +44,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'Performance Marketing', href: '/services/performance-marketing' },
       { label: 'Digital Marketing', href: '/services/digital-marketing' },
       { label: 'SEO', href: '/services/seo' },
-      { label: 'Book a Consultation', href: '/contact' },
+      { label: 'Service Book', href: '/Edge Connect_Proposal_2.pdf', download: true },
     ],
   },
   { label: 'Vision & Mission', href: '/vision-mission' },
@@ -113,14 +114,17 @@ export default function Navbar({ className }: NavbarProps) {
           {/* ── Logo ── */}
           <Link
             href="/"
-            className="group flex items-center gap-1 focus:outline-none"
+            className="group flex items-center gap-2 focus:outline-none"
           >
-            <span className="text-xl font-extrabold tracking-tight text-gray-900 transition-all duration-300 group-hover:tracking-wider sm:text-2xl">
-              EDGE
-            </span>
-            <span className="text-xl font-extrabold tracking-tight text-[#00B4D8] transition-all duration-300 group-hover:text-[#0077B6] group-hover:tracking-wider sm:text-2xl">
-              CONNECT
-            </span>
+            <img src="/logo.png" alt="Edge Connect Logo" className="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+            <div className="flex items-center gap-1">
+              <span className="text-xl font-extrabold tracking-tight text-gray-900 transition-all duration-300 group-hover:tracking-wider sm:text-2xl">
+                EDGE
+              </span>
+              <span className="text-xl font-extrabold tracking-tight text-[#00B4D8] transition-all duration-300 group-hover:text-[#0077B6] group-hover:tracking-wider sm:text-2xl">
+                CONNECT
+              </span>
+            </div>
           </Link>
 
           {/* ── Desktop Navigation ── */}
@@ -188,10 +192,14 @@ export default function Navbar({ className }: NavbarProps) {
                           <div className="p-2">
                             {item.subItems!.map((sub, idx) => {
                               const subActive = pathname === sub.href
+                              const LinkComponent = sub.download ? 'a' : Link
+                              const linkProps = sub.download 
+                                ? { href: sub.href, download: true } 
+                                : { href: sub.href }
                               return (
-                                <Link
+                                <LinkComponent
                                   key={sub.href}
-                                  href={sub.href}
+                                  {...linkProps}
                                   initial={{ opacity: 0, x: -12 }}
                                   animate={{ opacity: 1, x: 0 }}
                                   transition={{ delay: idx * 0.05 }}
@@ -202,7 +210,6 @@ export default function Navbar({ className }: NavbarProps) {
                                   }`}
                                 >
                                   <span className="flex items-center gap-2.5">
-                                    {/* Animated dot indicator */}
                                     <span
                                       className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
                                         subActive
@@ -221,7 +228,7 @@ export default function Navbar({ className }: NavbarProps) {
                                         : '-translate-x-2 opacity-0 group-hover/sub:translate-x-0 group-hover/sub:opacity-100 group-hover/sub:text-[#00B4D8]'
                                     }`}
                                   />
-                                </Link>
+                                </LinkComponent>
                               )
                             })}
                           </div>
@@ -263,13 +270,16 @@ export default function Navbar({ className }: NavbarProps) {
 
               <SheetContent side="right" className="w-[300px] bg-white p-0">
                 <SheetHeader className="border-b border-gray-100 px-6 py-5">
-                  <SheetTitle className="flex items-center gap-1 text-left">
-                    <span className="text-lg font-extrabold tracking-tight text-gray-900">
-                      EDGE
-                    </span>
-                    <span className="text-lg font-extrabold tracking-tight text-[#00B4D8]">
-                      CONNECT
-                    </span>
+                  <SheetTitle className="flex items-center gap-2 text-left">
+                    <img src="/logo.png" alt="Edge Connect Logo" className="h-6 w-auto object-contain" />
+                    <div className="flex items-center gap-1">
+                      <span className="text-lg font-extrabold tracking-tight text-gray-900">
+                        EDGE
+                      </span>
+                      <span className="text-lg font-extrabold tracking-tight text-[#00B4D8]">
+                        CONNECT
+                      </span>
+                    </div>
                   </SheetTitle>
                 </SheetHeader>
 
@@ -343,6 +353,31 @@ export default function Navbar({ className }: NavbarProps) {
                                 <div className="ml-4 border-l-2 border-[#90E0EF] pl-3">
                                   {item.subItems!.map((sub) => {
                                     const subActive = pathname === sub.href
+                                    if (sub.download) {
+                                      return (
+                                        <a
+                                          key={sub.href}
+                                          href={sub.href}
+                                          download
+                                          className={`group/msub flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
+                                            subActive
+                                              ? 'bg-[#F0F9FF] text-[#023047]'
+                                              : 'text-gray-500 hover:bg-[#F0F9FF]/50 hover:text-[#00B4D8]'
+                                          }`}
+                                        >
+                                          <span
+                                            className={`h-1.5 w-1.5 rounded-full transition-all duration-200 ${
+                                              subActive
+                                                ? 'bg-[#00B4D8]'
+                                                : 'bg-gray-300 group-hover/msub:bg-[#00B4D8] group-hover/msub:scale-125'
+                                            }`}
+                                          />
+                                          <span className="transition-transform duration-200 group-hover/msub:translate-x-0.5">
+                                            {sub.label}
+                                          </span>
+                                        </a>
+                                      )
+                                    }
                                     return (
                                       <SheetClose key={sub.href} asChild>
                                         <Link

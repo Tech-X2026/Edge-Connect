@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Search, Megaphone, BarChart3, Palette, CalendarCheck, ArrowRight } from 'lucide-react'
+import { Search, Megaphone, BarChart3, Palette, ArrowRight, FileDown } from 'lucide-react'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -78,15 +78,16 @@ const services = [
     href: '/services/seo',
   },
   {
-    id: 'book',
-    icon: CalendarCheck,
-    title: 'Book a Consultation',
-    subtitle: 'Start Your Growth Journey',
-    description: 'Ready to transform your digital presence? Book a free consultation with our experts and discover the perfect strategy for your business.',
+    id: 'service-book',
+    icon: FileDown,
+    title: 'Service Book',
+    subtitle: 'Download Our Portfolio',
+    description: 'Explore our comprehensive service book to see our expertise, past projects, and how we can help transform your business.',
     color: 'from-[#00B4D8] to-[#023047]',
     lightColor: 'from-[#CAF0F8] to-[#F0F9FF]',
-    features: ['Free Strategy Session', 'Custom Roadmap', 'No Obligation', 'Expert Insights'],
-    href: '/contact',
+    features: ['Portfolio Overview', 'Case Studies', 'Service Details', 'Contact Info'],
+    href: '/Edge Connect_Proposal_2.pdf',
+    isDownload: true,
   },
 ]
 
@@ -124,64 +125,91 @@ export default function ServicesSection() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {services.map((service) => {
               const Icon = service.icon
-              const isBookCard = service.id === 'book'
+              const isDownload = (service as { isDownload?: boolean }).isDownload
               return (
                 <motion.div
                   key={service.id}
                   variants={cardVariants}
                   whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                  className={`group overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 ${
-                    isBookCard
-                      ? 'border-[#00B4D8]/30 bg-gradient-to-br from-[#F0F9FF]/85 to-white/85 backdrop-blur-sm hover:border-[#00B4D8] hover:shadow-xl hover:shadow-[#00B4D8]/20'
-                      : 'border-gray-100 bg-white/85 backdrop-blur-sm hover:border-[#90E0EF] hover:shadow-xl hover:shadow-[#CAF0F8]/50'
-                  }`}
+                  className="group overflow-hidden rounded-2xl border border-gray-100 bg-white/85 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-[#90E0EF] hover:shadow-xl hover:shadow-[#CAF0F8]/50"
                 >
-                  <Link href={service.href} className="block">
-                    {/* Top gradient bar */}
-                    <div className={`h-1 w-full bg-gradient-to-r ${service.color}`} />
+                  {isDownload ? (
+                    <a href={service.href} download className="block">
+                      <div className={`h-1 w-full bg-gradient-to-r ${service.color}`} />
 
-                    <div className="p-6 sm:p-8">
-                      {/* Icon & Title */}
-                      <div className="mb-5 flex items-start gap-4">
-                        <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${service.lightColor} shadow-sm transition-transform duration-300 group-hover:scale-110`}>
-                          <Icon className={`h-7 w-7 ${isBookCard ? 'text-[#023047]' : 'text-ec-primary'}`} />
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
-                            {service.title}
-                          </h3>
-                          <p className="text-sm font-semibold text-ec-muted">
-                            {service.subtitle}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Description */}
-                      <p className="mb-6 text-sm font-medium leading-relaxed text-ec-muted sm:text-base">
-                        {service.description}
-                      </p>
-
-                      {/* Features */}
-                      <div className="mb-6 grid grid-cols-2 gap-2">
-                        {service.features.map((feature) => (
-                          <div key={feature} className="flex items-center gap-2 text-sm font-semibold text-ec-muted">
-                            <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${isBookCard ? 'bg-[#023047]' : 'bg-[#00B4D8]'}`} />
-                            {feature}
+                      <div className="p-6 sm:p-8">
+                        <div className="mb-5 flex items-start gap-4">
+                          <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${service.lightColor} shadow-sm transition-transform duration-300 group-hover:scale-110`}>
+                            <Icon className="h-7 w-7 text-ec-primary" />
                           </div>
-                        ))}
-                      </div>
+                          <div>
+                            <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
+                              {service.title}
+                            </h3>
+                            <p className="text-sm font-semibold text-ec-muted">
+                              {service.subtitle}
+                            </p>
+                          </div>
+                        </div>
 
-                      {/* CTA */}
-                      <div className={`flex items-center gap-2 text-sm font-semibold transition-colors ${
-                        isBookCard
-                          ? 'text-[#023047] group-hover:text-[#00B4D8]'
-                          : 'text-ec-primary group-hover:text-[#023047]'
-                      }`}>
-                        {isBookCard ? 'Book Now' : 'Learn More'}
-                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        <p className="mb-6 text-sm font-medium leading-relaxed text-ec-muted sm:text-base">
+                          {service.description}
+                        </p>
+
+                        <div className="mb-6 grid grid-cols-2 gap-2">
+                          {service.features.map((feature) => (
+                            <div key={feature} className="flex items-center gap-2 text-sm font-semibold text-ec-muted">
+                              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#00B4D8]" />
+                              {feature}
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center gap-2 text-sm font-semibold text-ec-primary transition-colors group-hover:text-[#023047]">
+                          Download
+                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        </div>
                       </div>
-                    </div>
-                  </Link>
+                    </a>
+                  ) : (
+                    <Link href={service.href} className="block">
+                      <div className={`h-1 w-full bg-gradient-to-r ${service.color}`} />
+
+                      <div className="p-6 sm:p-8">
+                        <div className="mb-5 flex items-start gap-4">
+                          <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${service.lightColor} shadow-sm transition-transform duration-300 group-hover:scale-110`}>
+                            <Icon className="h-7 w-7 text-ec-primary" />
+                          </div>
+                          <div>
+                            <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
+                              {service.title}
+                            </h3>
+                            <p className="text-sm font-semibold text-ec-muted">
+                              {service.subtitle}
+                            </p>
+                          </div>
+                        </div>
+
+                        <p className="mb-6 text-sm font-medium leading-relaxed text-ec-muted sm:text-base">
+                          {service.description}
+                        </p>
+
+                        <div className="mb-6 grid grid-cols-2 gap-2">
+                          {service.features.map((feature) => (
+                            <div key={feature} className="flex items-center gap-2 text-sm font-semibold text-ec-muted">
+                              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#00B4D8]" />
+                              {feature}
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center gap-2 text-sm font-semibold text-ec-primary transition-colors group-hover:text-[#023047]">
+                          Learn More
+                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        </div>
+                      </div>
+                    </Link>
+                  )}
                 </motion.div>
               )
             })}
