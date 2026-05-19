@@ -203,6 +203,7 @@ export default function ChatBot() {
                         'What services do you offer?',
                         'Tell me about SEO',
                         'Web design pricing',
+                        'Website maintenance',
                         'Performance marketing',
                       ].map((suggestion) => (
                         <button

@@ -3,14 +3,14 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { BarChart3, MousePointerClick, Target, DollarSign, CheckCircle2, ArrowRight, TrendingUp, Percent, Zap } from 'lucide-react'
+import { MousePointerClick, Target, DollarSign, ArrowRight, TrendingUp, Percent, Zap } from 'lucide-react'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -27,15 +27,16 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
 const capabilities = [
   { icon: MousePointerClick, title: 'PPC Management', description: 'Google Ads, Bing Ads, and social media advertising managed by certified specialists who maximize every click.' },
+  { icon: Target, title: 'Meta Ads', description: 'Facebook and Instagram advertising strategies that precisely target your audience, drive engagement, and maximize conversions through data-driven optimization.' },
   { icon: Target, title: 'Conversion Rate Optimization', description: 'Systematic testing and optimization of your landing pages, forms, and user flows to turn visitors into customers.' },
   { icon: DollarSign, title: 'Budget Optimization', description: 'Intelligent bid strategies and budget allocation that ensures maximum ROI across all your paid channels.' },
-  { icon: TrendingUp, title: 'Analytics & Attribution', description: 'Advanced multi-touch attribution and real-time dashboards that provide crystal-clear insight into campaign performance.' },
+  { icon: TrendingUp, title: 'Google Analytics', description: 'Comprehensive tracking and reporting with Google Analytics 4 to monitor user behavior, track conversions, and optimize your campaigns with data-driven insights.' },
 ]
 
 const metrics = [

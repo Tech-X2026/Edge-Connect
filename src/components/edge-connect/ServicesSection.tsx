@@ -41,7 +41,7 @@ const services = [
     description: 'Websites that captivate and convert. Our designs blend aesthetics with functionality to create digital experiences your users will love.',
     color: 'from-[#023047] to-[#00B4D8]',
     lightColor: 'from-[#F0F9FF] to-[#CAF0F8]',
-    features: ['UI/UX Design', 'Responsive Development', 'E-commerce Solutions', 'CMS Integration'],
+    features: ['UI/UX Design', 'Responsive Development', 'E-commerce Solutions', 'CMS Integration', 'Website Maintenance'],
     href: '/services/web-designing',
   },
   {

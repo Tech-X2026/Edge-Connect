@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Phone, MessageCircle } from 'lucide-react'
+import { Phone, MessageCircle, Mail } from 'lucide-react'
 import { useState } from 'react'
 
 // WhatsApp SVG icon component
@@ -51,6 +51,37 @@ export default function FloatingContactButtons() {
           </AnimatePresence>
           {/* Ring animation */}
           <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20" />
+        </motion.a>
+      </div>
+
+      {/* Email Button */}
+      <div className="fixed bottom-[88px] left-6 z-50 flex flex-col gap-3">
+        <motion.a
+          href="mailto:info@edgeconnect.au"
+          className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#0077B6] text-white shadow-lg cursor-pointer"
+          whileHover={{ scale: 1.15 }}
+          whileTap={{ scale: 0.95 }}
+          onMouseEnter={() => setIsHovered('email')}
+          onMouseLeave={() => setIsHovered(null)}
+          aria-label="Email us"
+        >
+          <Mail className="w-6 h-6" />
+          {/* Tooltip */}
+          <AnimatePresence>
+            {isHovered === 'email' && (
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                className="absolute left-full ml-3 whitespace-nowrap rounded-lg bg-[#0077B6] px-3 py-1.5 text-sm font-medium text-white shadow-lg"
+              >
+                Email Us
+                <span className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-[#0077B6]" />
+              </motion.span>
+            )}
+          </AnimatePresence>
+          {/* Ring animation */}
+          <span className="absolute inset-0 rounded-full bg-[#0077B6] animate-ping opacity-20" />
         </motion.a>
       </div>
 

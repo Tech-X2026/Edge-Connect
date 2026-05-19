@@ -1,0 +1,87 @@
+A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+See more info here: https://nextjs.org/docs/messages/react-hydration-error
+
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" suppressHydrationWarning={true}>
+                          <body
+                            className="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__var..."
+-                           cz-shortcut-listen="true"
+                          >
+                  ...
+src\app\layout.tsx (34:7) @ RootLayout
+
+
+  32 |   return (
+  33 |     <html lang="en" suppressHydrationWarning>
+> 34 |       <body
+     |       ^
+  35 |         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-foreground`}
+  36 |       >
+  37 |         {children}
+Call Stack
+18
+
+Show 1 ignore-listed frame(s)
+createConsoleError
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_f3530cac._.js (2199:71)
+handleConsoleError
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_f3530cac._.js (2980:54)
+console.error
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_f3530cac._.js (3124:57)
+<unknown>
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js (3469:25)
+runWithFiberInDEV
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js (965:74)
+emitPendingHydrationWarnings
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js (3468:13)
+completeWork
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js (6897:102)
+runWithFiberInDEV
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js (965:131)
+completeUnitOfWork
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js (9627:23)
+performUnitOfWork
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js (9564:28)
+workLoopConcurrentByScheduler
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js (9558:58)
+renderRootConcurrent
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js (9541:71)
+performWorkOnRoot
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js (9068:150)
+performWorkOnRootViaSchedulerTask
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js (10230:9)
+MessagePort.performWorkUntilDeadline
+file:///C:/Users/laptop%20hubs/Desktop/connect/Edge/.next/dev/static/chunks/node_modules_next_dist_compiled_a0e4c7b4._.js (2647:64)
+body
+<anonymous>
+RootLayout
+src\app\layout.tsx (34:7)

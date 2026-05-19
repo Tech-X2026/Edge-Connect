@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Palette, Monitor, Smartphone, ShoppingCart, Code, Layers, CheckCircle2, ArrowRight } from 'lucide-react'
+import { Palette, Monitor, Smartphone, ShoppingCart, Code, Layers, Wrench, CheckCircle2, ArrowRight } from 'lucide-react'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -57,6 +57,7 @@ const services = [
   { icon: ShoppingCart, title: 'E-commerce Solutions', description: 'End-to-end online stores with secure payment processing, inventory management, and conversion optimization.' },
   { icon: Code, title: 'CMS Integration', description: 'Flexible content management with WordPress, Shopify, or custom solutions tailored to your workflow.' },
   { icon: Layers, title: 'Design Systems', description: 'Scalable component libraries and design tokens that ensure consistency across your entire digital ecosystem.' },
+  { icon: Wrench, title: 'Website Maintenance', description: 'Ongoing updates, security patches, performance monitoring, and content refreshes to keep your site running smoothly.' },
 ]
 
 const portfolio = [

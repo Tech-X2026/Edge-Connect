@@ -47,6 +47,9 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'Service Book', href: '/Edge Connect_Proposal_2.pdf', download: true },
     ],
   },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'FAQ', href: '/faq' },
   { label: 'Vision & Mission', href: '/vision-mission' },
 ]
 
@@ -118,10 +121,10 @@ export default function Navbar({ className }: NavbarProps) {
           >
             <img src="/logo.png" alt="Edge Connect Logo" className="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
             <div className="flex items-center gap-1">
-              <span className="text-xl font-extrabold tracking-tight text-gray-900 transition-all duration-300 group-hover:tracking-wider sm:text-2xl">
+              <span className="text-xl font-extrabold tracking-tight text-[#00B4D8] transition-all duration-300 group-hover:text-[#0077B6] group-hover:tracking-wider sm:text-2xl">
                 EDGE
               </span>
-              <span className="text-xl font-extrabold tracking-tight text-[#00B4D8] transition-all duration-300 group-hover:text-[#0077B6] group-hover:tracking-wider sm:text-2xl">
+              <span className="text-xl font-extrabold tracking-tight text-gray-900 transition-all duration-300 group-hover:tracking-wider sm:text-2xl">
                 CONNECT
               </span>
             </div>

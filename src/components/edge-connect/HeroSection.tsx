@@ -23,6 +23,8 @@ interface StatItem {
   label: string
 }
 
+
+
 // ─── Constants ──────────────────────────────────────────────────────────────
 
 const FLOATING_ORBS: FloatingOrb[] = [
@@ -329,20 +331,7 @@ export default function HeroSection() {
           </Link>
         </motion.div>
 
-        {/* ── Stats Row ── */}
-        <motion.div
-          ref={statsRef}
-          variants={statsContainerVariants}
-          initial="hidden"
-          animate={statsInView ? 'visible' : 'hidden'}
-          className="glass-card w-full max-w-3xl rounded-2xl px-2 py-4 sm:px-4 sm:py-6"
-        >
-          <div className="grid grid-cols-2 gap-2 sm:gap-4 md:grid-cols-4">
-            {STATS.map((stat, index) => (
-              <StatCard key={stat.label} stat={stat} index={index} />
-            ))}
-          </div>
-        </motion.div>
+        
       </motion.div>
 
       {/* ── Bottom fade ── */}

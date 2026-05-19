@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Send, Phone, Mail, MapPin, CheckCircle } from 'lucide-react'
+import emailjs from '@emailjs/browser'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -22,15 +23,16 @@ const staggerContainer = {
 }
 
 const contactInfo = [
-  { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
-  { icon: Mail, label: 'Email', value: 'hello@edgeconnect.com', href: 'mailto:hello@edgeconnect.com' },
-  { icon: MapPin, label: 'Office', value: 'San Francisco, CA', href: '#' },
+  { icon: Phone, label: 'Phone', value: '+61 432887457', href: 'tel:+61432887457' },
+  { icon: Mail, label: 'Email', value: 'info@edgeconnect.au', href: 'mailto:info@edgeconnect.au' },
+  { icon: MapPin, label: 'Office', value: '40 Parkes Pl E, Parkes ACT 2600, Australia', href: 'https://www.google.com/maps/search/?api=1&query=40+Parkes+Pl+E,+Parkes+ACT+2600,+Australia' },
 ]
 
 export default function ContactSection() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -38,11 +40,34 @@ export default function ContactSection() {
     message: '',
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
-    setFormData({ name: '', email: '', service: '', message: '' })
+    setIsSubmitting(true)
+
+    try {
+      const templateParams = {
+        name: formData.name,
+        email: formData.email,
+        service: formData.service,
+        message: formData.message,
+      }
+
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
+      )
+
+      setSubmitted(true)
+      setTimeout(() => setSubmitted(false), 3000)
+      setFormData({ name: '', email: '', service: '', message: '' })
+    } catch (error) {
+      console.error('Failed to send email:', error)
+      alert('Failed to send message. Please try again later.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -106,30 +131,7 @@ export default function ContactSection() {
                   })}
                 </div>
 
-                {/* Social proof */}
-                <div className="mt-10 rounded-xl bg-white/10 p-4 backdrop-blur-sm">
-                  <div className="flex items-center gap-3">
-                    <div className="flex -space-x-2">
-                      {['bg-[#023047]', 'bg-[#0077B6]', 'bg-[#0096C7]', 'bg-[#00B4D8]'].map((color, i) => (
-                        <div key={i} className={`flex h-8 w-8 items-center justify-center rounded-full border-2 border-white/20 ${color} text-xs font-bold text-white`}>
-                          {String.fromCharCode(65 + i)}
-                        </div>
-                      ))}
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold text-white">500+ Happy Clients</div>
-                      <div className="flex items-center gap-1">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <svg key={i} className="h-3 w-3 text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                          </svg>
-                        ))}
-                        <span className="ml-1 text-xs text-[#90E0EF]">4.9/5</span>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </motion.div>
 
             {/* Right: Contact Form */}
@@ -197,6 +199,7 @@ export default function ContactSection() {
                         <option value="digital-marketing">Digital Marketing</option>
                         <option value="performance-marketing">Performance Marketing</option>
                         <option value="web-designing">Web Designing</option>
+                        <option value="website-maintenance">Website Maintenance</option>
                       </select>
                     </div>
                     <div>
@@ -216,12 +219,13 @@ export default function ContactSection() {
                     </div>
                     <motion.button
                       type="submit"
-                      className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-ec px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#00B4D8]/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-[#00B4D8]/30 sm:w-auto"
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
+                      disabled={isSubmitting}
+                      className={`group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-ec px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#00B4D8]/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-[#00B4D8]/30 sm:w-auto ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                      whileHover={isSubmitting ? {} : { scale: 1.03 }}
+                      whileTap={isSubmitting ? {} : { scale: 0.97 }}
                     >
-                      Send Message
-                      <Send className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                      {!isSubmitting && <Send className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />}
                     </motion.button>
                   </form>
                 )}

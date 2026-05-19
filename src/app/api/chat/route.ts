@@ -1,5 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import ZAI from 'z-ai-web-dev-sdk';
+
+// AI configuration loaded from environment variables
+const AI_CONFIG: {
+  baseUrl: string;
+  apiKey: string;
+  model: string;
+  token?: string;
+  chatId?: string;
+  userId?: string;
+} = {
+  baseUrl: process.env.GROQ_BASE_URL || process.env.ZAI_BASE_URL || 'https://api.groq.com/openai/v1',
+  apiKey: process.env.GROQ_API_KEY || process.env.ZAI_API_KEY || '',
+  model: process.env.GROQ_MODEL || process.env.ZAI_MODEL || 'llama-3.3-70b-versatile',
+  token: process.env.ZAI_TOKEN || '',
+  chatId: process.env.ZAI_CHAT_ID || '',
+  userId: process.env.ZAI_USER_ID || '',
+};
 
 const SYSTEM_PROMPT = `You are EDGE CONNECT's AI assistant — a friendly, knowledgeable chatbot for a digital marketing agency based in Australia.
 
@@ -34,31 +50,9 @@ function getDefaultModel(baseUrl: string): string {
   return 'gpt-3.5-turbo';
 }
 
-// Helper: get AI config from environment variables or .z-ai-config file
-async function getAIConfig() {
-  // Priority 1: Environment variables (recommended for local dev)
-  const envBaseUrl = process.env.ZAI_BASE_URL;
-  const envApiKey = process.env.ZAI_API_KEY;
-
-  if (envBaseUrl && envApiKey) {
-    return {
-      baseUrl: envBaseUrl,
-      apiKey: envApiKey,
-      chatId: process.env.ZAI_CHAT_ID || '',
-      userId: process.env.ZAI_USER_ID || '',
-      token: process.env.ZAI_TOKEN || '',
-      model: process.env.ZAI_MODEL || '',
-    };
-  }
-
-  // Priority 2: Fall back to .z-ai-config file (used by ZAI.create())
-  try {
-    const zai = await ZAI.create();
-    const config = (zai as any).config;
-    return { ...config, model: '' };
-  } catch {
-    return null;
-  }
+// Helper: get AI config - uses hardcoded config for deployment
+function getAIConfig() {
+  return AI_CONFIG;
 }
 
 export async function POST(req: NextRequest) {
@@ -89,20 +83,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Get AI configuration
-    const config = await getAIConfig();
-
-    if (!config) {
-      console.error(
-        'Chat API: No AI configuration found. Set ZAI_BASE_URL and ZAI_API_KEY in your .env file, or create a .z-ai-config file.'
-      );
-      return NextResponse.json(
-        {
-          error:
-            'AI service not configured. Please set ZAI_BASE_URL and ZAI_API_KEY in your .env file. See README for instructions.',
-        },
-        { status: 503 }
-      );
-    }
+    const config = getAIConfig();
 
     // Determine which model to use
     const model = config.model || getDefaultModel(config.baseUrl);

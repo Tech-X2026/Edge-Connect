@@ -151,6 +151,24 @@
   background: #64748b;
 }
 
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-380px * 5 - 6px * 4));
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 40s linear infinite;
+  width: max-content;
+}
+
+.animate-scroll-left.paused {
+  animation-play-state: paused;
+}
+
 /* Selection */
 ::selection {
   background: rgba(0, 180, 216, 0.2);
