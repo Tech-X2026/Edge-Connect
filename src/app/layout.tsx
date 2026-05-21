@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   keywords: ["EDGE CONNECT", "Digital Marketing", "SEO", "Performance Marketing", "Web Design"],
   authors: [{ name: "EDGE CONNECT" }],
   icons: {
-    icon: "/logo.svg",
+    icon: "/img/connect_logo.png",
   },
 };
 

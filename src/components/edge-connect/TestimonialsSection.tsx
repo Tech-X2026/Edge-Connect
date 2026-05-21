@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Star } from 'lucide-react'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -24,43 +24,21 @@ const staggerContainer = {
 const testimonials = [
   {
     quote:
-      "Edge Connect completely transformed our online presence. Our website bookings have increased by over 40% since the redesign, and the seamless user experience has earned us countless compliments from our guests.",
-    author: 'Sarah Mitchell',
-    role: 'General Manager',
-    company: 'Waters Edge Canberra',
+      "A premium dining and events website designed to reflect the elegance of lakeside Canberra. Features seamless booking integration and stunning visual storytelling.",
+    author: 'Waters Edge',
+    role: 'Lakeside Dining & Function Venue',
+    company: 'Canberra',
     rating: 5,
+    url: 'https://www.watersedgecanberra.com.au/',
   },
   {
     quote:
-      "The team at Edge Connect understood our vision from day one. They delivered a website that perfectly captures the elegance of our venue while making it incredibly easy for customers to browse menus and book tables online.",
-    author: 'James Harrington',
-    role: 'Operations Director',
-    company: 'Waters Edge Canberra',
+      "A mouthwatering local food website built for speed and conversions. Easy online ordering, menu browsing, and location details make it effortless for customers.",
+    author: 'Gungahlin Kebab & Pizza',
+    role: 'Local Food & Takeaway Service',
+    company: 'Gungahlin',
     rating: 5,
-  },
-  {
-    quote:
-      "Working with Edge Connect was a seamless experience. Their attention to detail and commitment to delivering a product that truly represents our brand exceeded our expectations. Highly recommended for any hospitality business.",
-    author: 'Emily Chen',
-    role: 'Marketing Lead',
-    company: 'Waters Edge Canberra',
-    rating: 5,
-  },
-  {
-    quote:
-      "From initial consultation to final launch, Edge Connect were professional, creative, and incredibly responsive. The end result is a website that not only looks stunning but drives real business results for us.",
-    author: 'Michael Torres',
-    role: 'Head of Operations',
-    company: 'Waters Edge Canberra',
-    rating: 5,
-  },
-  {
-    quote:
-      "We couldn't be happier with the outcome. Edge Connect took the time to understand our brand identity and translated it perfectly into a digital experience that our guests love interacting with.",
-    author: 'Laura Bennett',
-    role: 'Brand Manager',
-    company: 'Waters Edge Canberra',
-    rating: 5,
+    url: 'https://gungahlinkebabandpizza.com.au/',
   },
 ]
 
@@ -119,22 +97,14 @@ export default function TestimonialsSection() {
                     <Star key={i} className="h-4 w-4 fill-[#FFB703] text-[#FFB703]" />
                   ))}
                 </div>
-                <div className="mb-4">
-                  <Quote className="h-8 w-8 text-[#00B4D8]/30" />
-                </div>
                 <p className="mb-5 text-sm font-medium leading-relaxed text-ec-muted">
                   &ldquo;{t.quote}&rdquo;
                 </p>
-                <div className="flex items-center gap-3 border-t border-gray-100 pt-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-ec text-sm font-bold text-white">
-                    {t.author.split(' ').map((n) => n[0]).join('')}
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-gray-900">{t.author}</p>
-                    <p className="text-xs font-semibold text-ec-muted">
-                      {t.role}, {t.company}
-                    </p>
-                  </div>
+                <div className="border-t border-gray-100 pt-4">
+                  <p className="text-sm font-bold text-gray-900">{t.author}</p>
+                  <p className="text-xs font-semibold text-ec-muted">
+                    {t.role}
+                  </p>
                 </div>
               </div>
             ))}

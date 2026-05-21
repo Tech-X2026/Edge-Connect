@@ -36,14 +36,16 @@ interface NavbarProps {
 const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '/' },
   { label: 'About Us', href: '/about' },
+  { label: 'About Edge Connect', href: '/about-edge-connect' },
   {
     label: 'Services',
     href: '/services',
     subItems: [
-      { label: 'Web Designing', href: '/services/web-designing' },
-      { label: 'Performance Marketing', href: '/services/performance-marketing' },
       { label: 'Digital Marketing', href: '/services/digital-marketing' },
+      { label: 'Performance Marketing', href: '/services/performance-marketing' },
       { label: 'SEO', href: '/services/seo' },
+      { label: 'Web Designing', href: '/services/web-designing' },
+      { label: 'Creative Services', href: '/services/creative-services' },
       { label: 'Service Book', href: '/Edge Connect_Proposal_2.pdf', download: true },
     ],
   },
@@ -92,7 +94,8 @@ export default function Navbar({ className }: NavbarProps) {
 
   const isItemActive = (item: NavItem): boolean => {
     if (item.href === '/' && pathname === '/') return true
-    if (item.href !== '/' && pathname.startsWith(item.href)) return true
+    if (item.href !== '/' && pathname === item.href) return true
+    if (item.href !== '/' && pathname.startsWith(item.href + '/')) return true
     if (item.subItems) {
       return item.subItems.some((sub) => pathname === sub.href)
     }

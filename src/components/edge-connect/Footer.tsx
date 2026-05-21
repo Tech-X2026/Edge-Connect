@@ -6,10 +6,11 @@ import { ArrowUp, Contact, Heart } from 'lucide-react'
 
 const footerLinks = {
   Services: [
-    { label: 'Web Designing', href: '/services/web-designing' },
-    { label: 'Performance Marketing', href: '/services/performance-marketing' },
     { label: 'Digital Marketing', href: '/services/digital-marketing' },
+    { label: 'Performance Marketing', href: '/services/performance-marketing' },
     { label: 'SEO', href: '/services/seo' },
+    { label: 'Web Designing', href: '/services/web-designing' },
+    { label: 'Creative Services', href: '/services/creative-services' },
   ],
   Company: [
     { label: 'About Us', href: '/about' },

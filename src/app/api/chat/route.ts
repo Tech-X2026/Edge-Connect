@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// AI configuration loaded from environment variables
+// Hardcoded AI configuration for Netlify deployment
 const AI_CONFIG: {
   baseUrl: string;
   apiKey: string;
@@ -9,12 +9,9 @@ const AI_CONFIG: {
   chatId?: string;
   userId?: string;
 } = {
-  baseUrl: process.env.GROQ_BASE_URL || process.env.ZAI_BASE_URL || 'https://api.groq.com/openai/v1',
-  apiKey: process.env.GROQ_API_KEY || process.env.ZAI_API_KEY || '',
-  model: process.env.GROQ_MODEL || process.env.ZAI_MODEL || 'llama-3.3-70b-versatile',
-  token: process.env.ZAI_TOKEN || '',
-  chatId: process.env.ZAI_CHAT_ID || '',
-  userId: process.env.ZAI_USER_ID || '',
+  baseUrl: 'https://api.groq.com/openai/v1',
+  apiKey: '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',
+  model: 'llama-3.3-70b-versatile',
 };
 
 const SYSTEM_PROMPT = `You are EDGE CONNECT's AI assistant — a friendly, knowledgeable chatbot for a digital marketing agency based in Australia.
@@ -144,7 +141,7 @@ export async function POST(req: NextRequest) {
       const errorBody = await response.text();
       console.error(`Chat API: AI request failed with status ${response.status}:`, errorBody);
       return NextResponse.json(
-        { error: 'AI service returned an error. Please try again later.' },
+        { error: 'AI service returned an error. Please try again later.\n\nPlease leave a message to call Anand Kamani on +61432887457 or email info@edgeconnect.au' },
         { status: 502 }
       );
     }
@@ -155,11 +152,13 @@ export async function POST(req: NextRequest) {
       completion.choices?.[0]?.message?.content ||
       'I apologize, but I could not generate a response. Please try again or contact our team directly.';
 
-    return NextResponse.json({ reply });
+    const contactMessage = '\n\n---\nPlease leave a message to call Anand Kamani on +61432887457 or email info@edgeconnect.au';
+
+    return NextResponse.json({ reply: reply + contactMessage });
   } catch (error: any) {
     console.error('Chat API error:', error.message);
     return NextResponse.json(
-      { error: 'Failed to generate response. Please try again later.' },
+      { error: 'Failed to generate response. Please leave a message to call Anand Kamani on +61432887457 or email info@edgeconnect.au' },
       { status: 500 }
     );
   }

@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Search, Megaphone, BarChart3, Palette, ArrowRight, FileDown } from 'lucide-react'
+import { Search, Megaphone, BarChart3, Palette, ArrowRight, FileDown, Sparkles } from 'lucide-react'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -76,6 +76,17 @@ const services = [
     lightColor: 'from-[#F0F9FF] to-[#CAF0F8]/50',
     features: ['Technical SEO Audit', 'Keyword Strategy', 'Content Optimization', 'Link Building'],
     href: '/services/seo',
+  },
+  {
+    id: 'creative-services',
+    icon: Sparkles,
+    title: 'Creative Services',
+    subtitle: 'Visual Excellence & Branding',
+    description: 'Transform your vision into stunning visual experiences. From brand identity to video production, we create designs that captivate and convert.',
+    color: 'from-[#00B4D8] to-[#023047]',
+    lightColor: 'from-[#F0F9FF] to-[#CAF0F8]/50',
+    features: ['Brand Identity', 'Video Production', 'Graphic Design', 'Motion Graphics'],
+    href: '/services/creative-services',
   },
   {
     id: 'service-book',

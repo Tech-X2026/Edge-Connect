@@ -80,7 +80,7 @@ export default function ChatBot() {
         addMessage({
           id: crypto.randomUUID(),
           role: 'assistant',
-          content: 'Sorry, I encountered an error. Please try again or contact our team directly.',
+          content: data.error,
           timestamp: new Date(),
         });
       }
@@ -88,7 +88,7 @@ export default function ChatBot() {
       addMessage({
         id: crypto.randomUUID(),
         role: 'assistant',
-        content: 'Sorry, something went wrong. Please try again or reach out to us directly.',
+        content: 'Sorry, something went wrong. Please leave a message to call Anand Kamani on +61432887457 or email info@edgeconnect.au',
         timestamp: new Date(),
       });
     } finally {
