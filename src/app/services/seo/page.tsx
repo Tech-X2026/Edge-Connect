@@ -3,7 +3,7 @@ import SEOSection from '@/components/edge-connect/SEOSection'
 
 export const metadata = {
   title: 'SEO Services - EDGE CONNECT',
-  description: 'Dominate search rankings with our proven SEO strategies. Technical audits, content optimization, link building, and continuous monitoring.',
+  description: 'Dominate search rankings with our proven SEO strategies. Technical audits, content optimisation, link building, and continuous monitoring.',
 }
 
 export default function SEOPage() {

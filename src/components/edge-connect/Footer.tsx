@@ -15,12 +15,12 @@ const footerLinks = {
   Company: [
     { label: 'About Us', href: '/about' },
     { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Vision & Mission', href: '/vision-mission' },
+    { label: 'Vision, Mission & Statement', href: '/vision-mission' },
 
   ],
   Contact: [
     { label: 'Phone: +61 432 887 457', href: 'tel:+61432887457' },
-    { label: 'Email: info@edgeconnect.au', href: 'mailto:info@edgeconnect.com.au' },
+    { label: 'Email: info@edgeconnect.au', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=info@edgeconnect.au' },
     { label: 'Address: 40 Parkes Pl E, Parkes ACT 2600, Australia', href: 'https://www.google.com/maps/search/?api=1&query=40+Parkes+Pl+E,+Parkes+ACT+2600,+Australia' },
   ],
 }
@@ -35,13 +35,18 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="mb-4 flex items-center gap-2 focus:outline-none">
-              <img src="/img/connect_logo.png" alt="Edge Connect Logo" className="h-7 w-auto object-contain" />
-              <span className="text-2xl font-extrabold tracking-tight text-[#00B4D8]">
-                EDGE
-              </span>
-              <span className="text-2xl font-extrabold tracking-tight text-gray-900">
-                CONNECT
+            <Link href="/" className="mb-4 inline-flex flex-col focus:outline-none">
+              <div className="flex items-center gap-2">
+                <img src="/img/connect_logo.png" alt="Edge Connect Logo" className="h-7 w-auto object-contain" />
+                <span className="text-2xl font-extrabold tracking-tight text-[#00B4D8]">
+                  EDGE
+                </span>
+                <span className="text-2xl font-extrabold tracking-tight text-gray-900">
+                  CONNECT
+                </span>
+              </div>
+              <span className="w-full text-[8px] font-bold tracking-[0.35em] text-gray-900 uppercase text-center">
+                YOUR BRAND OUR EDGE CONNECT
               </span>
             </Link>
             <p className="mb-6 max-w-sm text-sm font-medium leading-relaxed text-ec-muted">
@@ -49,17 +54,17 @@ export default function Footer() {
             </p>
             <div className="flex gap-3">
               <a
-                href="https://x.com"
+                href="https://www.youtube.com/@edgeconnect-u9w"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all duration-200 hover:border-[#90E0EF] hover:bg-[#F0F9FF] hover:text-[#00B4D8]"
               >
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                 </svg>
               </a>
               <a
-                href="https://www.linkedin.com"
+                href="https://www.linkedin.com/in/edge-connect-515986410/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all duration-200 hover:border-[#90E0EF] hover:bg-[#F0F9FF] hover:text-[#00B4D8]"
@@ -69,7 +74,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/edgec_onnect/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all duration-200 hover:border-[#90E0EF] hover:bg-[#F0F9FF] hover:text-[#00B4D8]"
@@ -79,7 +84,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.facebook.com"
+                href="https://www.facebook.com/profile.php?id=61590116797723"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all duration-200 hover:border-[#90E0EF] hover:bg-[#F0F9FF] hover:text-[#00B4D8]"

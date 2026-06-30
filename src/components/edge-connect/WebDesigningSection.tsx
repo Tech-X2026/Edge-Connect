@@ -10,7 +10,7 @@ const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -19,7 +19,7 @@ const fadeInLeft = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -28,7 +28,7 @@ const fadeInRight = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -46,15 +46,15 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
 const services = [
-  { icon: Palette, title: 'UI/UX Design', description: 'Human-centered design that delights users and drives engagement. From wireframes to pixel-perfect mockups.' },
+  { icon: Palette, title: 'UI/UX Design', description: 'Human-centred design that delights users and drives engagement. From wireframes to pixel-perfect mockups.' },
   { icon: Monitor, title: 'Responsive Web Development', description: 'Websites that look and perform flawlessly across all devices, browsers, and screen sizes.' },
   { icon: Smartphone, title: 'Mobile-First Design', description: 'Designed for the mobile majority first, ensuring seamless experiences on every smartphone and tablet.' },
-  { icon: ShoppingCart, title: 'E-commerce Solutions', description: 'End-to-end online stores with secure payment processing, inventory management, and conversion optimization.' },
+  { icon: ShoppingCart, title: 'E-commerce Solutions', description: 'End-to-end online stores with secure payment processing, inventory management, and conversion optimisation.' },
   { icon: Code, title: 'CMS Integration', description: 'Flexible content management with WordPress, Shopify, or custom solutions tailored to your workflow.' },
   { icon: Layers, title: 'Design Systems', description: 'Scalable component libraries and design tokens that ensure consistency across your entire digital ecosystem.' },
   { icon: Wrench, title: 'Website Maintenance', description: 'Ongoing updates, security patches, performance monitoring, and content refreshes to keep your site running smoothly.' },
@@ -149,10 +149,10 @@ export default function WebDesigningSection() {
               <div className="space-y-5">
                 {[
                   { step: '01', title: 'Discovery', desc: 'Deep dive into your brand, audience, and goals' },
-                  { step: '02', title: 'Wireframing', desc: 'Structure and layout that prioritizes usability' },
+                  { step: '02', title: 'Wireframing', desc: 'Structure and layout that prioritises usability' },
                   { step: '03', title: 'Visual Design', desc: 'Pixel-perfect designs that embody your brand' },
                   { step: '04', title: 'Development', desc: 'Clean, performant code that brings designs to life' },
-                  { step: '05', title: 'Launch & Optimize', desc: 'Testing, deployment, and continuous improvement' },
+                  { step: '05', title: 'Launch & Optimise', desc: 'Testing, deployment, and continuous improvement' },
                 ].map((phase) => (
                   <div key={phase.step} className="flex items-start gap-4">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/10 text-sm font-bold text-white">

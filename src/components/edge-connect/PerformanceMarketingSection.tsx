@@ -32,11 +32,11 @@ const itemVariants = {
 }
 
 const capabilities = [
-  { icon: MousePointerClick, title: 'PPC Management', description: 'Google Ads, Bing Ads, and social media advertising managed by certified specialists who maximize every click.' },
-  { icon: Target, title: 'Meta Ads', description: 'Facebook and Instagram advertising strategies that precisely target your audience, drive engagement, and maximize conversions through data-driven optimization.' },
-  { icon: Target, title: 'Conversion Rate Optimization', description: 'Systematic testing and optimization of your landing pages, forms, and user flows to turn visitors into customers.' },
-  { icon: DollarSign, title: 'Budget Optimization', description: 'Intelligent bid strategies and budget allocation that ensures maximum ROI across all your paid channels.' },
-  { icon: TrendingUp, title: 'Google Analytics', description: 'Comprehensive tracking and reporting with Google Analytics 4 to monitor user behavior, track conversions, and optimize your campaigns with data-driven insights.' },
+  { icon: MousePointerClick, title: 'PPC Management', description: 'Google Ads, Bing Ads, and social media advertising managed by certified specialists who maximise every click.' },
+  { icon: Target, title: 'Meta Ads', description: 'Facebook and Instagram advertising strategies that precisely target your audience, drive engagement, and maximise conversions through data-driven optimisation.' },
+  { icon: Target, title: 'Conversion Rate Optimisation', description: 'Systematic testing and optimisation of your landing pages, forms, and user flows to turn visitors into customers.' },
+  { icon: DollarSign, title: 'Budget Optimisation', description: 'Intelligent bid strategies and budget allocation that ensures maximum ROI across all your paid channels.' },
+  { icon: TrendingUp, title: 'Google Analytics', description: 'Comprehensive tracking and reporting with Google Analytics 4 to monitor user behaviour, track conversions, and optimise your campaigns with data-driven insights.' },
 ]
 
 const metrics = [
@@ -70,7 +70,7 @@ export default function PerformanceMarketingSection() {
               <span className="text-gradient">Growth Engine</span>
             </h2>
             <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-ec-muted sm:text-lg">
-              Every dollar you spend should work harder. Our performance marketing strategies are designed to maximize ROI through precision targeting, continuous optimization, and data-backed decisions.
+              Every dollar you spend should work harder. Our performance marketing strategies are designed to maximise ROI through precision targeting, continuous optimisation, and data-backed decisions.
             </p>
           </motion.div>
 
@@ -132,7 +132,7 @@ export default function PerformanceMarketingSection() {
               <div className="relative z-10 flex flex-col items-center justify-between gap-6 md:flex-row">
                 <div>
                   <h3 className="mb-2 text-2xl font-bold text-white sm:text-3xl">
-                    Ready to Maximize Your ROI?
+                    Ready to maximise Your ROI?
                   </h3>
                   <p className="text-sm font-medium text-[#CAF0F8] sm:text-base">
                     Get a free performance audit and discover untapped growth opportunities.

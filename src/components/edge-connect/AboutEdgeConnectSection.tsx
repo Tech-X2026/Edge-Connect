@@ -13,7 +13,7 @@ const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -22,7 +22,7 @@ const fadeInLeft = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -31,7 +31,7 @@ const fadeInRight = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -49,7 +49,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -321,7 +321,7 @@ export default function AboutEdgeConnectSection() {
             <div className="absolute -bottom-20 -right-20 h-60 w-60 rounded-full bg-[#90E0EF]/10 blur-3xl" />
             <div className="relative z-10">
               <h3 className="mb-4 text-3xl font-extrabold text-white sm:text-4xl">
-                Your Brand. Our Edge.
+                Your Brand. Our Edge Connect.
               </h3>
               <p className="mx-auto mb-8 max-w-2xl text-base font-medium text-[#CAF0F8] sm:text-lg">
                 Ready to grow your business with marketing that truly delivers? Let&apos;s build something remarkable together.

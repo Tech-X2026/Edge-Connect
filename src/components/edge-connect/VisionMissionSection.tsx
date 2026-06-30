@@ -2,14 +2,14 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Eye, Compass, Rocket, Shield, Zap, Globe, Target } from 'lucide-react'
+import { Eye, Compass, FileText, Rocket, Shield, Zap, Globe, Target } from 'lucide-react'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -26,7 +26,7 @@ const cardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -68,19 +68,19 @@ export default function VisionMissionSection() {
           {/* Section Header */}
           <motion.div variants={fadeInUp} className="mb-16 text-center">
             <span className="mb-4 inline-block rounded-full border border-[#90E0EF] bg-[#F0F9FF]/80 px-6 py-2 text-sm font-bold tracking-wider uppercase text-ec-primary transition-all duration-300 hover:border-[#00B4D8] hover:bg-[#00B4D8]/10 hover:shadow-md hover:shadow-[#00B4D8]/10 sm:text-base">
-              Vision & Mission
+              Vision, Mission & Statement
             </span>
             <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
               Guided by Purpose,{' '}
               <span className="text-gradient">Driven by Impact</span>
             </h2>
             <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-ec-muted sm:text-lg">
-              Our vision and mission shape every strategy we create and every campaign we launch.
+              Our vision, mission, and statement shape every strategy we create and every campaign we launch.
             </p>
           </motion.div>
 
           {/* Vision & Mission Cards */}
-          <div className="mb-16 grid gap-8 md:grid-cols-2">
+          <div className="mb-16 grid gap-8 md:grid-cols-3">
             {/* Vision Card */}
             <motion.div
               variants={cardVariants}
@@ -130,6 +130,33 @@ export default function VisionMissionSection() {
                   <Target className="h-5 w-5 text-[#00B4D8]" />
                   <span className="text-sm font-medium text-[#90E0EF]">
                     Delivering Measurable Impact
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Statement Card */}
+            <motion.div
+              variants={cardVariants}
+              className="group relative overflow-hidden rounded-3xl"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#023047] to-[#00B4D8]" />
+              <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-white/5 blur-xl transition-transform duration-500 group-hover:scale-125" />
+              <div className="absolute -bottom-12 -left-12 h-48 w-48 rounded-full bg-[#48CAE4]/10 blur-xl transition-transform duration-500 group-hover:scale-125" />
+              <div className="relative z-10 p-8 md:p-10">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm">
+                  <FileText className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="mb-4 text-2xl font-bold text-white sm:text-3xl">
+                  Our Statement
+                </h3>
+                <p className="text-base font-medium leading-relaxed text-[#CAF0F8] sm:text-lg">
+                  We are committed to transparency, innovation, and excellence in every engagement. Our promise is to put our clients first, deliver results that matter, and build lasting partnerships that drive mutual success.
+                </p>
+                <div className="mt-8 flex items-center gap-2">
+                  <Shield className="h-5 w-5 text-[#48CAE4]" />
+                  <span className="text-sm font-medium text-[#90E0EF]">
+                    Committed to Excellence
                   </span>
                 </div>
               </div>

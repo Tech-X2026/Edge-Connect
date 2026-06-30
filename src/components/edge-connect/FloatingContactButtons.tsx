@@ -20,7 +20,7 @@ export default function FloatingContactButtons() {
   const [isHovered, setIsHovered] = useState<string | null>(null)
 
   return (
-    <>
+    <div className="lg:hidden">
       {/* WhatsApp Button */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
         <motion.a
@@ -56,33 +56,38 @@ export default function FloatingContactButtons() {
 
       {/* Email Button */}
       <div className="fixed bottom-[88px] left-6 z-50 flex flex-col gap-3">
-        <motion.a
-          href="mailto:info@edgeconnect.au"
-          className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#0077B6] text-white shadow-lg cursor-pointer"
+        <motion.div
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.95 }}
           onMouseEnter={() => setIsHovered('email')}
           onMouseLeave={() => setIsHovered(null)}
-          aria-label="Email us"
         >
-          <Mail className="w-6 h-6" />
-          {/* Tooltip */}
-          <AnimatePresence>
-            {isHovered === 'email' && (
-              <motion.span
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                className="absolute left-full ml-3 whitespace-nowrap rounded-lg bg-[#0077B6] px-3 py-1.5 text-sm font-medium text-white shadow-lg"
-              >
-                Email Us
-                <span className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-[#0077B6]" />
-              </motion.span>
-            )}
-          </AnimatePresence>
-          {/* Ring animation */}
-          <span className="absolute inset-0 rounded-full bg-[#0077B6] animate-ping opacity-20" />
-        </motion.a>
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=info@edgeconnect.au"
+          target="_blank"
+          rel="noopener noreferrer"
+            className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#0077B6] text-white shadow-lg cursor-pointer"
+            aria-label="Email us"
+          >
+            <Mail className="w-6 h-6" />
+            {/* Tooltip */}
+            <AnimatePresence>
+              {isHovered === 'email' && (
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  className="absolute left-full ml-3 whitespace-nowrap rounded-lg bg-[#0077B6] px-3 py-1.5 text-sm font-medium text-white shadow-lg"
+                >
+                  Email Us
+                  <span className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-[#0077B6]" />
+                </motion.span>
+              )}
+            </AnimatePresence>
+            {/* Ring animation */}
+            <span className="absolute inset-0 rounded-full bg-[#0077B6] animate-ping opacity-20" />
+          </a>
+        </motion.div>
       </div>
 
       {/* Phone Button */}
@@ -117,6 +122,6 @@ export default function FloatingContactButtons() {
           <span className="absolute inset-0 rounded-full bg-[#023047] animate-ping opacity-20" />
         </motion.a>
       </div>
-    </>
+    </div>
   )
 }

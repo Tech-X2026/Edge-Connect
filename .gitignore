@@ -54,3 +54,5 @@ server.log
 /skills/
 # Local Netlify folder
 .netlify
+
+public/img/EC Service Book PDF.pdf

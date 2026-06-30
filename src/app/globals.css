@@ -174,3 +174,27 @@
   background: rgba(0, 180, 216, 0.2);
   color: #023047;
 }
+
+@keyframes float-orb {
+  0% {
+    opacity: 0.5;
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    opacity: 0.8;
+    transform: translate(25px, -30px) scale(1.2);
+  }
+  66% {
+    opacity: 0.5;
+    transform: translate(-20px, 15px) scale(1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-float-orb {
+  animation: float-orb 20s ease-in-out infinite;
+}
+

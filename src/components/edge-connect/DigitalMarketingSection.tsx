@@ -10,7 +10,7 @@ const fadeInLeft = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -19,7 +19,7 @@ const fadeInRight = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -36,13 +36,13 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
 const channels = [
   { icon: Share2, title: 'Social Media Marketing', description: 'Build engaged communities across platforms with strategic content, community management, and paid social campaigns that amplify your brand voice.' },
-  { icon: Mail, title: 'Email Marketing', description: 'Nurture leads and retain customers with personalized email journeys, automated workflows, and data-optimized campaigns that drive conversions.' },
+  { icon: Mail, title: 'Email Marketing', description: 'Nurture leads and retain customers with personalised email journeys, automated workflows, and data-optimised campaigns that drive conversions.' },
   { icon: PenTool, title: 'Content Marketing', description: 'Create compelling content that educates, entertains, and converts. From blog posts to video scripts, we tell your brand story authentically.' },
   { icon: Megaphone, title: 'Influencer Marketing', description: 'Partner with the right voices to extend your reach. We identify, vet, and manage influencer collaborations that deliver authentic engagement.' },
 ]
@@ -136,7 +136,7 @@ export default function DigitalMarketingSection() {
                   'Audience research & persona development',
                   'Multi-channel campaign strategy',
                   'Creative content production',
-                  'A/B testing & optimization',
+                  'A/B testing & optimisation',
                   'Real-time performance monitoring',
                   'Monthly strategy reviews & reporting',
                   'Competitive landscape analysis',

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
-import ChatBot from "@/components/edge-connect/ChatBot";
+import dynamic from "next/dynamic";
+
+const Toaster = dynamic(() => import("@/components/ui/toaster").then((mod) => mod.Toaster));
+const ChatBot = dynamic(() => import("@/components/edge-connect/ChatBot"));
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -7,6 +7,7 @@ import { useChatStore } from '@/lib/chat-store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { findBestAnswer, getQuickSuggestions } from '@/lib/chat-knowledge';
 
 export default function ChatBot() {
   const {
@@ -40,8 +41,8 @@ export default function ChatBot() {
     }
   }, [isOpen]);
 
-  // Send message to API
-  const sendMessage = async () => {
+  // Answer from knowledge base (instant, no API call)
+  const sendMessage = () => {
     if (!input.trim() || isLoading) return;
 
     const userMessage = {
@@ -53,59 +54,34 @@ export default function ChatBot() {
 
     addMessage(userMessage);
     setInput('');
+
+    const { answer } = findBestAnswer(userMessage.content);
+
+    // Simulate a brief delay for natural feel
     setLoading(true);
-
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [...messages, userMessage].map((m) => ({
-            role: m.role,
-            content: m.content,
-          })),
-        }),
-      });
-
-      const data = await res.json();
-
-      if (data.reply) {
-        addMessage({
-          id: crypto.randomUUID(),
-          role: 'assistant',
-          content: data.reply,
-          timestamp: new Date(),
-        });
-      } else if (data.error) {
-        addMessage({
-          id: crypto.randomUUID(),
-          role: 'assistant',
-          content: data.error,
-          timestamp: new Date(),
-        });
-      }
-    } catch {
+    setTimeout(() => {
       addMessage({
         id: crypto.randomUUID(),
         role: 'assistant',
-        content: 'Sorry, something went wrong. Please leave a message to call Anand Kamani on +61432887457 or email info@edgeconnect.au',
+        content: answer,
         timestamp: new Date(),
       });
-    } finally {
       setLoading(false);
-    }
+    }, 400);
   };
 
   // Handle keyboard submit
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      sendMessage();
+      if (input.trim() && !isLoading) sendMessage();
     }
   };
 
+  const suggestions = getQuickSuggestions();
+
   return (
-    <div className="fixed bottom-24 right-6 z-50">
+    <div className="fixed bottom-24 lg:bottom-6 right-6 z-50">
       {/* Chat Toggle Button */}
       <motion.button
         whileHover={{ scale: 1.1 }}
@@ -164,7 +140,7 @@ export default function ChatBot() {
                 </div>
                 <div>
                   <span className="text-white font-semibold text-sm block leading-tight">
-                    EDGE AI Assistant
+                    EDGE Assistant
                   </span>
                   <span className="text-[#00B4D8] text-xs leading-tight">
                     Always here to help
@@ -192,20 +168,14 @@ export default function ChatBot() {
                       <Bot className="h-8 w-8 text-[#00B4D8]/60" />
                     </div>
                     <p className="text-white/70 font-medium text-sm">
-                      Hi! I&apos;m EDGE AI Assistant.
+                      Hi! I&apos;m the EDGE Assistant.
                     </p>
                     <p className="text-xs mt-1.5 text-white/40">
                       Ask me about SEO, marketing, web design, or any of our services!
                     </p>
                     {/* Quick action suggestions */}
                     <div className="mt-4 flex flex-wrap gap-2 justify-center">
-                      {[
-                        'What services do you offer?',
-                        'Tell me about SEO',
-                        'Web design pricing',
-                        'Website maintenance',
-                        'Performance marketing',
-                      ].map((suggestion) => (
+                      {suggestions.map((suggestion) => (
                         <button
                           key={suggestion}
                           onClick={() => {
@@ -242,7 +212,7 @@ export default function ChatBot() {
 
                     {/* Message content */}
                     <div
-                      className={`max-w-[75%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                      className={`max-w-[75%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
                         msg.role === 'user'
                           ? 'bg-[#00B4D8] text-white rounded-br-md'
                           : 'bg-white/10 text-white/90 rounded-bl-md'
@@ -294,7 +264,7 @@ export default function ChatBot() {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  sendMessage();
+                  if (input.trim() && !isLoading) sendMessage();
                 }}
                 className="flex gap-2"
               >

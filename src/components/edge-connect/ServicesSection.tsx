@@ -3,14 +3,14 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { Search, Megaphone, BarChart3, Palette, ArrowRight, FileDown, Sparkles } from 'lucide-react'
+import { Search, Megaphone, BarChart3, Palette, ArrowRight, FileDown, Sparkles, Code2 } from 'lucide-react'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -28,7 +28,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -49,10 +49,10 @@ const services = [
     icon: BarChart3,
     title: 'Performance Marketing',
     subtitle: 'Data-Driven Growth Engine',
-    description: 'Maximize ROI with precision-targeted campaigns. Every dollar spent is tracked, optimized, and geared toward measurable business outcomes.',
+    description: 'maximise ROI with precision-targeted campaigns. Every dollar spent is tracked, optimised, and geared toward measurable business outcomes.',
     color: 'from-[#0096C7] to-[#023047]',
     lightColor: 'from-[#F0F9FF] to-[#CAF0F8]/50',
-    features: ['PPC Management', 'Conversion Optimization', 'A/B Testing', 'Analytics & Reporting'],
+    features: ['PPC Management', 'Conversion Optimisation', 'A/B Testing', 'Analytics & Reporting'],
     href: '/services/performance-marketing',
   },
   {
@@ -70,12 +70,23 @@ const services = [
     id: 'seo',
     icon: Search,
     title: 'SEO',
-    subtitle: 'Search Engine Optimization',
-    description: 'Dominate search rankings with our proven SEO strategies. We optimize every aspect of your online presence to drive organic traffic that converts.',
+    subtitle: 'Search Engine Optimisation',
+    description: 'Dominate search rankings with our proven SEO strategies. We optimise every aspect of your online presence to drive organic traffic that converts.',
     color: 'from-[#0096C7] to-[#023047]',
     lightColor: 'from-[#F0F9FF] to-[#CAF0F8]/50',
-    features: ['Technical SEO Audit', 'Keyword Strategy', 'Content Optimization', 'Link Building'],
+    features: ['Technical SEO Audit', 'Keyword Strategy', 'Content Optimisation', 'Link Building'],
     href: '/services/seo',
+  },
+  {
+    id: 'application-development',
+    icon: Code2,
+    title: 'Application Development',
+    subtitle: 'Custom Software Solutions',
+    description: 'Build powerful, scalable applications tailored to your business needs. From web apps to enterprise software, we deliver robust solutions that drive growth.',
+    color: 'from-[#0096C7] to-[#023047]',
+    lightColor: 'from-[#F0F9FF] to-[#CAF0F8]/50',
+    features: ['Custom Web Apps', 'Mobile Applications', 'API Development', 'Cloud Solutions'],
+    href: '/services/application-development',
   },
   {
     id: 'creative-services',
@@ -97,7 +108,7 @@ const services = [
     color: 'from-[#00B4D8] to-[#023047]',
     lightColor: 'from-[#CAF0F8] to-[#F0F9FF]',
     features: ['Portfolio Overview', 'Case Studies', 'Service Details', 'Contact Info'],
-    href: '/Edge Connect_Proposal_2.pdf',
+    href: '/img/EC Service Book PDF.pdf',
     isDownload: true,
   },
 ]
@@ -128,7 +139,7 @@ export default function ServicesSection() {
               <span className="text-gradient">Drive Results</span>
             </h2>
             <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-ec-muted sm:text-lg">
-              From search visibility to conversion optimization, our comprehensive suite of services covers every aspect of your digital growth journey.
+              From search visibility to conversion optimisation, our comprehensive suite of services covers every aspect of your digital growth journey.
             </p>
           </motion.div>
 

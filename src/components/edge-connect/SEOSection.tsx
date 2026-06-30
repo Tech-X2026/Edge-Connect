@@ -10,7 +10,7 @@ const fadeInLeft = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -19,7 +19,7 @@ const fadeInRight = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -36,7 +36,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -44,11 +44,11 @@ const process = [
   { icon: Search, title: 'Technical Audit', description: 'Comprehensive analysis of your site\'s technical health, identifying crawl issues, speed bottlenecks, and architecture problems.' },
   { icon: FileText, title: 'Content Strategy', description: 'Data-backed content plans targeting high-value keywords and search intent to build topical authority.' },
   { icon: Link2, title: 'Link Building', description: 'Strategic outreach and relationship-building to earn authoritative backlinks that boost domain strength.' },
-  { icon: TrendingUp, title: 'Continuous Optimization', description: 'Ongoing monitoring, testing, and refinement to maintain and improve rankings over time.' },
-  { icon: Youtube, title: 'YouTube SEO', description: 'Optimize your videos for maximum visibility on YouTube and Google. Channel optimization, keyword targeting, thumbnail strategy, and engagement boosting.' },
+  { icon: TrendingUp, title: 'Continuous Optimisation', description: 'Ongoing monitoring, testing, and refinement to maintain and improve rankings over time.' },
+  { icon: Youtube, title: 'YouTube SEO', description: 'Optimise your videos for maximum visibility on YouTube and Google. Channel optimisation, keyword targeting, thumbnail strategy, and engagement boosting.' },
   { icon: FileSearch, title: 'On-Page SEO', description: 'Perfect every element on your website — meta tags, headings, internal links, schema markup, and content structure for maximum search relevance.' },
   { icon: Globe2, title: 'Off-Page SEO', description: 'Build your website\'s authority through strategic backlink acquisition, brand mentions, social signals, and influencer partnerships.' },
-  { icon: MapPin, title: 'Local SEO', description: 'Dominate local search results with Google Business Profile optimization, local citations, review management, and location-based keyword targeting.' },
+  { icon: MapPin, title: 'Local SEO', description: 'Dominate local search results with Google Business Profile optimisation, local citations, review management, and location-based keyword targeting.' },
 ]
 
 const results = [
@@ -79,7 +79,7 @@ export default function SEOSection() {
             </span>
             <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
               Search Engine{' '}
-              <span className="text-gradient">Optimization</span>
+              <span className="text-gradient">Optimisation</span>
             </h2>
             <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-ec-muted sm:text-lg">
               Get found by the people who are actively looking for your products and services. Our SEO strategies are built on data, refined by experience, and measured by results.
@@ -144,11 +144,11 @@ export default function SEOSection() {
                 {[
                   'Complete technical SEO audit & fixes',
                   'Keyword research & competitive analysis',
-                  'On-page optimization (meta, schema, speed)',
+                  'On-page optimisation (meta, schema, speed)',
                   'Content strategy & creation',
                   'White-hat link building campaigns',
                   'Monthly performance reporting',
-                  'Local SEO optimization',
+                  'Local SEO optimisation',
                   'Core Web Vitals improvement',
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">

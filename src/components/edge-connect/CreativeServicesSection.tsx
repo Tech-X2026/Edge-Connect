@@ -9,7 +9,7 @@ const fadeInRight = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -26,7 +26,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -103,7 +103,7 @@ export default function CreativeServicesSection() {
                   'Concept ideation & mood boards',
                   'Design execution & prototyping',
                   'Client review & refinement cycles',
-                  'Final delivery & asset optimization',
+                  'Final delivery & asset optimisation',
                   'Brand guidelines documentation',
                   'Ongoing creative support & updates',
                 ].map((item) => (

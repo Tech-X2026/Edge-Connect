@@ -41,12 +41,13 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Services',
     href: '/services',
     subItems: [
-      { label: 'Digital Marketing', href: '/services/digital-marketing' },
-      { label: 'Performance Marketing', href: '/services/performance-marketing' },
-      { label: 'SEO', href: '/services/seo' },
-      { label: 'Web Designing', href: '/services/web-designing' },
       { label: 'Creative Services', href: '/services/creative-services' },
-      { label: 'Service Book', href: '/Edge Connect_Proposal_2.pdf', download: true },
+      { label: 'Performance Marketing', href: '/services/performance-marketing' },
+      { label: 'Digital Marketing', href: '/services/digital-marketing' },
+      { label: 'SEO', href: '/services/seo' },
+      { label: 'Application Development', href: '/services/application-development' },
+      { label: 'Web Designing', href: '/services/web-designing' },
+      { label: 'Service Book', href: '/img/EC Service Book PDF.pdf', download: true },
     ],
   },
   { label: 'Portfolio', href: '/portfolio' },
@@ -120,17 +121,22 @@ export default function Navbar({ className }: NavbarProps) {
           {/* ── Logo ── */}
           <Link
             href="/"
-            className="group flex items-center gap-2 focus:outline-none"
+            className="group flex flex-col focus:outline-none"
           >
-            <img src="/logo.png" alt="Edge Connect Logo" className="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
-            <div className="flex items-center gap-1">
-              <span className="text-xl font-extrabold tracking-tight text-[#00B4D8] transition-all duration-300 group-hover:text-[#0077B6] group-hover:tracking-wider sm:text-2xl">
-                EDGE
-              </span>
-              <span className="text-xl font-extrabold tracking-tight text-gray-900 transition-all duration-300 group-hover:tracking-wider sm:text-2xl">
-                CONNECT
-              </span>
+            <div className="flex items-center gap-2">
+              <img src="/img/connect_logo.png" alt="Edge Connect Logo" className="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+              <div className="flex items-center gap-1">
+                <span className="text-xl font-extrabold tracking-tight text-[#00B4D8] transition-all duration-300 group-hover:text-[#0077B6] group-hover:tracking-wider sm:text-2xl">
+                  EDGE
+                </span>
+                <span className="text-xl font-extrabold tracking-tight text-gray-900 transition-all duration-300 group-hover:tracking-wider sm:text-2xl">
+                  CONNECT
+                </span>
+              </div>
             </div>
+            <span className="w-full text-[9px] font-bold tracking-[0.25em] text-gray-900 uppercase text-center">
+              YOUR BRAND OUR EDGE CONNECT
+            </span>
           </Link>
 
           {/* ── Desktop Navigation ── */}
@@ -198,12 +204,12 @@ export default function Navbar({ className }: NavbarProps) {
                           <div className="p-2">
                             {item.subItems!.map((sub, idx) => {
                               const subActive = pathname === sub.href
-                              const LinkComponent = sub.download ? 'a' : Link
+                              const MotionLink = motion(Link)
                               const linkProps = sub.download 
                                 ? { href: sub.href, download: true } 
                                 : { href: sub.href }
                               return (
-                                <LinkComponent
+                                <MotionLink
                                   key={sub.href}
                                   {...linkProps}
                                   initial={{ opacity: 0, x: -12 }}
@@ -234,7 +240,7 @@ export default function Navbar({ className }: NavbarProps) {
                                         : '-translate-x-2 opacity-0 group-hover/sub:translate-x-0 group-hover/sub:opacity-100 group-hover/sub:text-[#00B4D8]'
                                     }`}
                                   />
-                                </LinkComponent>
+                                </MotionLink>
                               )
                             })}
                           </div>
@@ -277,7 +283,7 @@ export default function Navbar({ className }: NavbarProps) {
               <SheetContent side="right" className="w-[300px] bg-white p-0">
                 <SheetHeader className="border-b border-gray-100 px-6 py-5">
                   <SheetTitle className="flex items-center gap-2 text-left">
-                    <img src="/logo.png" alt="Edge Connect Logo" className="h-6 w-auto object-contain" />
+                    <img src="/img/connect_logo.png" alt="Edge Connect Logo" className="h-6 w-auto object-contain" />
                     <div className="flex items-center gap-1">
                       <span className="text-lg font-extrabold tracking-tight text-gray-900">
                         EDGE

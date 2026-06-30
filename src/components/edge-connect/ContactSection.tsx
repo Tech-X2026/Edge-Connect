@@ -10,7 +10,7 @@ const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 }
 
@@ -24,7 +24,7 @@ const staggerContainer = {
 
 const contactInfo = [
   { icon: Phone, label: 'Phone', value: '+61 432887457', href: 'tel:+61432887457' },
-  { icon: Mail, label: 'Email', value: 'info@edgeconnect.au', href: 'mailto:info@edgeconnect.au' },
+  { icon: Mail, label: 'Email', value: 'info@edgeconnect.au', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=info@edgeconnect.au' },
   { icon: MapPin, label: 'Office', value: '40 Parkes Pl E, Parkes ACT 2600, Australia', href: 'https://www.google.com/maps/search/?api=1&query=40+Parkes+Pl+E,+Parkes+ACT+2600,+Australia' },
 ]
 
@@ -36,6 +36,7 @@ export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    contactNo: '',
     service: '',
     message: '',
   })
@@ -48,6 +49,7 @@ export default function ContactSection() {
       const templateParams = {
         name: formData.name,
         email: formData.email,
+        contactNo: formData.contactNo,
         service: formData.service,
         message: formData.message,
       }
@@ -61,7 +63,7 @@ export default function ContactSection() {
 
       setSubmitted(true)
       setTimeout(() => setSubmitted(false), 3000)
-      setFormData({ name: '', email: '', service: '', message: '' })
+      setFormData({ name: '', email: '', contactNo: '', service: '', message: '' })
     } catch (error) {
       console.error('Failed to send email:', error)
       alert('Failed to send message. Please try again later.')
@@ -151,37 +153,50 @@ export default function ContactSection() {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid gap-5 sm:grid-cols-2">
-                      <div>
-                        <label htmlFor="contact-name" className="mb-1.5 block text-sm font-medium text-gray-700">
-                          Full Name
-                        </label>
-                        <input
-                          type="text"
-                          id="contact-name"
-                          name="name"
-                          required
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="w-full rounded-xl border border-gray-200 bg-white/80 px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-[#00B4D8] focus:ring-2 focus:ring-[#CAF0F8]"
-                          placeholder="John Doe"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="contact-email" className="mb-1.5 block text-sm font-medium text-gray-700">
-                          Email Address
-                        </label>
-                        <input
-                          type="email"
-                          id="contact-email"
-                          name="email"
-                          required
-                          value={formData.email}
-                          onChange={handleChange}
-                          className="w-full rounded-xl border border-gray-200 bg-white/80 px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-[#00B4D8] focus:ring-2 focus:ring-[#CAF0F8]"
-                          placeholder="john@company.com"
-                        />
-                      </div>
+                    <div>
+                      <label htmlFor="contact-name" className="mb-1.5 block text-sm font-medium text-gray-700">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        id="contact-name"
+                        name="name"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="w-full rounded-xl border border-gray-200 bg-white/80 px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-[#00B4D8] focus:ring-2 focus:ring-[#CAF0F8]"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="contact-email" className="mb-1.5 block text-sm font-medium text-gray-700">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        id="contact-email"
+                        name="email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full rounded-xl border border-gray-200 bg-white/80 px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-[#00B4D8] focus:ring-2 focus:ring-[#CAF0F8]"
+                        placeholder="john@company.com"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="contact-no" className="mb-1.5 block text-sm font-medium text-gray-700">
+                        Contact No.
+                      </label>
+                      <input
+                        type="tel"
+                        id="contact-no"
+                        name="contactNo"
+                        required
+                        value={formData.contactNo}
+                        onChange={handleChange}
+                        className="w-full rounded-xl border border-gray-200 bg-white/80 px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-[#00B4D8] focus:ring-2 focus:ring-[#CAF0F8]"
+                        placeholder="+61 4XX XXX XXX"
+                      />
                     </div>
                     <div>
                       <label htmlFor="contact-service" className="mb-1.5 block text-sm font-medium text-gray-700">
@@ -195,11 +210,13 @@ export default function ContactSection() {
                         className="w-full rounded-xl border border-gray-200 bg-white/80 px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-[#00B4D8] focus:ring-2 focus:ring-[#CAF0F8]"
                       >
                         <option value="">Select a service</option>
+                        <option value="application-development">Application Development</option>
                         <option value="seo">SEO</option>
                         <option value="digital-marketing">Digital Marketing</option>
                         <option value="performance-marketing">Performance Marketing</option>
                         <option value="web-designing">Web Designing</option>
                         <option value="website-maintenance">Website Maintenance</option>
+                        <option value="creative-services">Creative Services</option>
                       </select>
                     </div>
                     <div>
