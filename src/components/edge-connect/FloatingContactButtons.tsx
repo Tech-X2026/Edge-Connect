@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Phone, MessageCircle, Mail } from 'lucide-react'
+import { Phone, Mail } from 'lucide-react'
 import { useState } from 'react'
 
 // WhatsApp SVG icon component

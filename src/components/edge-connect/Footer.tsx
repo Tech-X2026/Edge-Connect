@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowUp, Contact, Heart } from 'lucide-react'
+import { ArrowUp, Heart } from 'lucide-react'
 
 const footerLinks = {
   Services: [
