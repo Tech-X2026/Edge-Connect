@@ -2,8 +2,9 @@ import PageLayout from '@/components/edge-connect/PageLayout'
 import PortfolioSection from '@/components/edge-connect/PortfolioSection'
 
 export const metadata = {
-  title: 'Portfolio - EDGE CONNECT',
-  description: 'Explore our portfolio of web design and digital projects showcasing our expertise in creating stunning digital experiences.',
+  title: 'Our Work & Portfolio | EDGE CONNECT Canberra',
+  description: "See recent EDGE CONNECT projects: websites, campaigns and creative work for Canberra businesses across hospitality, retail and services.",
+  alternates: { canonical: '/portfolio/' },
 }
 
 export default function PortfolioPage() {

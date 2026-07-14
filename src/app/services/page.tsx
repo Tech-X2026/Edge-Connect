@@ -2,8 +2,9 @@ import PageLayout from '@/components/edge-connect/PageLayout'
 import ServicesSection from '@/components/edge-connect/ServicesSection'
 
 export const metadata = {
-  title: 'Our Services - EDGE CONNECT',
-  description: 'Explore our comprehensive suite of digital marketing services: SEO, Digital Marketing, Performance Marketing, and Web Designing.',
+  title: 'Digital Marketing Services Canberra | EDGE CONNECT',
+  description: "Explore EDGE CONNECT's Canberra digital marketing services: SEO, performance marketing, web design, app development and creative services.",
+  alternates: { canonical: '/services/' },
 }
 
 export default function ServicesPage() {

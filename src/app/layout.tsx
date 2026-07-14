@@ -17,10 +17,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EDGE CONNECT - Digital Marketing Solutions",
-  description: "EDGE CONNECT delivers cutting-edge digital marketing, SEO, performance marketing, and web web solutions that drive real results for your business.",
-  keywords: ["EDGE CONNECT", "Digital Marketing", "SEO", "Performance Marketing", "Web Design"],
+  metadataBase: new URL("https://www.edgeconnect.au"),
+  title: "Digital Marketing Agency Canberra | EDGE CONNECT",
+  description: "EDGE CONNECT is a Canberra digital marketing agency delivering SEO, performance marketing, web design and creative services that drive measurable results.",
+  keywords: ["EDGE CONNECT", "Digital Marketing Canberra", "SEO Canberra", "Performance Marketing", "Web Design Canberra"],
   authors: [{ name: "EDGE CONNECT" }],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en_AU",
+    url: "https://www.edgeconnect.au/",
+    siteName: "EDGE CONNECT",
+    title: "Digital Marketing Agency Canberra | EDGE CONNECT",
+    description: "EDGE CONNECT is a Canberra digital marketing agency delivering SEO, performance marketing, web design and creative services that drive measurable results.",
+    images: ["/logo.png"],
+  },
   icons: {
     icon: "/img/connect_logo.png",
   },
@@ -34,6 +45,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({"@context": "https://schema.org", "@type": "ProfessionalService", "name": "EDGE CONNECT", "url": "https://www.edgeconnect.au/", "logo": "https://www.edgeconnect.au/logo.png", "description": "Canberra digital marketing agency delivering SEO, performance marketing, web design and creative services.", "telephone": "+61432887457", "email": "info@edgeconnect.au", "address": {"@type": "PostalAddress", "streetAddress": "40 Parkes Pl E", "addressLocality": "Parkes", "addressRegion": "ACT", "postalCode": "2600", "addressCountry": "AU"}, "areaServed": {"@type": "City", "name": "Canberra"}, "sameAs": ["https://www.facebook.com/profile.php?id=61590116797723", "https://www.instagram.com/edgec_onnect/", "https://www.linkedin.com/in/edge-connect-515986410/", "https://www.youtube.com/@edgeconnect-u9w"]}) }}
+        />
         <Script id="gtm-script" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

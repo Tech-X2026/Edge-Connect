@@ -2,8 +2,9 @@ import PageLayout from '@/components/edge-connect/PageLayout'
 import PerformanceMarketingSection from '@/components/edge-connect/PerformanceMarketingSection'
 
 export const metadata = {
-  title: 'Performance Marketing - EDGE CONNECT',
-  description: 'maximise ROI with precision-targeted campaigns. PPC management, conversion optimisation, budget optimisation, and advanced analytics.',
+  title: 'Performance Marketing & Google Ads Canberra | EDGE CONNECT',
+  description: "Precision-targeted Google Ads and paid media for Canberra businesses. PPC management, conversion optimisation, A/B testing and clear reporting.",
+  alternates: { canonical: '/services/performance-marketing/' },
 }
 
 export default function PerformanceMarketingPage() {

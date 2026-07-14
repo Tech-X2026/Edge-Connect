@@ -2,8 +2,9 @@ import PageLayout from '@/components/edge-connect/PageLayout'
 import WebDesigningSection from '@/components/edge-connect/WebDesigningSection'
 
 export const metadata = {
-  title: 'Web Designing - EDGE CONNECT',
-  description: 'Stunning digital experiences that captivate and convert. UI/UX design, responsive development, e-commerce solutions, and CMS integration.',
+  title: 'Web Design Canberra | EDGE CONNECT',
+  description: "Canberra web design that captivates and converts: UI/UX design, responsive development, e-commerce and ongoing website maintenance.",
+  alternates: { canonical: '/services/web-designing/' },
 }
 
 export default function WebDesigningPage() {

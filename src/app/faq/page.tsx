@@ -2,8 +2,9 @@ import PageLayout from '@/components/edge-connect/PageLayout'
 import FAQSection from '@/components/edge-connect/FAQSection'
 
 export const metadata = {
-  title: 'FAQ - EDGE CONNECT',
-  description: 'Frequently asked questions about digital marketing, SEO, Google Ads, web design, and working with EDGE CONNECT.',
+  title: 'FAQ | EDGE CONNECT Canberra',
+  description: "Answers to common questions about working with EDGE CONNECT: services, pricing, timelines and how we report on results.",
+  alternates: { canonical: '/faq/' },
 }
 
 export default function FAQPage() {

@@ -59,10 +59,10 @@ export default function CreativeServicesSection() {
             <span className="mb-4 inline-block rounded-full border border-[#90E0EF] bg-[#F0F9FF]/80 px-6 py-2 text-sm font-bold tracking-wider uppercase text-[#023047] transition-all duration-300 hover:border-[#00B4D8] hover:bg-[#00B4D8]/10 hover:shadow-md hover:shadow-[#00B4D8]/10 sm:text-base">
               Creative Services
             </span>
-            <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+            <h1 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
               Creative That{' '}
               <span className="text-gradient">Captivates</span>
-            </h2>
+            </h1>
             <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-ec-muted sm:text-lg">
               Transform your vision into stunning visual experiences. Our creative team combines artistic excellence with strategic thinking to deliver designs that drive business results.
             </p>
